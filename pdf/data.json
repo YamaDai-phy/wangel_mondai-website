@@ -1,0 +1,33 @@
+{
+  "papers": [
+    { "filename": "shizekan-chizu1mon1tou.pdf", "path": "pdf/kadai/shizekan/shizekan-chizu1mon1tou.pdf", "title": "shizekan-chizu1mon1tou", "category": "自然観察" },
+    { "filename": "shizekan-chuiten.pdf", "path": "pdf/kadai/shizekan/shizekan-chuiten.pdf", "title": "shizekan-chuiten", "category": "自然観察" },
+    { "filename": "shizekan-dousho,hara.pdf", "path": "pdf/kadai/shizekan/shizekan-dousho,hara.pdf", "title": "shizekan-dousho,hara", "category": "自然観察" },
+    { "filename": "shizekan-ege.pdf", "path": "pdf/kadai/shizekan/shizekan-ege.pdf", "title": "shizekan-ege", "category": "自然観察" },
+    { "filename": "shizekan-gokurakuji1.pdf", "path": "pdf/kadai/shizekan/shizekan-gokurakuji1.pdf", "title": "shizekan-gokurakuji1", "category": "自然観察" },
+    { "filename": "shizekan-gokurakuji2.pdf", "path": "pdf/kadai/shizekan/shizekan-gokurakuji2.pdf", "title": "shizekan-gokurakuji2", "category": "自然観察" },
+    { "filename": "shizekan-gokurakuji3.pdf", "path": "pdf/kadai/shizekan/shizekan-gokurakuji3.pdf", "title": "shizekan-gokurakuji3", "category": "自然観察" },
+    { "filename": "shizekan-hiyama2.pdf", "path": "pdf/kadai/shizekan/shizekan-hiyama2.pdf", "title": "shizekan-hiyama2", "category": "自然観察" },
+    { "filename": "shizekan-hyonosen.pdf", "path": "pdf/kadai/shizekan/shizekan-hyonosen.pdf", "title": "shizekan-hyonosen", "category": "自然観察" },
+    { "filename": "shizekan-misen1.pdf", "path": "pdf/kadai/shizekan/shizekan-misen1.pdf", "title": "shizekan-misen1", "category": "自然観察" },
+    { "filename": "shizekan-misen2.pdf", "path": "pdf/kadai/shizekan/shizekan-misen2.pdf", "title": "shizekan-misen2", "category": "自然観察" },
+    { "filename": "shizekan-misen3.pdf", "path": "pdf/kadai/shizekan/shizekan-misen3.pdf", "title": "shizekan-misen3", "category": "自然観察" },
+    { "filename": "shizekan-misen4.pdf", "path": "pdf/kadai/shizekan/shizekan-misen4.pdf", "title": "shizekan-misen4", "category": "自然観察" },
+    { "filename": "shizekan-nanakunimi,noro.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro.pdf", "title": "shizekan-nanakunimi,noro", "category": "自然観察" },
+    { "filename": "shizekan-nanakunimi,noro2.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro2.pdf", "title": "shizekan-nanakunimi,noro2", "category": "自然観察" },
+    { "filename": "shizekan-nanakunimi,noro3.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro3.pdf", "title": "shizekan-nanakunimi,noro3", "category": "自然観察" },
+    { "filename": "shizekan-nanakunimi,noro4.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro4.pdf", "title": "shizekan-nanakunimi,noro4", "category": "自然観察" },
+    { "filename": "shizekan-nanakunimi,noro5.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro5.pdf", "title": "shizekan-nanakunimi,noro5", "category": "自然観察" },
+    { "filename": "shizekan-nanakunimi,noro6.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro6.pdf", "title": "shizekan-nanakunimi,noro6", "category": "自然観察" },
+    { "filename": "shizekan-ochousu,hiyama1.pdf", "path": "pdf/kadai/shizekan/shizekan-ochousu,hiyama1.pdf", "title": "shizekan-ochousu,hiyama1", "category": "自然観察" },
+    { "filename": "shizekan-ochousu,hiyama2.pdf", "path": "pdf/kadai/shizekan/shizekan-ochousu,hiyama2.pdf", "title": "shizekan-ochousu,hiyama2", "category": "自然観察" },
+    { "filename": "shizekan-ochousu,yunokijo.pdf", "path": "pdf/kadai/shizekan/shizekan-ochousu,yunokijo.pdf", "title": "shizekan-ochousu,yunokijo", "category": "自然観察" },
+    { "filename": "shizekan-osorakan.pdf", "path": "pdf/kadai/shizekan/shizekan-osorakan.pdf", "title": "shizekan-osorakan", "category": "自然観察" },
+    { "filename": "shizekan-ozue1.pdf", "path": "pdf/kadai/shizekan/shizekan-ozue1.pdf", "title": "shizekan-ozue1", "category": "自然観察" },
+    { "filename": "shizekan-ozue2.pdf", "path": "pdf/kadai/shizekan/shizekan-ozue2.pdf", "title": "shizekan-ozue2", "category": "自然観察" },
+    { "filename": "shizekan-ryuou1.pdf", "path": "pdf/kadai/shizekan/shizekan-ryuou1.pdf", "title": "shizekan-ryuou1", "category": "自然観察" },
+    { "filename": "shizekan-ryuou2.pdf", "path": "pdf/kadai/shizekan/shizekan-ryuou2.pdf", "title": "shizekan-ryuou2", "category": "自然観察" },
+    { "filename": "shizekan-tozanyogo1mon1tou.pdf", "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf", "title": "shizekan-tozanyogo1mon1tou", "category": "自然観察" },
+    { "filename": "shizekan-yunokijo2.pdf", "path": "pdf/kadai/shizekan/shizekan-yunokijo2.pdf", "title": "shizekan-yunokijo2", "category": "自然観察" }
+  ]
+}
