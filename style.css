@@ -92,22 +92,6 @@ a:focus-visible {
   margin: 0.5em 0;
 }
 
-/* Minimal details open/close animation (fade + slight slide) */
-.accordion > *:not(summary),
-.accordion-2 > *:not(summary) {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: max-height 500ms ease, opacity 360ms ease, transform 500ms ease;
-}
-.accordion[open] > *:not(summary),
-.accordion-2[open] > *:not(summary) {
-  max-height: 800px; /* small, safe upper bound */
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .accordion__summary {
   display: block;
   background: #b2e5ff; /* 見出しの背景色 */

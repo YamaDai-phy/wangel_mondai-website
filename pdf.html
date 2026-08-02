@@ -112,7 +112,7 @@
                 container.innerHTML = "<p>該当ファイルがありません。</p>";
                 return;
               }
-              items.sort((a, b) => a.title.localeCompare(b.title, "ja"));
+              items.sort((a, b) => (a.title || '').localeCompare((b.title || ''), 'ja', { numeric: true }));
               const table = document.createElement("table");
               const thead = document.createElement("thead");
               thead.innerHTML =
