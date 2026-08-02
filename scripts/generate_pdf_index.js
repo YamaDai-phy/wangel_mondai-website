@@ -7,7 +7,9 @@ const pdfDir = path.join(root, 'pdf');
 const outPath = path.join(pdfDir, 'data.json');
 
 const slugToCategory = {
-  'shizekan': '自然観察'
+  'shizekan': '自然観察',
+  'kishou': '気象',
+  'kyukyu': '救急'
 };
 
 function walk(dir) {
@@ -39,7 +41,34 @@ function walk(dir) {
 
 try {
   const papers = walk(pdfDir);
-  const out = { papers };
+
+  // read existing data if present to preserve user-edited titles (and other extra fields)
+  let existing = { papers: [] };
+  if (fs.existsSync(outPath)) {
+    try {
+      existing = JSON.parse(fs.readFileSync(outPath, 'utf8')) || { papers: [] };
+    } catch (e) {
+      console.warn('Warning: failed to parse existing data.json, ignoring.');
+    }
+  }
+
+  const existingByPath = new Map();
+  const existingByName = new Map();
+  (existing.papers || []).forEach(p => {
+    if (p.path) existingByPath.set(p.path, p);
+    if (p.filename) existingByName.set(p.filename, p);
+  });
+
+  const merged = papers.map(p => {
+    const ex = existingByPath.get(p.path) || existingByName.get(p.filename) || null;
+    if (!ex) return p;
+    const result = Object.assign({}, ex, p);
+    // ensure we preserve existing title if it was set
+    if (ex.title) result.title = ex.title;
+    return result;
+  });
+
+  const out = { papers: merged };
   fs.writeFileSync(outPath, JSON.stringify(out, null, 2), 'utf8');
   console.log('Wrote', outPath);
 } catch (err) {

@@ -1,33 +1,300 @@
 {
   "papers": [
-    { "filename": "shizekan-chizu1mon1tou.pdf", "path": "pdf/kadai/shizekan/shizekan-chizu1mon1tou.pdf", "title": "shizekan-chizu1mon1tou", "category": "自然観察" },
-    { "filename": "shizekan-chuiten.pdf", "path": "pdf/kadai/shizekan/shizekan-chuiten.pdf", "title": "shizekan-chuiten", "category": "自然観察" },
-    { "filename": "shizekan-dousho,hara.pdf", "path": "pdf/kadai/shizekan/shizekan-dousho,hara.pdf", "title": "shizekan-dousho,hara", "category": "自然観察" },
-    { "filename": "shizekan-ege.pdf", "path": "pdf/kadai/shizekan/shizekan-ege.pdf", "title": "shizekan-ege", "category": "自然観察" },
-    { "filename": "shizekan-gokurakuji1.pdf", "path": "pdf/kadai/shizekan/shizekan-gokurakuji1.pdf", "title": "shizekan-gokurakuji1", "category": "自然観察" },
-    { "filename": "shizekan-gokurakuji2.pdf", "path": "pdf/kadai/shizekan/shizekan-gokurakuji2.pdf", "title": "shizekan-gokurakuji2", "category": "自然観察" },
-    { "filename": "shizekan-gokurakuji3.pdf", "path": "pdf/kadai/shizekan/shizekan-gokurakuji3.pdf", "title": "shizekan-gokurakuji3", "category": "自然観察" },
-    { "filename": "shizekan-hiyama2.pdf", "path": "pdf/kadai/shizekan/shizekan-hiyama2.pdf", "title": "shizekan-hiyama2", "category": "自然観察" },
-    { "filename": "shizekan-hyonosen.pdf", "path": "pdf/kadai/shizekan/shizekan-hyonosen.pdf", "title": "shizekan-hyonosen", "category": "自然観察" },
-    { "filename": "shizekan-misen1.pdf", "path": "pdf/kadai/shizekan/shizekan-misen1.pdf", "title": "shizekan-misen1", "category": "自然観察" },
-    { "filename": "shizekan-misen2.pdf", "path": "pdf/kadai/shizekan/shizekan-misen2.pdf", "title": "shizekan-misen2", "category": "自然観察" },
-    { "filename": "shizekan-misen3.pdf", "path": "pdf/kadai/shizekan/shizekan-misen3.pdf", "title": "shizekan-misen3", "category": "自然観察" },
-    { "filename": "shizekan-misen4.pdf", "path": "pdf/kadai/shizekan/shizekan-misen4.pdf", "title": "shizekan-misen4", "category": "自然観察" },
-    { "filename": "shizekan-nanakunimi,noro.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro.pdf", "title": "shizekan-nanakunimi,noro", "category": "自然観察" },
-    { "filename": "shizekan-nanakunimi,noro2.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro2.pdf", "title": "shizekan-nanakunimi,noro2", "category": "自然観察" },
-    { "filename": "shizekan-nanakunimi,noro3.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro3.pdf", "title": "shizekan-nanakunimi,noro3", "category": "自然観察" },
-    { "filename": "shizekan-nanakunimi,noro4.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro4.pdf", "title": "shizekan-nanakunimi,noro4", "category": "自然観察" },
-    { "filename": "shizekan-nanakunimi,noro5.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro5.pdf", "title": "shizekan-nanakunimi,noro5", "category": "自然観察" },
-    { "filename": "shizekan-nanakunimi,noro6.pdf", "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro6.pdf", "title": "shizekan-nanakunimi,noro6", "category": "自然観察" },
-    { "filename": "shizekan-ochousu,hiyama1.pdf", "path": "pdf/kadai/shizekan/shizekan-ochousu,hiyama1.pdf", "title": "shizekan-ochousu,hiyama1", "category": "自然観察" },
-    { "filename": "shizekan-ochousu,hiyama2.pdf", "path": "pdf/kadai/shizekan/shizekan-ochousu,hiyama2.pdf", "title": "shizekan-ochousu,hiyama2", "category": "自然観察" },
-    { "filename": "shizekan-ochousu,yunokijo.pdf", "path": "pdf/kadai/shizekan/shizekan-ochousu,yunokijo.pdf", "title": "shizekan-ochousu,yunokijo", "category": "自然観察" },
-    { "filename": "shizekan-osorakan.pdf", "path": "pdf/kadai/shizekan/shizekan-osorakan.pdf", "title": "shizekan-osorakan", "category": "自然観察" },
-    { "filename": "shizekan-ozue1.pdf", "path": "pdf/kadai/shizekan/shizekan-ozue1.pdf", "title": "shizekan-ozue1", "category": "自然観察" },
-    { "filename": "shizekan-ozue2.pdf", "path": "pdf/kadai/shizekan/shizekan-ozue2.pdf", "title": "shizekan-ozue2", "category": "自然観察" },
-    { "filename": "shizekan-ryuou1.pdf", "path": "pdf/kadai/shizekan/shizekan-ryuou1.pdf", "title": "shizekan-ryuou1", "category": "自然観察" },
-    { "filename": "shizekan-ryuou2.pdf", "path": "pdf/kadai/shizekan/shizekan-ryuou2.pdf", "title": "shizekan-ryuou2", "category": "自然観察" },
-    { "filename": "shizekan-tozanyogo1mon1tou.pdf", "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf", "title": "shizekan-tozanyogo1mon1tou", "category": "自然観察" },
-    { "filename": "shizekan-yunokijo2.pdf", "path": "pdf/kadai/shizekan/shizekan-yunokijo2.pdf", "title": "shizekan-yunokijo2", "category": "自然観察" }
+    {
+      "filename": "kyotsu1-mon-haihu.pdf",
+      "path": "pdf/inhai/kyotsu1-mon-haihu.pdf",
+      "title": "kyotsu1-mon-haihu",
+      "category": "inhai",
+      "size": 1620141,
+      "mtime": "2026-07-27T15:44:38.808Z"
+    },
+    {
+      "filename": "kyotsu1-mon.pdf",
+      "path": "pdf/inhai/kyotsu1-mon.pdf",
+      "title": "kyotsu1-mon",
+      "category": "inhai",
+      "size": 461251,
+      "mtime": "2026-07-27T16:33:02.782Z"
+    },
+    {
+      "filename": "kyotsu2-mon.pdf",
+      "path": "pdf/inhai/kyotsu2-mon.pdf",
+      "title": "kyotsu2-mon",
+      "category": "inhai",
+      "size": 496979,
+      "mtime": "2026-07-29T06:05:58.000Z"
+    },
+    {
+      "filename": "shizekan-mon.pdf",
+      "path": "pdf/inhai/shizekan-mon.pdf",
+      "title": "shizekan-mon",
+      "category": "inhai",
+      "size": 621377,
+      "mtime": "2026-07-29T06:02:02.000Z"
+    },
+    {
+      "filename": "shizekan-tozanyogo1mon1tou.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf",
+      "title": "登山用語１問１答",
+      "category": "自然観察",
+      "size": 441180,
+      "mtime": "2026-08-02T08:22:38.916Z"
+    },
+    {
+      "filename": "shizekan-chizu1mon1tou.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-chizu1mon1tou.pdf",
+      "title": "地図記号１問１答",
+      "category": "自然観察",
+      "size": 457004,
+      "mtime": "2026-08-02T10:14:42.311Z"
+    },
+    {
+      "filename": "shizekan-chuiten.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-chuiten.pdf",
+      "title": "注意点",
+      "category": "自然観察",
+      "size": 278720,
+      "mtime": "2026-08-02T08:27:23.445Z"
+    },
+    {
+      "filename": "shizekan-dousho,hara.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-dousho,hara.pdf",
+      "title": "洞所山,原山",
+      "category": "自然観察",
+      "size": 918240,
+      "mtime": "2026-08-02T10:09:27.224Z"
+    },
+    {
+      "filename": "shizekan-ege.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ege.pdf",
+      "title": "絵下山",
+      "category": "自然観察",
+      "size": 762331,
+      "mtime": "2026-08-02T08:29:03.084Z"
+    },
+    {
+      "filename": "shizekan-gokurakuji1.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-gokurakuji1.pdf",
+      "title": "極楽寺山１",
+      "category": "自然観察",
+      "size": 752876,
+      "mtime": "2026-08-02T08:35:07.245Z"
+    },
+    {
+      "filename": "shizekan-gokurakuji2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-gokurakuji2.pdf",
+      "title": "極楽寺山２",
+      "category": "自然観察",
+      "size": 654142,
+      "mtime": "2026-08-02T10:04:36.793Z"
+    },
+    {
+      "filename": "shizekan-gokurakuji3.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-gokurakuji3.pdf",
+      "title": "極楽寺山３",
+      "category": "自然観察",
+      "size": 648869,
+      "mtime": "2026-08-02T10:13:55.028Z"
+    },
+    {
+      "filename": "shizekan-hiyama2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-hiyama2.pdf",
+      "title": "火山２",
+      "category": "自然観察",
+      "size": 825707,
+      "mtime": "2026-08-02T08:34:34.108Z"
+    },
+    {
+      "filename": "shizekan-hyonosen.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-hyonosen.pdf",
+      "title": "氷ノ山",
+      "category": "自然観察",
+      "size": 746034,
+      "mtime": "2026-08-02T10:16:16.168Z"
+    },
+    {
+      "filename": "shizekan-misen1.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-misen1.pdf",
+      "title": "弥山１",
+      "category": "自然観察",
+      "size": 860631,
+      "mtime": "2026-08-02T08:33:32.233Z"
+    },
+    {
+      "filename": "shizekan-misen2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-misen2.pdf",
+      "title": "弥山２",
+      "category": "自然観察",
+      "size": 448979,
+      "mtime": "2026-08-02T08:37:25.817Z"
+    },
+    {
+      "filename": "shizekan-misen3.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-misen3.pdf",
+      "title": "弥山３",
+      "category": "自然観察",
+      "size": 655282,
+      "mtime": "2026-08-02T10:06:14.533Z"
+    },
+    {
+      "filename": "shizekan-misen4.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-misen4.pdf",
+      "title": "弥山４",
+      "category": "自然観察",
+      "size": 806512,
+      "mtime": "2026-08-02T10:12:04.763Z"
+    },
+    {
+      "filename": "shizekan-nanakunimi,noro.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro.pdf",
+      "title": "七国見山,野呂山１",
+      "category": "自然観察",
+      "size": 788403,
+      "mtime": "2026-08-02T08:20:47.257Z"
+    },
+    {
+      "filename": "shizekan-nanakunimi,noro2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro2.pdf",
+      "title": "七国見山,野呂山２",
+      "category": "自然観察",
+      "size": 776490,
+      "mtime": "2026-08-02T08:23:33.913Z"
+    },
+    {
+      "filename": "shizekan-nanakunimi,noro3.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro3.pdf",
+      "title": "七国見山,野呂山３",
+      "category": "自然観察",
+      "size": 1042580,
+      "mtime": "2026-08-02T08:24:08.716Z"
+    },
+    {
+      "filename": "shizekan-nanakunimi,noro4.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro4.pdf",
+      "title": "七国見山,野呂山４",
+      "category": "自然観察",
+      "size": 697332,
+      "mtime": "2026-08-02T08:24:40.773Z"
+    },
+    {
+      "filename": "shizekan-nanakunimi,noro5.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro5.pdf",
+      "title": "七国見山,野呂山５",
+      "category": "自然観察",
+      "size": 652915,
+      "mtime": "2026-08-02T08:29:37.989Z"
+    },
+    {
+      "filename": "shizekan-nanakunimi,noro6.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-nanakunimi,noro6.pdf",
+      "title": "七国見山,野呂山６",
+      "category": "自然観察",
+      "size": 886564,
+      "mtime": "2026-08-02T10:10:59.917Z"
+    },
+    {
+      "filename": "shizekan-ochousu,hiyama1.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ochousu,hiyama1.pdf",
+      "title": "大茶臼山,火山２",
+      "category": "自然観察",
+      "size": 529103,
+      "mtime": "2026-08-02T08:31:36.400Z"
+    },
+    {
+      "filename": "shizekan-ochousu,hiyama2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ochousu,hiyama2.pdf",
+      "title": "大茶臼山,火山３",
+      "category": "自然観察",
+      "size": 458343,
+      "mtime": "2026-08-02T08:41:20.974Z"
+    },
+    {
+      "filename": "shizekan-ochousu,yunokijo.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ochousu,yunokijo.pdf",
+      "title": "大茶臼山,柚木城山",
+      "category": "自然観察",
+      "size": 1118656,
+      "mtime": "2026-08-02T08:39:32.817Z"
+    },
+    {
+      "filename": "shizekan-osorakan.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-osorakan.pdf",
+      "title": "恐羅漢山",
+      "category": "自然観察",
+      "size": 608670,
+      "mtime": "2026-08-02T10:11:35.354Z"
+    },
+    {
+      "filename": "shizekan-ozue1.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ozue1.pdf",
+      "title": "大潰山１",
+      "category": "自然観察",
+      "size": 693370,
+      "mtime": "2026-08-02T08:33:01.219Z"
+    },
+    {
+      "filename": "shizekan-ozue2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ozue2.pdf",
+      "title": "大潰山２",
+      "category": "自然観察",
+      "size": 451526,
+      "mtime": "2026-08-02T10:05:23.200Z"
+    },
+    {
+      "filename": "shizekan-ryuou1.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ryuou1.pdf",
+      "title": "竜王山１",
+      "category": "自然観察",
+      "size": 848677,
+      "mtime": "2026-08-02T10:07:41.815Z"
+    },
+    {
+      "filename": "shizekan-ryuou2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-ryuou2.pdf",
+      "title": "竜王山２",
+      "category": "自然観察",
+      "size": 733828,
+      "mtime": "2026-08-02T10:10:23.651Z"
+    },
+    {
+      "filename": "shizekan-yunokijo2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-yunokijo2.pdf",
+      "title": "柚木城山２",
+      "category": "自然観察",
+      "size": 755070,
+      "mtime": "2026-08-02T08:40:28.534Z"
+    },
+    {
+      "filename": "No.1kotae.pdf",
+      "path": "pdf/kensotai/No.1kotae.pdf",
+      "title": "No.1kotae",
+      "category": "kensotai",
+      "size": 329723,
+      "mtime": "2026-04-03T15:35:12.452Z"
+    },
+    {
+      "filename": "No.1mondai.pdf",
+      "path": "pdf/kensotai/No.1mondai.pdf",
+      "title": "No.1mondai",
+      "category": "kensotai",
+      "size": 445387,
+      "mtime": "2026-04-03T15:32:28.281Z"
+    },
+    {
+      "filename": "No.2kotae.pdf",
+      "path": "pdf/kensotai/No.2kotae.pdf",
+      "title": "No.2kotae",
+      "category": "kensotai",
+      "size": 115085,
+      "mtime": "2026-06-14T12:55:47.800Z"
+    },
+    {
+      "filename": "No.2mondai.pdf",
+      "path": "pdf/kensotai/No.2mondai.pdf",
+      "title": "No.2mondai",
+      "category": "kensotai",
+      "size": 266649,
+      "mtime": "2026-06-14T12:55:00.839Z"
+    }
   ]
 }
