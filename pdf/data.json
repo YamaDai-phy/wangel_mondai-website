@@ -33,6 +33,134 @@
       "mtime": "2026-07-29T06:02:02.000Z"
     },
     {
+      "filename": "kishou1.pdf",
+      "path": "pdf/kadai/kishou/kishou1.pdf",
+      "title": "気象１",
+      "category": "気象",
+      "size": 655518,
+      "mtime": "2026-08-02T10:21:41.866Z"
+    },
+    {
+      "filename": "kishou2.pdf",
+      "path": "pdf/kadai/kishou/kishou2.pdf",
+      "title": "気象２",
+      "category": "気象",
+      "size": 714622,
+      "mtime": "2026-08-02T10:22:06.165Z"
+    },
+    {
+      "filename": "kishou3.pdf",
+      "path": "pdf/kadai/kishou/kishou3.pdf",
+      "title": "気象３",
+      "category": "気象",
+      "size": 649693,
+      "mtime": "2026-08-02T10:22:24.265Z"
+    },
+    {
+      "filename": "kishou4.pdf",
+      "path": "pdf/kadai/kishou/kishou4.pdf",
+      "title": "気象４",
+      "category": "気象",
+      "size": 780364,
+      "mtime": "2026-08-02T10:22:42.166Z"
+    },
+    {
+      "filename": "kyotsu-gokurkuji.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-gokurkuji.pdf",
+      "title": "極楽寺",
+      "category": "共通",
+      "size": 630837,
+      "mtime": "2026-08-02T08:10:53.497Z"
+    },
+    {
+      "filename": "kyotsu-hyonosen.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-hyonosen.pdf",
+      "title": "氷ノ山",
+      "category": "共通",
+      "size": 475208,
+      "mtime": "2026-08-02T08:09:18.277Z"
+    },
+    {
+      "filename": "kyotsu-misen.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-misen.pdf",
+      "title": "弥山",
+      "category": "共通",
+      "size": 550160,
+      "mtime": "2026-08-02T08:08:31.234Z"
+    },
+    {
+      "filename": "kyotsu-nanakunimi,noro.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-nanakunimi,noro.pdf",
+      "title": "七国見山,野呂山",
+      "category": "共通",
+      "size": 553154,
+      "mtime": "2026-08-02T08:07:27.208Z"
+    },
+    {
+      "filename": "kyotsu-osorakan-1.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-osorakan-1.pdf",
+      "title": "恐羅漢山１",
+      "category": "共通",
+      "size": 625655,
+      "mtime": "2026-08-02T08:11:31.539Z"
+    },
+    {
+      "filename": "kyotsu-osorakan-2.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-osorakan-2.pdf",
+      "title": "恐羅漢山２",
+      "category": "共通",
+      "size": 523937,
+      "mtime": "2026-08-02T08:11:49.838Z"
+    },
+    {
+      "filename": "kyukyu1pdf.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu1pdf.pdf",
+      "title": "救急１",
+      "category": "救急",
+      "size": 471617,
+      "mtime": "2026-08-02T08:14:37.031Z"
+    },
+    {
+      "filename": "kyukyu2.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu2.pdf",
+      "title": "救急２",
+      "category": "救急",
+      "size": 570990,
+      "mtime": "2026-08-02T08:15:13.281Z"
+    },
+    {
+      "filename": "kyukyu3.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu3.pdf",
+      "title": "救急３",
+      "category": "救急",
+      "size": 563837,
+      "mtime": "2026-08-02T08:15:50.128Z"
+    },
+    {
+      "filename": "kyukyu4.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu4.pdf",
+      "title": "救急３",
+      "category": "救急",
+      "size": 568910,
+      "mtime": "2026-08-02T08:16:16.466Z"
+    },
+    {
+      "filename": "kyukyu50attack1.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu50attack1.pdf",
+      "title": "アタック50第１弾",
+      "category": "救急",
+      "size": 620305,
+      "mtime": "2026-08-02T08:17:20.004Z"
+    },
+    {
+      "filename": "kyukyu50attack2.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu50attack2.pdf",
+      "title": "アタック50第２弾",
+      "category": "救急",
+      "size": 734168,
+      "mtime": "2026-08-02T08:18:21.758Z"
+    },
+    {
       "filename": "shizekan-chizu1mon1tou.pdf",
       "path": "pdf/kadai/shizekan/shizekan-chizu1mon1tou.pdf",
       "title": "地図記号１問１答",

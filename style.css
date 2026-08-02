@@ -21,6 +21,7 @@ body {
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  font-weight: 600;
 }
 body::-webkit-scrollbar {
   display: none;
