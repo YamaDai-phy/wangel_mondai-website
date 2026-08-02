@@ -1,0 +1,187 @@
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #d1d5db;
+  --header: #e5e7eb;
+  --link: #0f4c81;
+  --link-hover: #0b3a63;
+  --focus: #111827;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family:
+    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
+    sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+h1,
+p,
+a {
+  color: var(--text);
+}
+/* pdf.index */
+header {
+  background-color: var(--border);
+}
+.details-section{
+  margin: 1rem;
+}
+table {
+  width: min(920px, 100%);
+  margin: 1rem auto;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--surface);
+}
+th,
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+thead th {
+  background-color: var(--header);
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+}
+tbody tr:last-child td {
+  border-bottom: 1px solid var(--border);
+}
+tbody tr td:nth-child(2n),
+tbody tr td:nth-child(3) {
+  text-align: center;
+}
+a {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--link);
+  border-radius: 6px;
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+a:hover {
+  background-color: var(--link);
+  color: #ffffff;
+}
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.accordion {
+  margin: 2em 0;
+}
+.accordion__summary {
+  display: block;
+  background: #b2e5ff; /* 見出しの背景色 */
+  font-weight: bold;
+  position: relative;
+  list-style: none; /* 矢印を消す */
+  cursor: pointer;
+  padding: 10px 38px 10px 10px;
+  border-radius: 10px;
+}
+.accordion__summary::-webkit-details-marker {
+  display: none;
+}
+.accordion__summary::after {
+  content: "+";
+  font-size: 1.4em; /* 記号のサイズ */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.accordion[open] .accordion__summary::after {
+  content: "−";
+}
+
+.accordion__summary {
+  display: block;
+  background: #b2e5ff; /* 見出しの背景色 */
+  font-weight: bold;
+  position: relative;
+  list-style: none; /* 矢印を消す */
+  cursor: pointer;
+  padding: 10px 38px 10px 10px;
+  border-radius: 10px;
+}
+.accordion__summary::-webkit-details-marker {
+  display: none;
+}
+.accordion__summary::after {
+  content: "+";
+  font-size: 1.4em; /* 記号のサイズ */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.accordion[open] .accordion__summary::after {
+  content: "−";
+}
+
+.accordion-2 {
+  margin: 0.1rem 0.5rem;
+}
+.accordion__summary-2 {
+  display: block;
+  background: #b2e5ff; /* 見出しの背景色 */
+  font-weight: bold;
+  position: relative;
+  list-style: none; /* 矢印を消す */
+  cursor: pointer;
+  padding: 10px 38px 10px 10px;
+  border-radius: 10px;
+}
+.accordion__summary-2::-webkit-details-marker {
+  display: none;
+}
+.accordion__summary-2::after {
+  content: "+";
+  font-size: 1.4em; /* 記号のサイズ */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.accordion-2[open] .accordion__summary-2::after {
+  content: "−";
+}
+
+@media (max-width: 640px) {
+  .details-section{
+    margin: 0.5rem;
+  }
+
+  th,
+  td {
+    padding: 10px 10px;
+    font-size: 14px;
+  }
+
+  a {
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    margin: 0 1rem 0 0;
+  }
+}
