@@ -10,7 +10,9 @@ const slugToCategory = {
   'shizekan': '自然観察',
   'kishou': '気象',
   'kyukyu': '救急',
-  'inhai':'inhai'
+  'kyotsu': '共通',
+  'inhai':'インターハイ',
+  'kensotai': '県総体',
 };
 
 function walk(dir) {

@@ -11,8 +11,8 @@
       <h1>書庫</h1>
     </header>
     <section class="details-section">
-      <details class="accordion">
-        <summary class="accordion__summary">宮田先輩からの贈り物</summary>
+      <details class="accordion" open>
+        <summary class="accordion__summary">過去問 from宮田先輩</summary>
         <details class="accordion-2">
           <summary class="accordion__summary-2">共通課題</summary>
           <div id="kyotsu-list">
@@ -42,74 +42,9 @@
         <summary class="accordion__summary">
           2026県総体 - 七国見山、野呂山
         </summary>
-        <table>
-          <thead>
-            <tr>
-              <th>問題</th>
-              <th>ダウンロード</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>第1回</td>
-              <td>
-                <a
-                  href="/pdf//kensotai/No.1mondai.pdf"
-                  target="_blank"
-                  download="2026県総体第1回問題"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>第2回</td>
-              <td>
-                <a
-                  href="/pdf//kensotai/No.2mondai.pdf"
-                  target="_blank"
-                  download="2026県総体第2回問題"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-          </tbody>
-          <thead>
-            <tr>
-              <th>解答</th>
-              <th>ダウンロード</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>第1回</td>
-              <td>
-                <a
-                  href="/pdf//kensotai/No.1kotae.pdf"
-                  target="_blank"
-                  download="2026県総体第1回答え"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>第2回</td>
-              <td>
-                <a
-                  href="/pdf//kensotai/No.2kotae.pdf"
-                  target="_blank"
-                  download="2026県総体第2回答え"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="kensotai-list">読み込み中…</div>
       </details>
-      <details class="accordion" open>
+      <details class="accordion">
         <summary class="accordion__summary">
           2026インターハイ - 氷ノ山一帯
         </summary>
@@ -146,7 +81,8 @@
               気象: "kisho-list",
               救急: "kyukyu-list",
               共通: "kyotsu-list",
-              インターハイ: "inhai-list"
+              インターハイ: "inhai-list",
+              県総体: "kensotai-list",
             };
             const buckets = {};
             Object.values(mapping).forEach((id) => (buckets[id] = []));
@@ -198,7 +134,8 @@
             renderTable("kisho-list", buckets["kisho-list"]);
             renderTable("kyukyu-list", buckets["kyukyu-list"]);
             renderTable("kyotsu-list", buckets["kyotsu-list"]);
-            renderTable("inhai-list" , buckets["inhai-list"]);
+            renderTable("inhai-list", buckets["inhai-list"]);
+            renderTable("kensotai-list", buckets["kensotai-list"]);
             // render any uncategorized files
             // create a container if not present
             let other = document.getElementById("other-list");
@@ -223,7 +160,8 @@
               "kisho-list",
               "kyukyu-list",
               "kyotsu-list",
-              "inhai-list"
+              "inhai-list",
+              "kensotai-list",
             ].forEach((id) => {
               const c = document.getElementById(id);
               if (c) c.innerHTML = "<p>読み込みに失敗しました。</p>";

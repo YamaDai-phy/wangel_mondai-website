@@ -1,38 +1,6 @@
 {
   "papers": [
     {
-      "filename": "kyotsu1-mon-haihu.pdf",
-      "path": "pdf/inhai/kyotsu1-mon-haihu.pdf",
-      "title": "kyotsu1-mon-haihu",
-      "category": "inhai",
-      "size": 1620141,
-      "mtime": "2026-07-27T15:44:38.808Z"
-    },
-    {
-      "filename": "kyotsu1-mon.pdf",
-      "path": "pdf/inhai/kyotsu1-mon.pdf",
-      "title": "kyotsu1-mon",
-      "category": "inhai",
-      "size": 461251,
-      "mtime": "2026-07-27T16:33:02.782Z"
-    },
-    {
-      "filename": "kyotsu2-mon.pdf",
-      "path": "pdf/inhai/kyotsu2-mon.pdf",
-      "title": "kyotsu2-mon",
-      "category": "inhai",
-      "size": 496979,
-      "mtime": "2026-07-29T06:05:58.000Z"
-    },
-    {
-      "filename": "shizekan-mon.pdf",
-      "path": "pdf/inhai/shizekan-mon.pdf",
-      "title": "氷ノ山２",
-      "category": "inhai",
-      "size": 621377,
-      "mtime": "2026-07-29T06:02:02.000Z"
-    },
-    {
       "filename": "kishou1.pdf",
       "path": "pdf/kadai/kishou/kishou1.pdf",
       "title": "気象１",
@@ -68,7 +36,7 @@
       "filename": "kyotsu-gokurkuji.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-gokurkuji.pdf",
       "title": "極楽寺",
-      "category": "kyotsu",
+      "category": "共通",
       "size": 630837,
       "mtime": "2026-08-02T08:10:53.497Z"
     },
@@ -76,7 +44,7 @@
       "filename": "kyotsu-hyonosen.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-hyonosen.pdf",
       "title": "氷ノ山",
-      "category": "kyotsu",
+      "category": "共通",
       "size": 475208,
       "mtime": "2026-08-02T08:09:18.277Z"
     },
@@ -84,7 +52,7 @@
       "filename": "kyotsu-misen.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-misen.pdf",
       "title": "弥山",
-      "category": "kyotsu",
+      "category": "共通",
       "size": 550160,
       "mtime": "2026-08-02T08:08:31.234Z"
     },
@@ -92,7 +60,7 @@
       "filename": "kyotsu-nanakunimi,noro.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-nanakunimi,noro.pdf",
       "title": "七国見山,野呂山",
-      "category": "kyotsu",
+      "category": "共通",
       "size": 553154,
       "mtime": "2026-08-02T08:07:27.208Z"
     },
@@ -100,7 +68,7 @@
       "filename": "kyotsu-osorakan-1.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-osorakan-1.pdf",
       "title": "恐羅漢山１",
-      "category": "kyotsu",
+      "category": "共通",
       "size": 625655,
       "mtime": "2026-08-02T08:11:31.539Z"
     },
@@ -108,7 +76,7 @@
       "filename": "kyotsu-osorakan-2.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-osorakan-2.pdf",
       "title": "恐羅漢山２",
-      "category": "kyotsu",
+      "category": "共通",
       "size": 523937,
       "mtime": "2026-08-02T08:11:49.838Z"
     },
@@ -139,7 +107,7 @@
     {
       "filename": "kyukyu4.pdf",
       "path": "pdf/kadai/kyukyu/kyukyu4.pdf",
-      "title": "救急３",
+      "title": "救急４",
       "category": "救急",
       "size": 568910,
       "mtime": "2026-08-02T08:16:16.466Z"
@@ -225,12 +193,20 @@
       "mtime": "2026-08-02T08:34:34.108Z"
     },
     {
-      "filename": "shizekan-hyonosen.pdf",
-      "path": "pdf/kadai/shizekan/shizekan-hyonosen.pdf",
-      "title": "氷ノ山",
+      "filename": "shizekan-hyonosen1.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-hyonosen1.pdf",
+      "title": "氷ノ山１",
       "category": "自然観察",
       "size": 746034,
       "mtime": "2026-08-02T10:16:16.168Z"
+    },
+    {
+      "filename": "shizekan-hyonosen2.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-hyonosen2.pdf",
+      "title": "氷ノ山２",
+      "category": "自然観察",
+      "size": 621377,
+      "mtime": "2026-07-29T06:02:02.000Z"
     },
     {
       "filename": "shizekan-misen1.pdf",
@@ -395,34 +371,58 @@
     {
       "filename": "No.1kotae.pdf",
       "path": "pdf/kensotai/No.1kotae.pdf",
-      "title": "No.1kotae",
-      "category": "kensotai",
+      "title": "2026県総体共通１解答",
+      "category": "県総体",
       "size": 329723,
       "mtime": "2026-04-03T15:35:12.452Z"
     },
     {
       "filename": "No.1mondai.pdf",
       "path": "pdf/kensotai/No.1mondai.pdf",
-      "title": "No.1mondai",
-      "category": "kensotai",
+      "title": "2026県総体共通１問題",
+      "category": "県総体",
       "size": 445387,
       "mtime": "2026-04-03T15:32:28.281Z"
     },
     {
       "filename": "No.2kotae.pdf",
       "path": "pdf/kensotai/No.2kotae.pdf",
-      "title": "No.2kotae",
-      "category": "kensotai",
+      "title": "2026県総体共通２解答",
+      "category": "県総体",
       "size": 115085,
       "mtime": "2026-06-14T12:55:47.800Z"
     },
     {
       "filename": "No.2mondai.pdf",
       "path": "pdf/kensotai/No.2mondai.pdf",
-      "title": "No.2mondai",
-      "category": "kensotai",
+      "title": "2026県総体共通２問題",
+      "category": "県総体",
       "size": 266649,
       "mtime": "2026-06-14T12:55:00.839Z"
+    },
+        {
+      "filename": "kyotsu1-mon-haihu.pdf",
+      "path": "pdf/inhai/kyotsu1-mon-haihu.pdf",
+      "title": "2026インハイ共通１配布地図",
+      "category": "インターハイ",
+      "size": 1620141,
+      "mtime": "2026-07-27T15:44:38.808Z"
+    },
+    {
+      "filename": "kyotsu1-mon.pdf",
+      "path": "pdf/inhai/kyotsu1-mon.pdf",
+      "title": "2026インハイ共通１",
+      "category": "インターハイ",
+      "size": 461251,
+      "mtime": "2026-07-27T16:33:02.782Z"
+    },
+    {
+      "filename": "kyotsu2-mon.pdf",
+      "path": "pdf/inhai/kyotsu2-mon.pdf",
+      "title": "2026インハイ共通２",
+      "category": "インターハイ",
+      "size": 496979,
+      "mtime": "2026-07-29T06:05:58.000Z"
     }
   ]
 }
