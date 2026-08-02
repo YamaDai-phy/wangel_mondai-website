@@ -27,7 +27,7 @@
     {
       "filename": "shizekan-mon.pdf",
       "path": "pdf/inhai/shizekan-mon.pdf",
-      "title": "shizekan-mon",
+      "title": "氷ノ山２",
       "category": "inhai",
       "size": 621377,
       "mtime": "2026-07-29T06:02:02.000Z"
@@ -68,7 +68,7 @@
       "filename": "kyotsu-gokurkuji.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-gokurkuji.pdf",
       "title": "極楽寺",
-      "category": "共通",
+      "category": "kyotsu",
       "size": 630837,
       "mtime": "2026-08-02T08:10:53.497Z"
     },
@@ -76,7 +76,7 @@
       "filename": "kyotsu-hyonosen.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-hyonosen.pdf",
       "title": "氷ノ山",
-      "category": "共通",
+      "category": "kyotsu",
       "size": 475208,
       "mtime": "2026-08-02T08:09:18.277Z"
     },
@@ -84,7 +84,7 @@
       "filename": "kyotsu-misen.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-misen.pdf",
       "title": "弥山",
-      "category": "共通",
+      "category": "kyotsu",
       "size": 550160,
       "mtime": "2026-08-02T08:08:31.234Z"
     },
@@ -92,7 +92,7 @@
       "filename": "kyotsu-nanakunimi,noro.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-nanakunimi,noro.pdf",
       "title": "七国見山,野呂山",
-      "category": "共通",
+      "category": "kyotsu",
       "size": 553154,
       "mtime": "2026-08-02T08:07:27.208Z"
     },
@@ -100,7 +100,7 @@
       "filename": "kyotsu-osorakan-1.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-osorakan-1.pdf",
       "title": "恐羅漢山１",
-      "category": "共通",
+      "category": "kyotsu",
       "size": 625655,
       "mtime": "2026-08-02T08:11:31.539Z"
     },
@@ -108,7 +108,7 @@
       "filename": "kyotsu-osorakan-2.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-osorakan-2.pdf",
       "title": "恐羅漢山２",
-      "category": "共通",
+      "category": "kyotsu",
       "size": 523937,
       "mtime": "2026-08-02T08:11:49.838Z"
     },

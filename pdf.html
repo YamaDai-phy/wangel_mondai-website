@@ -11,7 +11,7 @@
       <h1>書庫</h1>
     </header>
     <section class="details-section">
-      <details class="accordion" open>
+      <details class="accordion">
         <summary class="accordion__summary">宮田先輩からの贈り物</summary>
         <details class="accordion-2">
           <summary class="accordion__summary-2">共通課題</summary>
@@ -19,7 +19,7 @@
             <p>読み込み中…</p>
           </div>
         </details>
-        <details class="accordion-2" open>
+        <details class="accordion-2">
           <summary class="accordion__summary-2">自然観察課題</summary>
           <div id="shizekan-list">
             <p>読み込み中…</p>
@@ -109,109 +109,13 @@
           </tbody>
         </table>
       </details>
-      <details class="accordion">
+      <details class="accordion" open>
         <summary class="accordion__summary">
           2026インターハイ - 氷ノ山一帯
         </summary>
-        <table>
-          <thead>
-            <tr>
-              <th>問題</th>
-              <th>ダウンロード</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>共通1</td>
-              <td>
-                <a
-                  href="/pdf/inhai/kyotsu1-mon.pdf"
-                  target="_blank"
-                  download="2026インハイ共通問題"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-                <a
-                  href="/pdf/inhai/kyotsu1-mon-haihu.pdf"
-                  target="_blank"
-                  download="2026インハイ共通問題配布地図"
-                  rel="noopener noreferrer"
-                  >配布地図</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>共通2（概念図）</td>
-              <td>
-                <a
-                  href="/pdf/inhai/kyotsu2-mon.pdf"
-                  target="_blank"
-                  download="2026インハイ共通問題2"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>自然観察</td>
-              <td>
-                <a
-                  href="/pdf/inhai/shizekan-mon.pdf"
-                  target="_blank"
-                  download="2026インハイ自然問題"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>救急１</td>
-              <td>
-                <a
-                  href="/pdf/"
-                  target="_blank"
-                  download="2026インハイ自然問題"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-          </tbody>
-          <thead>
-            <tr>
-              <th>解答</th>
-              <th>ダウンロード</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>共通1</td>
-              <td>
-                <a
-                  href="/pdf/inhai/kyotsu1-kai.txt"
-                  target="_blank"
-                  download="2026インハイ共通解答"
-                  rel="noopener noreferrer"
-                  >リンク</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>共通2（概念図）</td>
-              <td>
-                <p>ありません</p>
-              </td>
-            </tr>
-            <tr>
-              <td>自然観察</td>
-              <td><p>ありません</p></td>
-            </tr>
-            <tr>
-              <td>救急１</td>
-              <td><p>ありません</p></td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="inhai-list">
+          <p>読み込み中…</p>
+        </div>
       </details>
       <details class="accordion">
         <summary class="accordion__summary">
@@ -241,7 +145,8 @@
               自然観察: "shizekan-list",
               気象: "kisho-list",
               救急: "kyukyu-list",
-              共通: "kyotsu-list"
+              共通: "kyotsu-list",
+              インターハイ: "inhai-list"
             };
             const buckets = {};
             Object.values(mapping).forEach((id) => (buckets[id] = []));
@@ -292,7 +197,8 @@
             renderTable("shizekan-list", buckets["shizekan-list"]);
             renderTable("kisho-list", buckets["kisho-list"]);
             renderTable("kyukyu-list", buckets["kyukyu-list"]);
-            renderTable("kyotsu-list", buckets["kyotsu-list"])
+            renderTable("kyotsu-list", buckets["kyotsu-list"]);
+            renderTable("inhai-list" , buckets["inhai-list"]);
             // render any uncategorized files
             // create a container if not present
             let other = document.getElementById("other-list");
@@ -312,7 +218,13 @@
             renderTable("other-list", buckets["other-list"]);
           })
           .catch((err) => {
-            ["shizekan-list", "kisho-list", "kyukyu-list", "kyotsu-list"].forEach((id) => {
+            [
+              "shizekan-list",
+              "kisho-list",
+              "kyukyu-list",
+              "kyotsu-list",
+              "inhai-list"
+            ].forEach((id) => {
               const c = document.getElementById(id);
               if (c) c.innerHTML = "<p>読み込みに失敗しました。</p>";
             });

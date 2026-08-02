@@ -9,7 +9,8 @@ const outPath = path.join(pdfDir, 'data.json');
 const slugToCategory = {
   'shizekan': '自然観察',
   'kishou': '気象',
-  'kyukyu': '救急'
+  'kyukyu': '救急',
+  'inhai':'inhai'
 };
 
 function walk(dir) {
