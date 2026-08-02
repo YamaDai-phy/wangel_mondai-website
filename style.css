@@ -35,7 +35,8 @@ a {
 header {
   background-color: var(--border);
 }
-.details-section{
+.details-section,
+footer {
   margin: 1rem;
 }
 table {
@@ -49,7 +50,7 @@ table {
 }
 th,
 td {
-  padding: 14px 16px;
+  padding: 0.5rem;
   border-bottom: 1px solid var(--border);
   text-align: left;
   vertical-align: middle;
@@ -88,8 +89,25 @@ a:focus-visible {
   outline-offset: 2px;
 }
 .accordion {
-  margin: 2em 0;
+  margin: 0.5em 0;
 }
+
+/* Minimal details open/close animation (fade + slight slide) */
+.accordion > *:not(summary),
+.accordion-2 > *:not(summary) {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height 500ms ease, opacity 360ms ease, transform 500ms ease;
+}
+.accordion[open] > *:not(summary),
+.accordion-2[open] > *:not(summary) {
+  max-height: 800px; /* small, safe upper bound */
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .accordion__summary {
   display: block;
   background: #b2e5ff; /* 見出しの背景色 */
@@ -145,7 +163,7 @@ a:focus-visible {
 }
 .accordion__summary-2 {
   display: block;
-  background: #b2e5ff; /* 見出しの背景色 */
+  background: #ffc3c3; /* 見出しの背景色 */
   font-weight: bold;
   position: relative;
   list-style: none; /* 矢印を消す */
@@ -169,7 +187,7 @@ a:focus-visible {
 }
 
 @media (max-width: 640px) {
-  .details-section{
+  .details-section {
     margin: 0.5rem;
   }
 

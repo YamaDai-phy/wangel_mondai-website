@@ -3,23 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>書庫</title>
+    <title>ワンゲル書庫</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <header>
-      <h1>書庫</h1>
-    </header>
+    <header><h1>書庫</h1></header>
     <section class="details-section">
       <details class="accordion" open>
-        <summary class="accordion__summary">過去問 from宮田先輩</summary>
+        <summary class="accordion__summary">問題</summary>
         <details class="accordion-2">
           <summary class="accordion__summary-2">共通課題</summary>
           <div id="kyotsu-list">
             <p>読み込み中…</p>
           </div>
         </details>
-        <details class="accordion-2" open>
+        <details class="accordion-2">
           <summary class="accordion__summary-2">自然観察課題</summary>
           <div id="chuishizekan-list"></div>
           <div id="mondaishizekan-list"></div>
@@ -61,7 +60,10 @@
       </details>
     </section>
     <footer>
-      <p>更新日：2026/08/02</p>
+      <p style="font-size: 0.8rem">
+        ファイルアップロード機能なども検討中です。<br>ちぃと待ってな
+      </p>
+      <p>更新日：2026/08/03</p>
       <p>&copy;https://wangel-mondai.pages.dev</p>
     </footer>
     <script>
@@ -79,7 +81,7 @@
           .then((r) => r.json())
           .then((data) => {
             const mapping = {
-              注意自然観察:"chuishizekan-list",
+              注意自然観察: "chuishizekan-list",
               問題自然観察: "mondaishizekan-list",
               自然観察: "shizekan-list",
               気象: "kisho-list",
@@ -113,7 +115,8 @@
               items.sort((a, b) => a.title.localeCompare(b.title, "ja"));
               const table = document.createElement("table");
               const thead = document.createElement("thead");
-              thead.innerHTML = "<tr><th>タイトル</th><th>ダウンロード</th></tr>";
+              thead.innerHTML =
+                "<tr><th>タイトル</th><th>ダウンロード</th></tr>";
               table.appendChild(thead);
               const tbody = document.createElement("tbody");
               for (const p of items) {
@@ -135,8 +138,8 @@
             }
 
             renderTable("shizekan-list", buckets["shizekan-list"]);
-            renderTable("chuishizekan-list", buckets["chuishizekan-list"])
-            renderTable("mondaishizekan-list", buckets["mondaishizekan-list"])
+            renderTable("chuishizekan-list", buckets["chuishizekan-list"]);
+            renderTable("mondaishizekan-list", buckets["mondaishizekan-list"]);
             renderTable("kisho-list", buckets["kisho-list"]);
             renderTable("kyukyu-list", buckets["kyukyu-list"]);
             renderTable("kyotsu-list", buckets["kyotsu-list"]);
@@ -164,6 +167,7 @@
             [
               "shizekan-list",
               "chuishizekan-list",
+              "mondaishizekan-list",
               "kisho-list",
               "kyukyu-list",
               "kyotsu-list",

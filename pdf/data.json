@@ -137,6 +137,14 @@
       "mtime": "2026-08-02T10:14:42.311Z"
     },
     {
+      "filename": "shizekan-tozanyogo1mon1tou.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf",
+      "title": "登山用語１問１答",
+      "category": "問題自然観察",
+      "size": 441180,
+      "mtime": "2026-08-02T08:22:38.916Z"
+    },
+    {
       "filename": "shizekan-chuiten.pdf",
       "path": "pdf/kadai/shizekan/shizekan-chuiten.pdf",
       "title": "自然観察注意点",
@@ -148,7 +156,7 @@
       "filename": "shizekan-dousho,hara.pdf",
       "path": "pdf/kadai/shizekan/shizekan-dousho,hara.pdf",
       "title": "洞所山,原山",
-      "category": "問題自然観察",
+      "category": "自然観察",
       "size": 918240,
       "mtime": "2026-08-02T10:09:27.224Z"
     },
@@ -351,14 +359,6 @@
       "category": "自然観察",
       "size": 733828,
       "mtime": "2026-08-02T10:10:23.651Z"
-    },
-    {
-      "filename": "shizekan-tozanyogo1mon1tou.pdf",
-      "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf",
-      "title": "登山用語１問１答",
-      "category": "自然観察",
-      "size": 441180,
-      "mtime": "2026-08-02T08:22:38.916Z"
     },
     {
       "filename": "shizekan-yunokijo2.pdf",
