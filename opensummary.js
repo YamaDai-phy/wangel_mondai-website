@@ -12,6 +12,8 @@ const iosMethod = document.querySelector(".method-ios");
 const pcMethod = document.querySelector(".method-pc");
 if (isIOS()) {
   if (iosMethod) iosMethod.open = true;
-} else if (pcMethod) {
-  pcMethod.open = true;
+  if (pcMethod) pcMethod.style.display = "none";
+} else {
+  if (pcMethod) pcMethod.open = true;
+  if (iosMethod) iosMethod.style.display = "none";
 }

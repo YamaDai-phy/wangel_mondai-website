@@ -37,8 +37,7 @@ header {
   background-color: var(--border);
 }
 .details-section,
-.dawnload-method,
-footer {
+.dawnload-method{
   margin: 1rem;
 }
 
@@ -190,10 +189,13 @@ a:focus-visible {
 .accordion-2[open] .accordion__summary-2::after {
   content: "−";
 }
+footer{
+  margin: 5rem 1rem 1rem;
+}
 /* release.html */
-.release-note,
-.release-list {
-  font-weight: 500;
+.release-body tbody tr td:nth-child(2n),
+.release-body tbody tr td:nth-child(3){
+  text-align: left;
 }
 
 @media (max-width: 640px) {

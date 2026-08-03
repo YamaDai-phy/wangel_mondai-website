@@ -23,33 +23,56 @@
       <details class="accordion">
         <summary class="accordion__summary">最近の更新</summary>
         <div class="release-body">
-          <ul class="release-list">
-            <li>2026/08/03　サイトを公開</li>
-            <li>2026/08/03　ダウンロード方法の追加</li>
-            <li>2026/08/03　クリック履歴の表示</li>
-            <li>2026/08/03　リリース状況ページを追加</li>
-          </ul>
+          <table id="recent-table" class="release-table">
+            <thead>
+              <tr>
+                <th>日付</th>
+                <th>内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2">読み込み中…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </details>
 
       <details class="accordion">
         <summary class="accordion__summary">今後の予定</summary>
         <div class="release-body">
-          <ul class="release-list">
-            <li>ファイルアップロード機能</li>
-            <li>表示まわりの細かい調整</li>
-          </ul>
+          <table id="upcoming-table" class="release-table">
+            <thead>
+              <tr>
+                <th>予定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>読み込み中…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </details>
 
       <details class="accordion">
         <summary class="accordion__summary">制作者</summary>
         <div class="release-body">
-          <ul class="release-list">
-            <li>宮田先輩 - 問題作成</li>
-            <li>三國（80） - 問題作成</li>
-            <li>山本（80） - 問題、サイト作成</li>
-          </ul>
+          <table id="authors-table" class="release-table">
+            <thead>
+              <tr>
+                <th>名前</th>
+                <th>役割</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2">読み込み中…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </details>
     </section>
@@ -59,5 +82,6 @@
       <p>更新日：2026/08/03</p>
       <p>&copy;https://wangel-mondai.pages.dev</p>
     </footer>
+    <script src="load_release.js"></script>
   </body>
 </html>
