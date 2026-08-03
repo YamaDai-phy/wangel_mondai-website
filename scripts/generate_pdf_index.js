@@ -22,17 +22,19 @@ function walk(dir) {
     const full = path.join(dir, ent.name);
     if (ent.isDirectory()) {
       results = results.concat(walk(full));
-    } else if (ent.isFile() && /\.pdf$/i.test(ent.name)) {
+    } else if (ent.isFile() && /\.(pdf|txt)$/i.test(ent.name)) {
       const rel = path.relative(root, full).replace(/\\/g, '/');
       const stat = fs.statSync(full);
       const parts = rel.split('/');
       const parent = parts.length >= 2 ? parts[parts.length - 2] : '';
       const category = slugToCategory[parent] || parent;
-      const title = ent.name.replace(/\.pdf$/i, '');
+      const title = ent.name.replace(/\.(pdf|txt)$/i, '');
+      const ext = path.extname(ent.name).replace('.', '').toLowerCase();
       results.push({
         filename: ent.name,
         path: rel,
         title,
+        ext,
         category,
         size: stat.size,
         mtime: stat.mtime.toISOString()

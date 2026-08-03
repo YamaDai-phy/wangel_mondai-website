@@ -6,7 +6,8 @@
       "title": "2026インハイ共通１配布地図",
       "category": "インターハイ",
       "size": 1620141,
-      "mtime": "2026-07-27T15:44:38.808Z"
+      "mtime": "2026-07-27T15:44:38.808Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu1-mon.pdf",
@@ -14,7 +15,8 @@
       "title": "2026インハイ共通１",
       "category": "インターハイ",
       "size": 461251,
-      "mtime": "2026-07-27T16:33:02.782Z"
+      "mtime": "2026-07-27T16:33:02.782Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu2-mon.pdf",
@@ -22,7 +24,107 @@
       "title": "2026インハイ共通２",
       "category": "インターハイ",
       "size": 496979,
-      "mtime": "2026-07-29T06:05:58.000Z"
+      "mtime": "2026-07-29T06:05:58.000Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kisho10-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho10-kotae.txt",
+      "title": "kisho10-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 195,
+      "mtime": "2026-08-03T11:56:53.876Z"
+    },
+    {
+      "filename": "kisho11-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho11-kotae.txt",
+      "title": "kisho11-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 129,
+      "mtime": "2026-08-03T11:57:38.772Z"
+    },
+    {
+      "filename": "kisho12-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho12-kotae.txt",
+      "title": "kisho12-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 347,
+      "mtime": "2026-08-03T11:57:52.066Z"
+    },
+    {
+      "filename": "kisho13-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho13-kotae.txt",
+      "title": "kisho13-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 101,
+      "mtime": "2026-08-03T12:00:19.332Z"
+    },
+    {
+      "filename": "kisho14-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho14-kotae.txt",
+      "title": "kisho14-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 915,
+      "mtime": "2026-08-03T12:02:11.988Z"
+    },
+    {
+      "filename": "kisho18-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho18-kotae.txt",
+      "title": "kisho18-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 399,
+      "mtime": "2026-08-03T12:07:03.632Z"
+    },
+    {
+      "filename": "kisho5-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho5-kotae.txt",
+      "title": "kisho5-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 239,
+      "mtime": "2026-08-03T11:54:17.549Z"
+    },
+    {
+      "filename": "kisho6-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho6-kotae.txt",
+      "title": "kisho6-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 620,
+      "mtime": "2026-08-03T11:56:22.387Z"
+    },
+    {
+      "filename": "kisho7-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho7-kotae.txt",
+      "title": "kisho7-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 102,
+      "mtime": "2026-08-03T11:56:18.249Z"
+    },
+    {
+      "filename": "kisho8-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho8-kotae.txt",
+      "title": "kisho8-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 54,
+      "mtime": "2026-08-03T11:56:13.457Z"
+    },
+    {
+      "filename": "kisho9-kotae.txt",
+      "path": "pdf/kadai/kishou/kisho9-kotae.txt",
+      "title": "kisho9-kotae",
+      "ext": "txt",
+      "category": "気象",
+      "size": 215,
+      "mtime": "2026-08-03T11:56:07.152Z"
     },
     {
       "filename": "kishou1.pdf",
@@ -30,71 +132,8 @@
       "title": "気象１",
       "category": "気象",
       "size": 655518,
-      "mtime": "2026-08-02T10:21:41.866Z"
-    },
-    {
-      "filename": "kishou2.pdf",
-      "path": "pdf/kadai/kishou/kishou2.pdf",
-      "title": "気象２",
-      "category": "気象",
-      "size": 714622,
-      "mtime": "2026-08-02T10:22:06.165Z"
-    },
-    {
-      "filename": "kishou3.pdf",
-      "path": "pdf/kadai/kishou/kishou3.pdf",
-      "title": "気象３",
-      "category": "気象",
-      "size": 649693,
-      "mtime": "2026-08-02T10:22:24.265Z"
-    },
-    {
-      "filename": "kishou4.pdf",
-      "path": "pdf/kadai/kishou/kishou4.pdf",
-      "title": "気象４",
-      "category": "気象",
-      "size": 780364,
-      "mtime": "2026-08-02T10:22:42.166Z"
-    },
-    {
-      "filename": "kishou5.pdf",
-      "path": "pdf/kadai/kishou/kishou5.pdf",
-      "title": "気象５",
-      "category": "気象",
-      "size": 267771,
-      "mtime": "2026-08-02T15:18:33.189Z"
-    },
-    {
-      "filename": "kishou6.pdf",
-      "path": "pdf/kadai/kishou/kishou6.pdf",
-      "title": "気象６",
-      "category": "気象",
-      "size": 287260,
-      "mtime": "2026-08-02T15:18:58.788Z"
-    },
-    {
-      "filename": "kishou7.pdf",
-      "path": "pdf/kadai/kishou/kishou7.pdf",
-      "title": "気象７",
-      "category": "気象",
-      "size": 225907,
-      "mtime": "2026-08-02T15:19:19.732Z"
-    },
-    {
-      "filename": "kishou8.pdf",
-      "path": "pdf/kadai/kishou/kishou8.pdf",
-      "title": "気象８",
-      "category": "気象",
-      "size": 185284,
-      "mtime": "2026-08-02T15:19:42.186Z"
-    },
-    {
-      "filename": "kishou9.pdf",
-      "path": "pdf/kadai/kishou/kishou9.pdf",
-      "title": "気象９",
-      "category": "気象",
-      "size": 348257,
-      "mtime": "2026-08-02T15:20:24.884Z"
+      "mtime": "2026-08-02T10:21:41.866Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou10.pdf",
@@ -102,7 +141,8 @@
       "title": "気象10",
       "category": "気象",
       "size": 201874,
-      "mtime": "2026-08-02T15:20:43.597Z"
+      "mtime": "2026-08-02T15:20:43.597Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou11.pdf",
@@ -110,7 +150,8 @@
       "title": "気象11",
       "category": "気象",
       "size": 214668,
-      "mtime": "2026-08-02T15:21:04.740Z"
+      "mtime": "2026-08-02T15:21:04.740Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou12.pdf",
@@ -118,7 +159,8 @@
       "title": "気象12",
       "category": "気象",
       "size": 533180,
-      "mtime": "2026-08-02T15:21:43.591Z"
+      "mtime": "2026-08-02T15:21:43.591Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou13.pdf",
@@ -126,7 +168,8 @@
       "title": "気象13",
       "category": "気象",
       "size": 236858,
-      "mtime": "2026-08-02T15:22:01.276Z"
+      "mtime": "2026-08-02T15:22:01.276Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou14.pdf",
@@ -134,7 +177,8 @@
       "title": "気象14",
       "category": "気象",
       "size": 285872,
-      "mtime": "2026-08-02T15:22:17.620Z"
+      "mtime": "2026-08-02T15:22:17.620Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou15.pdf",
@@ -142,7 +186,8 @@
       "title": "気象15",
       "category": "気象",
       "size": 497527,
-      "mtime": "2026-08-02T15:22:42.015Z"
+      "mtime": "2026-08-02T15:22:42.015Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou16.pdf",
@@ -150,7 +195,8 @@
       "title": "気象16",
       "category": "気象",
       "size": 374988,
-      "mtime": "2026-08-02T15:22:59.836Z"
+      "mtime": "2026-08-02T15:22:59.836Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou17.pdf",
@@ -158,7 +204,8 @@
       "title": "気象17",
       "category": "気象",
       "size": 2252750,
-      "mtime": "2026-08-02T15:24:18.226Z"
+      "mtime": "2026-08-02T15:24:18.226Z",
+      "ext": "pdf"
     },
     {
       "filename": "kishou18.pdf",
@@ -166,7 +213,80 @@
       "title": "気象18",
       "category": "気象",
       "size": 535169,
-      "mtime": "2026-08-02T15:25:16.220Z"
+      "mtime": "2026-08-02T15:25:16.220Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou2.pdf",
+      "path": "pdf/kadai/kishou/kishou2.pdf",
+      "title": "気象２",
+      "category": "気象",
+      "size": 714622,
+      "mtime": "2026-08-02T10:22:06.165Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou3.pdf",
+      "path": "pdf/kadai/kishou/kishou3.pdf",
+      "title": "気象３",
+      "category": "気象",
+      "size": 649693,
+      "mtime": "2026-08-02T10:22:24.265Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou4.pdf",
+      "path": "pdf/kadai/kishou/kishou4.pdf",
+      "title": "気象４",
+      "category": "気象",
+      "size": 780364,
+      "mtime": "2026-08-02T10:22:42.166Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou5.pdf",
+      "path": "pdf/kadai/kishou/kishou5.pdf",
+      "title": "気象５",
+      "category": "気象",
+      "size": 267771,
+      "mtime": "2026-08-02T15:18:33.189Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou6.pdf",
+      "path": "pdf/kadai/kishou/kishou6.pdf",
+      "title": "気象６",
+      "category": "気象",
+      "size": 287260,
+      "mtime": "2026-08-02T15:18:58.788Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou7.pdf",
+      "path": "pdf/kadai/kishou/kishou7.pdf",
+      "title": "気象７",
+      "category": "気象",
+      "size": 225907,
+      "mtime": "2026-08-02T15:19:19.732Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou8.pdf",
+      "path": "pdf/kadai/kishou/kishou8.pdf",
+      "title": "気象８",
+      "category": "気象",
+      "size": 185284,
+      "mtime": "2026-08-02T15:19:42.186Z",
+      "ext": "pdf"
+    },
+    {
+      "filename": "kishou9.pdf",
+      "path": "pdf/kadai/kishou/kishou9.pdf",
+      "title": "気象９",
+      "category": "気象",
+      "size": 348257,
+      "mtime": "2026-08-02T15:20:24.884Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu-gokurkuji.pdf",
@@ -174,7 +294,8 @@
       "title": "極楽寺",
       "category": "共通",
       "size": 630837,
-      "mtime": "2026-08-02T08:10:53.497Z"
+      "mtime": "2026-08-02T08:10:53.497Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu-hyonosen.pdf",
@@ -182,7 +303,8 @@
       "title": "氷ノ山",
       "category": "共通",
       "size": 475208,
-      "mtime": "2026-08-02T08:09:18.277Z"
+      "mtime": "2026-08-02T08:09:18.277Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu-misen.pdf",
@@ -190,7 +312,8 @@
       "title": "弥山",
       "category": "共通",
       "size": 550160,
-      "mtime": "2026-08-02T08:08:31.234Z"
+      "mtime": "2026-08-02T08:08:31.234Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu-nanakunimi,noro.pdf",
@@ -198,7 +321,8 @@
       "title": "七国見山,野呂山",
       "category": "共通",
       "size": 553154,
-      "mtime": "2026-08-02T08:07:27.208Z"
+      "mtime": "2026-08-02T08:07:27.208Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu-osorakan-1.pdf",
@@ -206,7 +330,8 @@
       "title": "恐羅漢山１",
       "category": "共通",
       "size": 625655,
-      "mtime": "2026-08-02T08:11:31.539Z"
+      "mtime": "2026-08-02T08:11:31.539Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyotsu-osorakan-2.pdf",
@@ -214,7 +339,8 @@
       "title": "恐羅漢山２",
       "category": "共通",
       "size": 523937,
-      "mtime": "2026-08-02T08:11:49.838Z"
+      "mtime": "2026-08-02T08:11:49.838Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyukyu1pdf.pdf",
@@ -222,7 +348,8 @@
       "title": "救急１",
       "category": "救急",
       "size": 471617,
-      "mtime": "2026-08-02T08:14:37.031Z"
+      "mtime": "2026-08-02T08:14:37.031Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyukyu2.pdf",
@@ -230,7 +357,8 @@
       "title": "救急２",
       "category": "救急",
       "size": 570990,
-      "mtime": "2026-08-02T08:15:13.281Z"
+      "mtime": "2026-08-02T08:15:13.281Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyukyu3.pdf",
@@ -238,7 +366,8 @@
       "title": "救急３",
       "category": "救急",
       "size": 563837,
-      "mtime": "2026-08-02T08:15:50.128Z"
+      "mtime": "2026-08-02T08:15:50.128Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyukyu4.pdf",
@@ -246,7 +375,8 @@
       "title": "救急４",
       "category": "救急",
       "size": 568910,
-      "mtime": "2026-08-02T08:16:16.466Z"
+      "mtime": "2026-08-02T08:16:16.466Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyukyu50attack1.pdf",
@@ -254,7 +384,8 @@
       "title": "アタック50第１弾",
       "category": "救急",
       "size": 620305,
-      "mtime": "2026-08-02T08:17:20.004Z"
+      "mtime": "2026-08-02T08:17:20.004Z",
+      "ext": "pdf"
     },
     {
       "filename": "kyukyu50attack2.pdf",
@@ -262,7 +393,8 @@
       "title": "アタック50第２弾",
       "category": "救急",
       "size": 734168,
-      "mtime": "2026-08-02T08:18:21.758Z"
+      "mtime": "2026-08-02T08:18:21.758Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-chizu1mon1tou.pdf",
@@ -270,7 +402,8 @@
       "title": "地図記号１問１答",
       "category": "問題自然観察",
       "size": 457004,
-      "mtime": "2026-08-02T10:14:42.311Z"
+      "mtime": "2026-08-02T10:14:42.311Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-chuiten.pdf",
@@ -278,7 +411,8 @@
       "title": "注意点",
       "category": "注意自然観察",
       "size": 278720,
-      "mtime": "2026-08-02T08:27:23.445Z"
+      "mtime": "2026-08-02T08:27:23.445Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-dousho,hara.pdf",
@@ -286,7 +420,8 @@
       "title": "洞所山,原山",
       "category": "自然観察",
       "size": 918240,
-      "mtime": "2026-08-02T10:09:27.224Z"
+      "mtime": "2026-08-02T10:09:27.224Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ege.pdf",
@@ -294,7 +429,8 @@
       "title": "絵下山",
       "category": "自然観察",
       "size": 762331,
-      "mtime": "2026-08-02T08:29:03.084Z"
+      "mtime": "2026-08-02T08:29:03.084Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-gokurakuji1.pdf",
@@ -302,7 +438,8 @@
       "title": "極楽寺山１",
       "category": "自然観察",
       "size": 752876,
-      "mtime": "2026-08-02T08:35:07.245Z"
+      "mtime": "2026-08-02T08:35:07.245Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-gokurakuji2.pdf",
@@ -310,7 +447,8 @@
       "title": "極楽寺山２",
       "category": "自然観察",
       "size": 654142,
-      "mtime": "2026-08-02T10:04:36.793Z"
+      "mtime": "2026-08-02T10:04:36.793Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-gokurakuji3.pdf",
@@ -318,7 +456,8 @@
       "title": "極楽寺山３",
       "category": "自然観察",
       "size": 648869,
-      "mtime": "2026-08-02T10:13:55.028Z"
+      "mtime": "2026-08-02T10:13:55.028Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-hiyama2.pdf",
@@ -326,7 +465,8 @@
       "title": "火山２",
       "category": "自然観察",
       "size": 825707,
-      "mtime": "2026-08-02T08:34:34.108Z"
+      "mtime": "2026-08-02T08:34:34.108Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-hyonosen1.pdf",
@@ -334,7 +474,8 @@
       "title": "氷ノ山１",
       "category": "自然観察",
       "size": 746034,
-      "mtime": "2026-08-02T10:16:16.168Z"
+      "mtime": "2026-08-02T10:16:16.168Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-hyonosen2.pdf",
@@ -342,7 +483,8 @@
       "title": "氷ノ山２",
       "category": "自然観察",
       "size": 621377,
-      "mtime": "2026-07-29T06:02:02.000Z"
+      "mtime": "2026-07-29T06:02:02.000Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-misen1.pdf",
@@ -350,7 +492,8 @@
       "title": "弥山１",
       "category": "自然観察",
       "size": 860631,
-      "mtime": "2026-08-02T08:33:32.233Z"
+      "mtime": "2026-08-02T08:33:32.233Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-misen2.pdf",
@@ -358,7 +501,8 @@
       "title": "弥山２",
       "category": "自然観察",
       "size": 448979,
-      "mtime": "2026-08-02T08:37:25.817Z"
+      "mtime": "2026-08-02T08:37:25.817Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-misen3.pdf",
@@ -366,7 +510,8 @@
       "title": "弥山３",
       "category": "自然観察",
       "size": 655282,
-      "mtime": "2026-08-02T10:06:14.533Z"
+      "mtime": "2026-08-02T10:06:14.533Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-misen4.pdf",
@@ -374,7 +519,8 @@
       "title": "弥山４",
       "category": "自然観察",
       "size": 806512,
-      "mtime": "2026-08-02T10:12:04.763Z"
+      "mtime": "2026-08-02T10:12:04.763Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-nanakunimi,noro.pdf",
@@ -382,7 +528,8 @@
       "title": "七国見山,野呂山１",
       "category": "自然観察",
       "size": 788403,
-      "mtime": "2026-08-02T08:20:47.257Z"
+      "mtime": "2026-08-02T08:20:47.257Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-nanakunimi,noro2.pdf",
@@ -390,7 +537,8 @@
       "title": "七国見山,野呂山２",
       "category": "自然観察",
       "size": 776490,
-      "mtime": "2026-08-02T08:23:33.913Z"
+      "mtime": "2026-08-02T08:23:33.913Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-nanakunimi,noro3.pdf",
@@ -398,7 +546,8 @@
       "title": "七国見山,野呂山３",
       "category": "自然観察",
       "size": 1042580,
-      "mtime": "2026-08-02T08:24:08.716Z"
+      "mtime": "2026-08-02T08:24:08.716Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-nanakunimi,noro4.pdf",
@@ -406,7 +555,8 @@
       "title": "七国見山,野呂山４",
       "category": "自然観察",
       "size": 697332,
-      "mtime": "2026-08-02T08:24:40.773Z"
+      "mtime": "2026-08-02T08:24:40.773Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-nanakunimi,noro5.pdf",
@@ -414,7 +564,8 @@
       "title": "七国見山,野呂山５",
       "category": "自然観察",
       "size": 652915,
-      "mtime": "2026-08-02T08:29:37.989Z"
+      "mtime": "2026-08-02T08:29:37.989Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-nanakunimi,noro6.pdf",
@@ -422,7 +573,8 @@
       "title": "七国見山,野呂山６",
       "category": "自然観察",
       "size": 886564,
-      "mtime": "2026-08-02T10:10:59.917Z"
+      "mtime": "2026-08-02T10:10:59.917Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ochousu,hiyama1.pdf",
@@ -430,7 +582,8 @@
       "title": "大茶臼山,火山２",
       "category": "自然観察",
       "size": 529103,
-      "mtime": "2026-08-02T08:31:36.400Z"
+      "mtime": "2026-08-02T08:31:36.400Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ochousu,hiyama2.pdf",
@@ -438,7 +591,8 @@
       "title": "大茶臼山,火山３",
       "category": "自然観察",
       "size": 458343,
-      "mtime": "2026-08-02T08:41:20.974Z"
+      "mtime": "2026-08-02T08:41:20.974Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ochousu,yunokijo.pdf",
@@ -446,7 +600,8 @@
       "title": "大茶臼山,柚木城山",
       "category": "自然観察",
       "size": 1118656,
-      "mtime": "2026-08-02T08:39:32.817Z"
+      "mtime": "2026-08-02T08:39:32.817Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-osorakan.pdf",
@@ -454,7 +609,8 @@
       "title": "恐羅漢山",
       "category": "自然観察",
       "size": 608670,
-      "mtime": "2026-08-02T10:11:35.354Z"
+      "mtime": "2026-08-02T10:11:35.354Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ozue1.pdf",
@@ -462,7 +618,8 @@
       "title": "大潰山１",
       "category": "自然観察",
       "size": 693370,
-      "mtime": "2026-08-02T08:33:01.219Z"
+      "mtime": "2026-08-02T08:33:01.219Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ozue2.pdf",
@@ -470,7 +627,8 @@
       "title": "大潰山２",
       "category": "自然観察",
       "size": 451526,
-      "mtime": "2026-08-02T10:05:23.200Z"
+      "mtime": "2026-08-02T10:05:23.200Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ryuou1.pdf",
@@ -478,7 +636,8 @@
       "title": "竜王山１",
       "category": "自然観察",
       "size": 848677,
-      "mtime": "2026-08-02T10:07:41.815Z"
+      "mtime": "2026-08-02T10:07:41.815Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-ryuou2.pdf",
@@ -486,7 +645,8 @@
       "title": "竜王山２",
       "category": "自然観察",
       "size": 733828,
-      "mtime": "2026-08-02T10:10:23.651Z"
+      "mtime": "2026-08-02T10:10:23.651Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-tozanyogo1mon1tou.pdf",
@@ -494,7 +654,8 @@
       "title": "登山用語１問１答",
       "category": "問題自然観察",
       "size": 441180,
-      "mtime": "2026-08-02T08:22:38.916Z"
+      "mtime": "2026-08-02T08:22:38.916Z",
+      "ext": "pdf"
     },
     {
       "filename": "shizekan-yunokijo2.pdf",
@@ -502,7 +663,8 @@
       "title": "柚木城山２",
       "category": "自然観察",
       "size": 755070,
-      "mtime": "2026-08-02T08:40:28.534Z"
+      "mtime": "2026-08-02T08:40:28.534Z",
+      "ext": "pdf"
     },
     {
       "filename": "No.1kotae.pdf",
@@ -510,7 +672,8 @@
       "title": "2026県総体共通１解答",
       "category": "県総体",
       "size": 329723,
-      "mtime": "2026-04-03T15:35:12.452Z"
+      "mtime": "2026-04-03T15:35:12.452Z",
+      "ext": "pdf"
     },
     {
       "filename": "No.1mondai.pdf",
@@ -518,7 +681,8 @@
       "title": "2026県総体共通１問題",
       "category": "県総体",
       "size": 445387,
-      "mtime": "2026-04-03T15:32:28.281Z"
+      "mtime": "2026-04-03T15:32:28.281Z",
+      "ext": "pdf"
     },
     {
       "filename": "No.2kotae.pdf",
@@ -526,7 +690,8 @@
       "title": "2026県総体共通２解答",
       "category": "県総体",
       "size": 115085,
-      "mtime": "2026-06-14T12:55:47.800Z"
+      "mtime": "2026-06-14T12:55:47.800Z",
+      "ext": "pdf"
     },
     {
       "filename": "No.2mondai.pdf",
@@ -534,7 +699,8 @@
       "title": "2026県総体共通２問題",
       "category": "県総体",
       "size": 266649,
-      "mtime": "2026-06-14T12:55:00.839Z"
+      "mtime": "2026-06-14T12:55:00.839Z",
+      "ext": "pdf"
     }
   ]
 }
