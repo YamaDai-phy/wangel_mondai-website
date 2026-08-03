@@ -41,6 +41,41 @@ header {
 footer {
   margin: 1rem;
 }
+
+/* ダウンロード注意点 */
+.dawnload-method details{
+  margin: 0.5em 0;
+}
+.dawnload-method summary{
+  display: block;
+  background: #bbffb2; /* 見出しの背景色 */
+  font-weight: bold;
+  position: relative;
+  list-style: none; /* 矢印を消す */
+  cursor: pointer;
+  padding: 10px 38px 10px 10px;
+  border-radius: 10px;
+}
+.dawnload-method summary::-webkit-details-marker {
+  display: none;
+}
+.dawnload-method summary::after {
+  content: "+";
+  font-size: 1.4em; /* 記号のサイズ */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.dawnload-method details[open] summary::after {
+  content: "−";
+}
+
+.method-ios p,
+.method-pc p{
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
 table {
   width: min(920px, 100%);
   margin: 1rem auto;
@@ -92,31 +127,6 @@ a:focus-visible {
 }
 .accordion {
   margin: 0.5em 0;
-}
-
-.accordion__summary {
-  display: block;
-  background: #b2e5ff; /* 見出しの背景色 */
-  font-weight: bold;
-  position: relative;
-  list-style: none; /* 矢印を消す */
-  cursor: pointer;
-  padding: 10px 38px 10px 10px;
-  border-radius: 10px;
-}
-.accordion__summary::-webkit-details-marker {
-  display: none;
-}
-.accordion__summary::after {
-  content: "+";
-  font-size: 1.4em; /* 記号のサイズ */
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.accordion[open] .accordion__summary::after {
-  content: "−";
 }
 
 .accordion__summary {
