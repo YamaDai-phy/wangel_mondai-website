@@ -9,23 +9,29 @@
   </head>
   <body>
     <header><h1>書庫</h1></header>
-    <section class="search-section" style="margin:1rem;">
-      <input id="pdf-search" placeholder="ファイル名・タイトルで検索" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;" />
-      <div id="search-results" style="margin-top:0.5rem;"></div>
+    <section class="search-section">
+      <div class="search-label">
+        <svg width="1rem" height="1rem" xmlns="http://www.w3.org/2000/svg">
+          <image href="search-icon.svg" height="1rem" width="1rem" />
+        </svg>
+        <p>検索</p>
+      </div>
+      <input id="pdf-search" placeholder="山名・担当科目で検索" />
+      <div id="search-results"></div>
     </section>
     <section>
       <div class="dawnload-method">
         <p>ダウンロード方法</p>
         <div>
           <details class="method-ios">
-            <summary>iOSの場合（iOS26）</summary>
+            <summary>【iOSの場合（iOS26）】</summary>
             <p>
               <a style="width: fit-content; margin: 0">リンク</a
               >でpdfを開き右下のボタン（横三点）を押し共有を押し、「表示を増やす」を押し、「"ファイル"に保存」を押す。
             </p>
           </details>
           <details class="method-pc">
-            <summary>PC、Androidの場合</summary>
+            <summary>【PC、Androidの場合】</summary>
             <p>
               <a style="width: fit-content; margin: 0">リンク</a
               >を押すとダウンロードが始まります。

@@ -156,6 +156,8 @@
       const searchInput = document.getElementById('pdf-search');
       const resultsBox = document.getElementById('search-results');
       function renderResults(matches) {
+        if (!resultsBox) return;
+        resultsBox.style.display = 'block';
         resultsBox.innerHTML = '';
         if (!matches || matches.length === 0) {
           resultsBox.textContent = '一致するファイルはありません。';
@@ -206,7 +208,7 @@
       if (searchInput) {
         searchInput.addEventListener('input', (e) => {
           const q = (e.target.value || '').trim().toLowerCase();
-          if (!q) { resultsBox.innerHTML = ''; return; }
+          if (!q) { if (resultsBox) { resultsBox.innerHTML = ''; resultsBox.style.display = 'none'; } return; }
           const matches = allPapers.filter(p => {
             return (p.title && p.title.toLowerCase().includes(q)) || (p.filename && p.filename.toLowerCase().includes(q)) || (p.category && p.category.toLowerCase().includes(q));
           }).slice(0, 100);

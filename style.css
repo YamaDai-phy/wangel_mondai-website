@@ -37,39 +37,14 @@ header {
   background-color: var(--border);
 }
 .details-section,
-.dawnload-method{
+.dawnload-method {
   margin: 1rem;
 }
-
-/* ダウンロード注意点 */
-.dawnload-method details {
-  margin: 0.5em 0;
+/* ダウンロード方法 */
+.method-ios summary,
+.method-pc summary{
+  list-style: none;
 }
-.dawnload-method summary {
-  display: block;
-  background: #bbffb2; /* 見出しの背景色 */
-  font-weight: bold;
-  position: relative;
-  list-style: none; /* 矢印を消す */
-  cursor: pointer;
-  padding: 10px 38px 10px 10px;
-  border-radius: 10px;
-}
-.dawnload-method summary::-webkit-details-marker {
-  display: none;
-}
-.dawnload-method summary::after {
-  content: "+";
-  font-size: 1.4em; /* 記号のサイズ */
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.dawnload-method details[open] summary::after {
-  content: "−";
-}
-
 .method-ios p,
 .method-pc p {
   margin: 0.5rem 0;
@@ -189,12 +164,12 @@ a:focus-visible {
 .accordion-2[open] .accordion__summary-2::after {
   content: "−";
 }
-footer{
+footer {
   margin: 5rem 1rem 1rem;
 }
 /* release.html */
 .release-body tbody tr td:nth-child(2n),
-.release-body tbody tr td:nth-child(3){
+.release-body tbody tr td:nth-child(3) {
   text-align: left;
 }
 
@@ -218,7 +193,21 @@ footer{
 }
 
 /* search results */
+.search-section{
+  margin: 1rem;
+}
+.search-label{
+  display: flex;
+  align-items: center;
+}
+#pdf-search {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
 #search-results {
+  display: none;
   width: min(920px, 100%);
   margin: 0.5rem auto 1rem;
   background: var(--surface);
@@ -226,19 +215,32 @@ footer{
   border-radius: 8px;
   padding: 0.5rem;
 }
+/* hide until used */
 .search-item {
   padding: 0.5rem;
   cursor: pointer;
   border-bottom: 1px solid var(--border);
 }
-.search-item:hover { background: #fff3f3; }
+.search-item:hover {
+  background: #fff3f3;
+}
 
 @keyframes flashRed {
-  0% { background-color: transparent; }
-  25% { background-color: #ffb3b3; }
-  50% { background-color: transparent; }
-  75% { background-color: #ffb3b3; }
-  100% { background-color: transparent; }
+  0% {
+    background-color: transparent;
+  }
+  25% {
+    background-color: #ffb3b3;
+  }
+  50% {
+    background-color: transparent;
+  }
+  75% {
+    background-color: #ffb3b3;
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 .flash-red {
   animation: flashRed 1s ease-in-out 0s 3;
