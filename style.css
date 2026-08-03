@@ -165,7 +165,14 @@ a:focus-visible {
   content: "−";
 }
 footer {
-  margin: 5rem 1rem 1rem;
+  padding: 5rem 1rem 1rem;
+  text-align: center;
+}
+.footer-contents{
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
 }
 /* release.html */
 .release-body tbody tr td:nth-child(2n),
