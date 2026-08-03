@@ -28,105 +28,6 @@
       "ext": "pdf"
     },
     {
-      "filename": "kisho10-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho10-kotae.txt",
-      "title": "kisho10-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 195,
-      "mtime": "2026-08-03T11:56:53.876Z"
-    },
-    {
-      "filename": "kisho11-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho11-kotae.txt",
-      "title": "kisho11-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 129,
-      "mtime": "2026-08-03T11:57:38.772Z"
-    },
-    {
-      "filename": "kisho12-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho12-kotae.txt",
-      "title": "kisho12-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 347,
-      "mtime": "2026-08-03T11:57:52.066Z"
-    },
-    {
-      "filename": "kisho13-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho13-kotae.txt",
-      "title": "kisho13-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 101,
-      "mtime": "2026-08-03T12:00:19.332Z"
-    },
-    {
-      "filename": "kisho14-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho14-kotae.txt",
-      "title": "kisho14-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 915,
-      "mtime": "2026-08-03T12:02:11.988Z"
-    },
-    {
-      "filename": "kisho18-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho18-kotae.txt",
-      "title": "kisho18-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 399,
-      "mtime": "2026-08-03T12:07:03.632Z"
-    },
-    {
-      "filename": "kisho5-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho5-kotae.txt",
-      "title": "kisho5-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 239,
-      "mtime": "2026-08-03T11:54:17.549Z"
-    },
-    {
-      "filename": "kisho6-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho6-kotae.txt",
-      "title": "kisho6-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 620,
-      "mtime": "2026-08-03T11:56:22.387Z"
-    },
-    {
-      "filename": "kisho7-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho7-kotae.txt",
-      "title": "kisho7-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 102,
-      "mtime": "2026-08-03T11:56:18.249Z"
-    },
-    {
-      "filename": "kisho8-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho8-kotae.txt",
-      "title": "kisho8-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 54,
-      "mtime": "2026-08-03T11:56:13.457Z"
-    },
-    {
-      "filename": "kisho9-kotae.txt",
-      "path": "pdf/kadai/kishou/kisho9-kotae.txt",
-      "title": "kisho9-kotae",
-      "ext": "txt",
-      "category": "気象",
-      "size": 215,
-      "mtime": "2026-08-03T11:56:07.152Z"
-    },
-    {
       "filename": "kishou1.pdf",
       "path": "pdf/kadai/kishou/kishou1.pdf",
       "title": "気象１",
@@ -134,6 +35,15 @@
       "size": 655518,
       "mtime": "2026-08-02T10:21:41.866Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "kishou10-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou10-kotae.txt",
+      "title": "気象10（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 195,
+      "mtime": "2026-08-03T11:56:53.876Z"
     },
     {
       "filename": "kishou10.pdf",
@@ -145,6 +55,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou11-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou11-kotae.txt",
+      "title": "気象11（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 129,
+      "mtime": "2026-08-03T11:57:38.772Z"
+    },
+    {
       "filename": "kishou11.pdf",
       "path": "pdf/kadai/kishou/kishou11.pdf",
       "title": "気象11",
@@ -152,6 +71,15 @@
       "size": 214668,
       "mtime": "2026-08-02T15:21:04.740Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "kishou12-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou12-kotae.txt",
+      "title": "気象12（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 347,
+      "mtime": "2026-08-03T11:57:52.066Z"
     },
     {
       "filename": "kishou12.pdf",
@@ -163,6 +91,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou13-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou13-kotae.txt",
+      "title": "気象13（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 101,
+      "mtime": "2026-08-03T12:00:19.332Z"
+    },
+    {
       "filename": "kishou13.pdf",
       "path": "pdf/kadai/kishou/kishou13.pdf",
       "title": "気象13",
@@ -170,6 +107,15 @@
       "size": 236858,
       "mtime": "2026-08-02T15:22:01.276Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "kishou14-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou14-kotae.txt",
+      "title": "気象14（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 915,
+      "mtime": "2026-08-03T12:02:11.988Z"
     },
     {
       "filename": "kishou14.pdf",
@@ -208,6 +154,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou18-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou18-kotae.txt",
+      "title": "気象18（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 399,
+      "mtime": "2026-08-03T12:07:03.632Z"
+    },
+    {
       "filename": "kishou18.pdf",
       "path": "pdf/kadai/kishou/kishou18.pdf",
       "title": "気象18",
@@ -244,6 +199,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou5-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou5-kotae.txt",
+      "title": "気象５（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 239,
+      "mtime": "2026-08-03T11:54:17.549Z"
+    },
+    {
       "filename": "kishou5.pdf",
       "path": "pdf/kadai/kishou/kishou5.pdf",
       "title": "気象５",
@@ -251,6 +215,15 @@
       "size": 267771,
       "mtime": "2026-08-02T15:18:33.189Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "kishou6-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou6-kotae.txt",
+      "title": "気象６（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 620,
+      "mtime": "2026-08-03T11:56:22.387Z"
     },
     {
       "filename": "kishou6.pdf",
@@ -262,6 +235,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou7-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou7-kotae.txt",
+      "title": "気象７（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 102,
+      "mtime": "2026-08-03T11:56:18.249Z"
+    },
+    {
       "filename": "kishou7.pdf",
       "path": "pdf/kadai/kishou/kishou7.pdf",
       "title": "気象７",
@@ -271,6 +253,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou8-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou8-kotae.txt",
+      "title": "気象８（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 54,
+      "mtime": "2026-08-03T11:56:13.457Z"
+    },
+    {
       "filename": "kishou8.pdf",
       "path": "pdf/kadai/kishou/kishou8.pdf",
       "title": "気象８",
@@ -278,6 +269,15 @@
       "size": 185284,
       "mtime": "2026-08-02T15:19:42.186Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "kishou9-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou9-kotae.txt",
+      "title": "気象９（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 215,
+      "mtime": "2026-08-03T11:56:07.152Z"
     },
     {
       "filename": "kishou9.pdf",
