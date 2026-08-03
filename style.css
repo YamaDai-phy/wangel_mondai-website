@@ -35,6 +35,13 @@ a {
 /* pdf.index */
 header {
   background-color: var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  h1{
+    font-size: 2rem;
+  }
 }
 .details-section,
 .dawnload-method {
