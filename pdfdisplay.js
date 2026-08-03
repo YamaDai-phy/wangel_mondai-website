@@ -106,6 +106,8 @@
         const tbody = document.createElement("tbody");
         for (const p of items) {
           const tr = document.createElement("tr");
+          tr.dataset.path = p.path || p.filename || p.title || "";
+          tr.dataset.category = p.category || "";
           const tdTitle = document.createElement("td");
           let t = p.title.replace(/\.(pdf)$/i, "");
           if (p.mtime);
@@ -148,6 +150,69 @@
         other = div;
       }
       renderTable("other-list", buckets["other-list"]);
+
+      // build search index
+      const allPapers = papers.slice();
+      const searchInput = document.getElementById('pdf-search');
+      const resultsBox = document.getElementById('search-results');
+      function renderResults(matches) {
+        resultsBox.innerHTML = '';
+        if (!matches || matches.length === 0) {
+          resultsBox.textContent = '一致するファイルはありません。';
+          return;
+        }
+        for (const p of matches) {
+          const div = document.createElement('div');
+          div.className = 'search-item';
+          div.textContent = `${p.title.replace(/\.pdf$/i,'')} — ${p.category || ''}`;
+          div.addEventListener('click', () => {
+            // open ancestor details of the target list
+            const mapping = {
+              "注意自然観察": "shizekan-list",
+              "問題自然観察": "shizekan-list",
+              "自然観察": "shizekan-list",
+              気象: "kisho-list",
+              救急: "kyukyu-list",
+              共通: "kyotsu-list",
+              インターハイ: "inhai-list",
+              県総体: "kensotai-list",
+            };
+            const listId = mapping[p.category] || (p.path && p.path.indexOf('pdf/kadai/shizekan/') !== -1 ? 'shizekan-list' : 'other-list');
+            const listDiv = document.getElementById(listId);
+            if (listDiv) {
+              // open all ancestor details
+              let el = listDiv;
+              while (el) {
+                if (el.tagName && el.tagName.toLowerCase() === 'details') el.open = true;
+                el = el.parentElement;
+              }
+              // find the row
+              const selector = `tbody tr[data-path="${p.path}"]`;
+              const row = listDiv.querySelector(selector) || listDiv.querySelector(`tbody tr[data-path="${p.filename}"]`);
+              if (row) {
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                row.classList.remove('flash-red');
+                // trigger reflow to restart animation
+                void row.offsetWidth;
+                row.classList.add('flash-red');
+                setTimeout(() => row.classList.remove('flash-red'), 3500);
+              }
+            }
+          });
+          resultsBox.appendChild(div);
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const q = (e.target.value || '').trim().toLowerCase();
+          if (!q) { resultsBox.innerHTML = ''; return; }
+          const matches = allPapers.filter(p => {
+            return (p.title && p.title.toLowerCase().includes(q)) || (p.filename && p.filename.toLowerCase().includes(q)) || (p.category && p.category.toLowerCase().includes(q));
+          }).slice(0, 100);
+          renderResults(matches);
+        });
+      }
     })
     .catch((err) => {
       [

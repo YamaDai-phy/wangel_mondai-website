@@ -216,3 +216,30 @@ footer{
     margin: 0 1rem 0 0;
   }
 }
+
+/* search results */
+#search-results {
+  width: min(920px, 100%);
+  margin: 0.5rem auto 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+.search-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+.search-item:hover { background: #fff3f3; }
+
+@keyframes flashRed {
+  0% { background-color: transparent; }
+  25% { background-color: #ffb3b3; }
+  50% { background-color: transparent; }
+  75% { background-color: #ffb3b3; }
+  100% { background-color: transparent; }
+}
+.flash-red {
+  animation: flashRed 1s ease-in-out 0s 3;
+}
