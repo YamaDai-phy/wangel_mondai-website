@@ -205,6 +205,7 @@ footer {
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 16px;
 }
 #search-results {
   display: none;
