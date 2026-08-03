@@ -43,10 +43,10 @@ footer {
 }
 
 /* ダウンロード注意点 */
-.dawnload-method details{
+.dawnload-method details {
   margin: 0.5em 0;
 }
-.dawnload-method summary{
+.dawnload-method summary {
   display: block;
   background: #bbffb2; /* 見出しの背景色 */
   font-weight: bold;
@@ -72,7 +72,7 @@ footer {
 }
 
 .method-ios p,
-.method-pc p{
+.method-pc p {
   margin: 0.5rem 0;
   font-weight: 500;
 }
@@ -120,6 +120,15 @@ a {
 a:hover {
   background-color: var(--link);
   color: #ffffff;
+}
+a.download-link.is-checked {
+  background-color: #1f7a3d;
+  border-color: #1f7a3d;
+  color: #ffffff;
+}
+a.download-link.is-checked:hover {
+  background-color: #166030;
+  border-color: #166030;
 }
 a:focus-visible {
   outline: 3px solid var(--focus);
@@ -180,6 +189,11 @@ a:focus-visible {
 }
 .accordion-2[open] .accordion__summary-2::after {
   content: "−";
+}
+/* release.html */
+.release-note,
+.release-list {
+  font-weight: 500;
 }
 
 @media (max-width: 640px) {

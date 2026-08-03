@@ -1,4 +1,38 @@
       (function () {
+        const checkedKey = "download-link-checked";
+        function loadChecked() {
+          try {
+            return new Set(JSON.parse(localStorage.getItem(checkedKey) || "[]"));
+          } catch {
+            return new Set();
+          }
+        }
+
+        function saveChecked(checked) {
+          try {
+            localStorage.setItem(checkedKey, JSON.stringify([...checked]));
+          } catch {
+            // localStorage が使えない環境では無視する
+          }
+        }
+
+        const checkedLinks = loadChecked();
+
+        function setCheckedLink(a, p) {
+          const key = p.path || p.filename || p.title;
+          if (checkedLinks.has(key)) {
+            a.classList.add("is-checked");
+            a.textContent = "リンク ✓";
+          }
+          a.addEventListener("click", () => {
+            if (checkedLinks.has(key)) return;
+            checkedLinks.add(key);
+            saveChecked(checkedLinks);
+            a.classList.add("is-checked");
+            a.textContent = "リンク ✓";
+          });
+        }
+
         function mkLink(p) {
           const a = document.createElement("a");
           a.href = p.path;
@@ -59,6 +93,8 @@
                 const tdLink = document.createElement("td");
                 const a = mkLink(p);
                 a.textContent = "リンク";
+                a.classList.add("download-link");
+                setCheckedLink(a, p);
                 tdLink.appendChild(a);
                 tr.appendChild(tdTitle);
                 tr.appendChild(tdLink);
