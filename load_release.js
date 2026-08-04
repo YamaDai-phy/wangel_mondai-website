@@ -72,7 +72,7 @@
           .then(pdfData => {
             const papers = Array.isArray(pdfData.papers) ? pdfData.papers : [];
             if (publicFileCount){
-              publicFileCount.innerHTML = `公開中ファイル数：${papers.length}件 → <a href="#filename-list" style="width:fit-content">こちら</a>`;
+              publicFileCount.innerHTML = `公開中ファイル数：${papers.length}件 詳しくは <a href="#filename-list" style="width:fit-content">こちら</a>`;
             }
             const labels = papers
               .map(p => {
