@@ -18,26 +18,23 @@
     <section class="upload-section">
       <div class="upload-hero">
         <p class="upload-kicker">管理用</p>
-        <h2>PDF を追加する</h2>
+        <h2>PDF を送信する</h2>
         <p>
-          担当科目を選んで PDF を選ぶと、<span>pdf/kadai/科目/ファイル名</span> に保存し、
-          <span>pdf/data.json</span> にタイトルと投稿者名を追記します。
+          担当科目を選んで PDF を選ぶと、<span>filename</span> と <span>title</span> を分けて
+          送信先 API に送ります。共通と自然観察は自由に直せて、気象と救急は自動で番号が入ります。
         </p>
       </div>
 
       <div class="upload-grid">
-        <form id="upload-form" class="upload-card">
+        <form id="upload-form" class="upload-card" method="post" enctype="multipart/form-data" target="upload-result-frame">
           <label>
-            保存先ルート
-            <div class="upload-row">
-              <button type="button" id="pick-root-button">保存先フォルダを選ぶ</button>
-              <span id="root-label">未選択</span>
-            </div>
+            送信先 API URL
+            <input id="endpoint-input" type="url" placeholder="https://example.com/upload" />
           </label>
 
           <label>
             担当科目
-            <select id="subject-select" required>
+            <select id="subject-select" name="subject" required>
               <option value="" selected>選択してください</option>
               <option value="共通">共通</option>
               <option value="自然観察">自然観察</option>
@@ -50,27 +47,29 @@
 
           <label>
             アップロードする PDF
-            <input id="pdf-file" type="file" accept="application/pdf,.pdf" />
+            <input id="pdf-file" name="file" type="file" accept="application/pdf,.pdf" />
           </label>
 
           <label>
-            保存ファイル名
-            <input id="filename-input" type="text" placeholder="選択した PDF の名前" />
+            filename
+            <input id="filename-input" name="filename" type="text" placeholder="山名や任意のファイル名" required />
           </label>
 
           <label>
-            タイトル
-            <input id="title-input" type="text" placeholder="data.json を見て自動補完します" />
+            title
+            <input id="title-input" name="title" type="text" placeholder="科目に応じて自動補完します" />
           </label>
 
           <label>
             アップロード者名
-            <input id="uploader-input" type="text" placeholder="例: 山本(80)" />
+            <input id="uploader-input" name="uploader" type="text" placeholder="例: 山本(80)" />
           </label>
 
           <div class="upload-actions">
-            <button type="submit" id="upload-button">保存して data.json を更新</button>
+            <button type="submit" id="upload-button">送信する</button>
           </div>
+
+          <input type="hidden" id="path-hidden" name="path" />
         </form>
 
         <aside class="upload-card upload-preview-card">
@@ -90,7 +89,7 @@
             </div>
           </dl>
           <div class="upload-note" id="upload-note">
-            先に保存先ルートを選んでください。ブラウザの書き込み権限が必要です。
+            送信先 API URL を入力してください。送信後に受信内容を見て手動で追加します。
           </div>
           <h3>この科目の既存タイトル</h3>
           <div id="category-titles" class="upload-tags">未選択</div>
@@ -98,6 +97,7 @@
       </div>
 
       <div id="upload-status" class="upload-status" aria-live="polite"></div>
+      <iframe id="upload-result-frame" name="upload-result-frame" hidden></iframe>
     </section>
 
     <footer>
