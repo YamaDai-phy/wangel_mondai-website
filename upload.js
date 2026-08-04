@@ -2,7 +2,7 @@
   // ----------------------------------------------------
   // 送信先 Worker API URL をここに設定します
   // ----------------------------------------------------
-  const DEFAULT_ENDPOINT = "https://pdf-upload-api.xxxx.workers.dev"; // ←ご自身の Worker URL に変更してください
+  const DEFAULT_ENDPOINT = "https://pdf-upload-api.yamadai.workers.dev/"; // ←ご自身の Worker URL に変更してください
 
   const subjectToSlug = {
     共通: "kyotsu",
