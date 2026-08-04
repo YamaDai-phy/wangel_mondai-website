@@ -14,6 +14,9 @@
   margin: 0;
   padding: 0;
 }
+html {
+  interpolate-size: allow-keywords;
+}
 body {
   font-family:
     "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
@@ -39,7 +42,7 @@ header {
   align-items: center;
   gap: 0.5rem;
 
-  h1{
+  h1 {
     font-size: 2rem;
   }
 }
@@ -49,7 +52,7 @@ header {
 }
 /* ダウンロード方法 */
 .method-ios summary,
-.method-pc summary{
+.method-pc summary {
   list-style: none;
 }
 .method-ios p,
@@ -86,7 +89,8 @@ tbody tr td:nth-child(2n),
 tbody tr td:nth-child(3) {
   text-align: center;
 }
-a {
+.details-section a,
+.dawnload-method a {
   display: inline-block;
   padding: 8px 12px;
   border: 1px solid var(--link);
@@ -118,7 +122,24 @@ a:focus-visible {
 .accordion {
   margin: 0.5em 0;
 }
+/* details のコンテンツ領域に対してアニメーション */
+.accordion::details-content,
+.accordion-2::details-content {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition:
+    height 0.35s ease,
+    opacity 0.35s ease,
+    content-visibility 0.35s allow-discrete;
+}
 
+/* 開いた状態のスタイル */
+.accordion[open]::details-content,
+.accordion-2[open]::details-content {
+  opacity: 1;
+  height: auto;
+}
 .accordion__summary {
   display: block;
   background: #b2e5ff; /* 見出しの背景色 */
@@ -175,7 +196,7 @@ footer {
   padding: 5rem 1rem 1rem;
   text-align: center;
 }
-.footer-contents{
+.footer-contents {
   display: flex;
   gap: 3rem;
   align-items: center;
@@ -204,16 +225,16 @@ footer {
     font-size: 10px;
     margin: 0 1rem 0 0;
   }
-  .footer-contents{
+  .footer-contents {
     gap: 1rem;
   }
 }
 
 /* search results */
-.search-section{
+.search-section {
   margin: 1rem;
 }
-.search-label{
+.search-label {
   display: flex;
   align-items: center;
 }
