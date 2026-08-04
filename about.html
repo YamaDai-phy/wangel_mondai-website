@@ -18,9 +18,9 @@
     <section class="details-section">
       <p class="release-note">現在の公開状況と、更新状況</p>
 
-      <details class="accordion" open>
+      <details class="accordion">
         <summary class="accordion__summary">公開中ファイル</summary>
-        <div class="release-body" style="margin-left: 1rem;">
+        <div class="release-body" style="margin-left: 1rem">
           <p id="public-file-count">読み込み中…</p>
           <p>公開中ページ　　：index.html、pdf.html、about.html</p>
         </div>
@@ -62,7 +62,22 @@
           </table>
         </div>
       </details>
-
+      <details class="accordion">
+        <summary class="accordion__summary">問題掲載のついて</summary>
+        <div class="release-body" style="margin-left: 0.5rem">
+          <div id="upload">
+            <p>
+              問題の掲載を受け付けています。（答えはただいま受け付けておりません。）
+              <br />ファイルがアップロードされてから確認後１～２日程度で掲載します。
+              <br />掲載を希望される方は<a
+                href="fileupload.html"
+                style="width: fit-content"
+                >こちら</a
+              >まで。
+            </p>
+          </div>
+        </div>
+      </details>
       <details class="accordion">
         <summary class="accordion__summary">制作者</summary>
         <div class="release-body">
@@ -111,7 +126,10 @@
     </section>
 
     <footer>
-      <p><a href="pdf.html">書庫へ戻る</a></p>
+      <p>
+        <a href="pdf.html">書庫へ戻る</a>
+        <a href="fileupload.html">問題アップロード</a>
+      </p>
       <p>更新日：2026/08/03</p>
       <p>&copy;https://wangel-mondai.pages.dev</p>
     </footer>

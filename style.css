@@ -388,11 +388,13 @@ footer {
   a {
     width: 100%;
     text-align: center;
-    font-size: 10px;
-    margin: 0 1rem 0 0;
   }
   .footer-contents {
-    gap: 1rem;
+    gap: 0.3rem;
+    
+    a{
+      font-size: 0.7rem;
+    }
   }
 }
 

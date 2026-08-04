@@ -3,35 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ファイルアップロード</title>
+    <title>ワンゲル図書館</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
   </head>
   <body>
     <header>
       <svg width="2rem" height="2rem" xmlns="http://www.w3.org/2000/svg">
-        <image href="file.svg" height="2rem" width="2rem" />
+        <image href="upload.svg" height="2rem" width="2rem" />
       </svg>
-      <h1>資料室</h1>
+      <h1>受付</h1>
     </header>
 
     <section class="upload-section">
       <div class="upload-hero">
-        <p class="upload-kicker">管理用</p>
-        <h2>PDF を送信する</h2>
+        <h2>問題を送信する</h2>
         <p>
-          担当科目を選んで PDF を選ぶと、<span>filename</span> と <span>title</span> を分けて
-          送信先 API に送ります。共通と自然観察は自由に直せて、気象と救急は自動で番号が入ります。
+          担当科目を選んで
+          PDF,テキストファイルをアップロードして、確認事例をお書きの上送信出来ます。
+          <br />サイトの掲載は１～２日確認を経て行われます。
         </p>
       </div>
 
       <div class="upload-grid">
-        <form id="upload-form" class="upload-card" method="post" enctype="multipart/form-data" target="upload-result-frame">
-          <label>
-            送信先 API URL
-            <input id="endpoint-input" type="url" placeholder="https://example.com/upload" />
-          </label>
-
+        <form
+          id="upload-form"
+          class="upload-card"
+          method="post"
+          enctype="multipart/form-data"
+          target="upload-result-frame"
+        >
           <label>
             担当科目
             <select id="subject-select" name="subject" required>
@@ -40,31 +41,62 @@
               <option value="自然観察">自然観察</option>
               <option value="気象">気象</option>
               <option value="救急">救急</option>
-              <option value="インターハイ">インターハイ</option>
-              <option value="県総体">県総体</option>
             </select>
           </label>
 
           <label>
             アップロードする PDF
-            <input id="pdf-file" name="file" type="file" accept="application/pdf,.pdf" />
+            <input
+              id="pdf-file"
+              name="file"
+              type="file"
+              accept="application/pdf,.pdf"
+            />
+          </label>
+          <label id="mountain-label" style="display: none">
+            山の名前（日本語）
+            <input id="mountain-input" type="text" placeholder="例: 富士山" />
           </label>
 
-          <label>
-            filename
-            <input id="filename-input" name="filename" type="text" placeholder="山名や任意のファイル名" required />
+          <label id="mountain-en-label" style="display: none">
+            山の名前（英語 / ローマ字）
+            <input id="mountain-en-input" type="text" placeholder="例: fuji" />
           </label>
-
-          <label>
-            title
-            <input id="title-input" name="title" type="text" placeholder="科目に応じて自動補完します" />
-          </label>
-
           <label>
             アップロード者名
-            <input id="uploader-input" name="uploader" type="text" placeholder="例: 山本(80)" />
+            <input
+              id="uploader-input"
+              name="uploader"
+              type="text"
+              placeholder="例: 山本(80)"
+            />
           </label>
 
+          <label>
+            filename ※共通、自然観察のみ変更できます。
+            <input
+              id="filename-input"
+              name="filename"
+              type="text"
+              placeholder="山名や任意のファイル名"
+              required
+            >
+          </label>
+
+          <label>
+            title ※共通、自然観察のみ変更できます。
+            <input
+              id="title-input"
+              name="title"
+              type="text"
+              placeholder="科目に応じて自動補完します"
+            >
+          </label>
+          <div
+            id="upload-status"
+            class="upload-status"
+            aria-live="polite"
+          ></div>
           <div class="upload-actions">
             <button type="submit" id="upload-button">送信する</button>
           </div>
@@ -88,16 +120,17 @@
               <dd id="uploader-preview">未設定</dd>
             </div>
           </dl>
-          <div class="upload-note" id="upload-note">
-            送信先 API URL を入力してください。送信後に受信内容を見て手動で追加します。
-          </div>
+          <div class="upload-note" id="upload-note"></div>
           <h3>この科目の既存タイトル</h3>
           <div id="category-titles" class="upload-tags">未選択</div>
         </aside>
       </div>
 
-      <div id="upload-status" class="upload-status" aria-live="polite"></div>
-      <iframe id="upload-result-frame" name="upload-result-frame" hidden></iframe>
+      <iframe
+        id="upload-result-frame"
+        name="upload-result-frame"
+        hidden
+      ></iframe>
     </section>
 
     <footer>
