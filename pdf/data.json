@@ -127,6 +127,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou15-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou15-kotae.txt",
+      "title": "気象15（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 204,
+      "mtime": "2026-08-04T06:09:46.053Z"
+    },
+    {
       "filename": "kishou15.pdf",
       "path": "pdf/kadai/kishou/kishou15.pdf",
       "title": "気象15",
@@ -136,6 +145,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou16-kotae.txt",
+      "path": "pdf/kadai/kishou/kishou16-kotae.txt",
+      "title": "気象16（答え）",
+      "ext": "txt",
+      "category": "気象",
+      "size": 340,
+      "mtime": "2026-08-04T05:18:31.897Z"
+    },
+    {
       "filename": "kishou16.pdf",
       "path": "pdf/kadai/kishou/kishou16.pdf",
       "title": "気象16",
@@ -143,6 +161,15 @@
       "size": 374988,
       "mtime": "2026-08-02T15:22:59.836Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "kishou17-kotae.pdf",
+      "path": "pdf/kadai/kishou/kishou17-kotae.pdf",
+      "title": "気象17（答え）",
+      "ext": "pdf",
+      "category": "気象",
+      "size": 5020596,
+      "mtime": "2026-08-04T05:21:33.220Z"
     },
     {
       "filename": "kishou17.pdf",
@@ -343,13 +370,13 @@
       "ext": "pdf"
     },
     {
-      "filename": "kyukyu1pdf.pdf",
-      "path": "pdf/kadai/kyukyu/kyukyu1pdf.pdf",
+      "filename": "kyukyu1.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu1.pdf",
       "title": "救急１",
+      "ext": "pdf",
       "category": "救急",
       "size": 471617,
-      "mtime": "2026-08-02T08:14:37.031Z",
-      "ext": "pdf"
+      "mtime": "2026-08-02T08:14:37.031Z"
     },
     {
       "filename": "kyukyu2.pdf",

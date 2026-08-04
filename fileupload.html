@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ファイルアップロード</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header>
+      <svg width="2rem" height="2rem" xmlns="http://www.w3.org/2000/svg">
+        <image href="file.svg" height="2rem" width="2rem" />
+      </svg>
+      <h1>資料室</h1>
+    </header>
+
+    <section class="upload-section">
+      <div class="upload-hero">
+        <p class="upload-kicker">管理用</p>
+        <h2>PDF を追加する</h2>
+        <p>
+          担当科目を選んで PDF を選ぶと、<span>pdf/kadai/科目/ファイル名</span> に保存し、
+          <span>pdf/data.json</span> にタイトルと投稿者名を追記します。
+        </p>
+      </div>
+
+      <div class="upload-grid">
+        <form id="upload-form" class="upload-card">
+          <label>
+            保存先ルート
+            <div class="upload-row">
+              <button type="button" id="pick-root-button">保存先フォルダを選ぶ</button>
+              <span id="root-label">未選択</span>
+            </div>
+          </label>
+
+          <label>
+            担当科目
+            <select id="subject-select" required>
+              <option value="" selected>選択してください</option>
+              <option value="共通">共通</option>
+              <option value="自然観察">自然観察</option>
+              <option value="気象">気象</option>
+              <option value="救急">救急</option>
+              <option value="インターハイ">インターハイ</option>
+              <option value="県総体">県総体</option>
+            </select>
+          </label>
+
+          <label>
+            アップロードする PDF
+            <input id="pdf-file" type="file" accept="application/pdf,.pdf" />
+          </label>
+
+          <label>
+            保存ファイル名
+            <input id="filename-input" type="text" placeholder="選択した PDF の名前" />
+          </label>
+
+          <label>
+            タイトル
+            <input id="title-input" type="text" placeholder="data.json を見て自動補完します" />
+          </label>
+
+          <label>
+            アップロード者名
+            <input id="uploader-input" type="text" placeholder="例: 山本(80)" />
+          </label>
+
+          <div class="upload-actions">
+            <button type="submit" id="upload-button">保存して data.json を更新</button>
+          </div>
+        </form>
+
+        <aside class="upload-card upload-preview-card">
+          <h3>保存プレビュー</h3>
+          <dl class="upload-preview-list">
+            <div>
+              <dt>保存先</dt>
+              <dd id="target-path">未設定</dd>
+            </div>
+            <div>
+              <dt>タイトル候補</dt>
+              <dd id="title-preview">未設定</dd>
+            </div>
+            <div>
+              <dt>投稿者名</dt>
+              <dd id="uploader-preview">未設定</dd>
+            </div>
+          </dl>
+          <div class="upload-note" id="upload-note">
+            先に保存先ルートを選んでください。ブラウザの書き込み権限が必要です。
+          </div>
+          <h3>この科目の既存タイトル</h3>
+          <div id="category-titles" class="upload-tags">未選択</div>
+        </aside>
+      </div>
+
+      <div id="upload-status" class="upload-status" aria-live="polite"></div>
+    </section>
+
+    <footer>
+      <p><a href="pdf.html">書庫へ戻る</a></p>
+      <p>更新日：2026/08/03</p>
+      <p>&copy;https://wangel-mondai.pages.dev</p>
+    </footer>
+    <script src="upload.js"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "e681d5f56e1f4a8d996e6e1269b8e596"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

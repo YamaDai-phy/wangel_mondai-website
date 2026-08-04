@@ -111,7 +111,7 @@
           const tdTitle = document.createElement("td");
           let t = p.title.replace(/\.(pdf)$/i, "");
           if (p.mtime);
-          tdTitle.textContent = t;
+          tdTitle.textContent = p.uploader ? `${t}（${p.uploader}）` : t;
           const tdLink = document.createElement("td");
           const a = mkLink(p);
           a.textContent = "リンク";
@@ -166,7 +166,8 @@
         for (const p of matches) {
           const div = document.createElement('div');
           div.className = 'search-item';
-          div.textContent = `${p.title.replace(/\.pdf$/i,'')} — ${p.category || ''}`;
+          const uploader = p.uploader ? ` — ${p.uploader}` : '';
+          div.textContent = `${p.title.replace(/\.pdf$/i,'')} — ${p.category || ''}${uploader}`;
           div.addEventListener('click', () => {
             // open ancestor details of the target list
             const mapping = {
