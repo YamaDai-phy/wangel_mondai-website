@@ -11,6 +11,7 @@
     救急: "kyukyu",
     インターハイ: "inhai",
     県総体: "kensotai",
+    中国大会: "chutai",
   };
 
   const subjectToTitlePrefix = {
@@ -20,6 +21,7 @@
     救急: "救急",
     インターハイ: "インターハイ",
     県総体: "県総体",
+    中国大会: "中国大会",
   };
 
   const form = document.getElementById("upload-form");
@@ -343,7 +345,7 @@
   }
 
   function subjectUsesMountainInput(subject) {
-    return subject === "共通" || subject === "自然観察";
+    return subject === "共通" || subject === "自然観察" || subject === "中国大会";
   }
 
   function subjectUsesAutoTitle(subject) {
@@ -386,6 +388,14 @@
       return buildGeneratedName(subject).filename;
     }
 
+    if (subject === "中国大会") {
+      if (!baseName) return "";
+      if (/^shizekan-/i.test(baseName)) {
+        return `${baseName}.pdf`;
+      }
+      return `chutai2026-${baseName}.pdf`;
+    }
+
     return (
       normalizeText(filenameInput.value) ||
       normalizeText(
@@ -411,6 +421,13 @@
         subject,
         buildAutoFilename(subject) ||
           `shizekan-${stripPdfExtension(normalizeText(fileName))}.pdf`,
+      );
+    }
+    if (subject === "中国大会") {
+      return makeUniqueFilename(
+        subject,
+        buildAutoFilename(subject) ||
+          `chutai2026-${stripPdfExtension(normalizeText(fileName))}.pdf`,
       );
     }
     if (subjectUsesAutoTitle(subject)) {
