@@ -19,8 +19,8 @@
       <div class="upload-hero">
         <h2>問題を送信する</h2>
         <p>
-          担当科目を選んで
-          PDF,テキストファイルをアップロードして、確認事例をお書きの上送信出来ます。
+          担当科目を選んで PDF,
+          テキストファイルをアップロードして、確認事例をお書きの上送信出来ます。
           <br />サイトの掲載は１～２日確認を経て行われます。
         </p>
       </div>
@@ -33,66 +33,133 @@
           enctype="multipart/form-data"
           target="upload-result-frame"
         >
-          <label>
-            担当科目
+          <!-- 問題か答えか -->
+          <label class="field-group">
+            <span class="label-header">
+              種別
+              <span class="badge badge-required">必須</span>
+            </span>
+            <select id="type-select" name="doc_type" required>
+              <option value="" selected>選択してください</option>
+              <option value="question">問題</option>
+              <option value="answer">答え</option>
+            </select>
+          </label>
+          <!-- 担当科目 -->
+          <label class="field-group">
+            <span class="label-header">
+              担当科目
+              <span class="badge badge-required">必須</span>
+            </span>
             <select id="subject-select" name="subject" required>
               <option value="" selected>選択してください</option>
               <option value="共通">共通</option>
-              <option value="中国大会（共通）">中国大会</option>
+              <option value="中国大会">中国大会（共通）</option>
               <option value="自然観察">自然観察</option>
               <option value="気象">気象</option>
               <option value="救急">救急</option>
             </select>
           </label>
 
-          <label>
-            アップロードする PDF
+          <!-- アップロード PDF -->
+          <label class="field-group">
+            <span class="label-header">
+              アップロードする PDF
+              <span class="badge badge-required">必須</span>
+            </span>
             <input
               id="pdf-file"
               name="file"
               type="file"
               accept="application/pdf,.pdf"
+              required
             />
           </label>
-          <label id="mountain-label" style="display: none">
-            山の名前（日本語）
+
+          <!-- 山の名前（日本語） -->
+          <label id="mountain-label" class="field-group" style="display: none">
+            <span class="label-header">
+              山の名前（日本語）
+              <span class="badge badge-required">必須</span>
+            </span>
             <input id="mountain-input" type="text" placeholder="例: 富士山" />
           </label>
 
-          <label id="mountain-en-label" style="display: none">
-            山の名前（英語 / ローマ字）
+          <!-- 山の名前（英語） -->
+          <label
+            id="mountain-en-label"
+            class="field-group"
+            style="display: none"
+          >
+            <span class="label-header">
+              山の名前（英語 / ローマ字）
+              <span class="badge badge-required">必須</span>
+            </span>
             <input id="mountain-en-input" type="text" placeholder="例: fuji" />
           </label>
-          <label>
-            アップロード者名　名前(80回生→80)
+
+          <!-- アップロード者名 -->
+          <label class="field-group">
+            <span class="label-header">
+              アップロード者名
+              <span class="badge badge-required">必須</span>
+            </span>
+            <span class="field-help">名前 (80回生→80)</span>
             <input
               id="uploader-input"
               name="uploader"
               type="text"
               placeholder="例: 山本(80)"
+              required
             />
           </label>
 
-          <label>
-            filename ※共通、自然観察のみ変更できます。
-            <input
-              id="filename-input"
-              name="filename"
-              type="text"
-              placeholder="山名や任意のファイル名"
-              required
-            >
+          <hr class="form-divider" />
+
+          <!-- filename -->
+          <label class="field-group" id="filename-group">
+            <span class="label-header">
+              ファイル名 (filename)
+              <span class="badge badge-dynamic" id="filename-badge"
+                >自動生成</span
+              >
+            </span>
+            <span class="field-help" id="filename-help">
+              ※共通・自然観察・中国大会のみ手動変更可能
+            </span>
+            <div class="input-with-icon">
+              <input
+                id="filename-input"
+                name="filename"
+                type="text"
+                placeholder="山名や任意のファイル名"
+                required
+              />
+              <span class="input-icon" id="filename-icon">🔒</span>
+            </div>
           </label>
 
-          <label>
-            title ※共通、自然観察のみ変更できます。
-            <input
-              id="title-input"
-              name="title"
-              type="text"
-              placeholder="科目に応じて自動補完します"
-            >
+          <!-- title -->
+          <label class="field-group" id="title-group">
+            <span class="label-header">
+              タイトル (title)
+              <span class="badge badge-dynamic" id="title-badge">自動生成</span>
+            </span>
+            <span class="field-help" id="title-help">
+              ※共通・自然観察・中国大会のみ手動変更可能
+            </span>
+            <div class="input-with-icon">
+              <input
+                id="title-input"
+                name="title"
+                type="text"
+                placeholder="科目に応じて自動補完します"
+                required
+              />
+              <span class="input-icon" id="title-icon">🔒</span>
+            </div>
           </label>
+
           <div
             id="upload-status"
             class="upload-status"
@@ -143,12 +210,5 @@
       <p>&copy;https://wangel-mondai.pages.dev</p>
     </footer>
     <script src="upload.js"></script>
-    <!-- Cloudflare Web Analytics -->
-    <script
-      type="module"
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "e681d5f56e1f4a8d996e6e1269b8e596"}'
-    ></script>
-    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

@@ -2,7 +2,7 @@
   // ----------------------------------------------------
   // 送信先 Worker API URL をここに設定します
   // ----------------------------------------------------
-  const DEFAULT_ENDPOINT = "https://pdf-upload-api.yamadai.workers.dev/"; // ←ご自身の Worker URL に変更してください
+  const DEFAULT_ENDPOINT = "https://pdf-upload-api.yamadai.workers.dev/";
 
   const subjectToSlug = {
     共通: "kyotsu",
@@ -26,6 +26,7 @@
 
   const form = document.getElementById("upload-form");
   const endpointInput = document.getElementById("endpoint-input");
+  const typeSelect = document.getElementById("type-select");
   const subjectSelect = document.getElementById("subject-select");
   const mountainInput = document.getElementById("mountain-input");
   const mountainLabel =
@@ -38,6 +39,11 @@
   const fileInput = document.getElementById("pdf-file");
   const filenameInput = document.getElementById("filename-input");
   const titleInput = document.getElementById("title-input");
+  const filenameBadge = document.getElementById("filename-badge");
+  const titleBadge = document.getElementById("title-badge");
+  const filenameIcon = document.getElementById("filename-icon");
+  const titleIcon = document.getElementById("title-icon");
+
   const uploaderInput = document.getElementById("uploader-input");
   const pathHidden = document.getElementById("path-hidden");
   const targetPath = document.getElementById("target-path");
@@ -100,113 +106,35 @@
       .toLowerCase();
 
     const comboMap = {
-      きゃ: "kya",
-      きゅ: "kyu",
-      きょ: "kyo",
-      しゃ: "sha",
-      しゅ: "shu",
-      しょ: "sho",
-      ちゃ: "cha",
-      ちゅ: "chu",
-      ちょ: "cho",
-      にゃ: "nya",
-      にゅ: "nyu",
-      にょ: "nyo",
-      ひゃ: "hya",
-      ひゅ: "hyu",
-      ひょ: "hyo",
-      みゃ: "mya",
-      みゅ: "myu",
-      みょ: "myo",
-      りゃ: "rya",
-      りゅ: "ryu",
-      りょ: "ryo",
-      ぎゃ: "gya",
-      ぎゅ: "gyu",
-      ぎょ: "gyo",
-      じゃ: "ja",
-      じゅ: "ju",
-      じょ: "jo",
-      びゃ: "bya",
-      びゅ: "byu",
-      びょ: "byo",
-      ぴゃ: "pya",
-      ぴゅ: "pyu",
-      ぴょ: "pyo",
+      きゃ: "kya", きゅ: "kyu", きょ: "kyo",
+      しゃ: "sha", しゅ: "shu", しょ: "sho",
+      ちゃ: "cha", ちゅ: "chu", ちょ: "cho",
+      にゃ: "nya", にゅ: "nyu", にょ: "nyo",
+      ひゃ: "hya", ひゅ: "hyu", ひょ: "hyo",
+      みゃ: "mya", みゅ: "myu", みょ: "myo",
+      りゃ: "rya", りゅ: "ryu", りょ: "ryo",
+      ぎゃ: "gya", ぎゅ: "gyu", ぎょ: "gyo",
+      じゃ: "ja",  じゅ: "ju",  じょ: "jo",
+      びゃ: "bya", びゅ: "byu", びょ: "byo",
+      ぴゃ: "pya", ぴゅ: "pyu", ぴょ: "pyo",
     };
 
     const singleMap = {
-      あ: "a",
-      い: "i",
-      う: "u",
-      え: "e",
-      お: "o",
-      か: "ka",
-      き: "ki",
-      く: "ku",
-      け: "ke",
-      こ: "ko",
-      さ: "sa",
-      し: "shi",
-      す: "su",
-      せ: "se",
-      そ: "so",
-      た: "ta",
-      ち: "chi",
-      つ: "tsu",
-      て: "te",
-      と: "to",
-      な: "na",
-      に: "ni",
-      ぬ: "nu",
-      ね: "ne",
-      の: "no",
-      は: "ha",
-      ひ: "hi",
-      ふ: "fu",
-      へ: "he",
-      ほ: "ho",
-      ま: "ma",
-      み: "mi",
-      む: "mu",
-      め: "me",
-      も: "mo",
-      や: "ya",
-      ゆ: "yu",
-      よ: "yo",
-      ら: "ra",
-      り: "ri",
-      る: "ru",
-      れ: "re",
-      ろ: "ro",
-      わ: "wa",
-      を: "o",
-      ん: "n",
-      が: "ga",
-      ぎ: "gi",
-      ぐ: "gu",
-      げ: "ge",
-      ご: "go",
-      ざ: "za",
-      じ: "ji",
-      ず: "zu",
-      ぜ: "ze",
-      ぞ: "zo",
-      だ: "da",
-      ぢ: "ji",
-      づ: "zu",
-      で: "de",
-      ど: "do",
-      ば: "ba",
-      び: "bi",
-      ぶ: "bu",
-      べ: "be",
-      ぼ: "bo",
-      ぱ: "pa",
-      ぴ: "pi",
-      ぷ: "pu",
-      ぺ: "pe",
-      ぽ: "po",
+      あ: "a", い: "i", う: "u", え: "e", お: "o",
+      か: "ka", き: "ki", く: "ku", け: "ke", こ: "ko",
+      さ: "sa", し: "shi", す: "su", せ: "se", そ: "so",
+      た: "ta", ち: "chi", つ: "tsu", て: "te", と: "to",
+      な: "na", に: "ni", ぬ: "nu", ね: "ne", の: "no",
+      は: "ha", ひ: "hi", ふ: "fu", へ: "he", ほ: "ho",
+      ま: "ma", み: "mi", む: "mu", め: "me", も: "mo",
+      や: "ya", ゆ: "yu", よ: "yo",
+      ら: "ra", り: "ri", る: "ru", れ: "re", ろ: "ro",
+      わ: "wa", を: "o", ん: "n",
+      が: "ga", ぎ: "gi", ぐ: "gu", げ: "ge", ご: "go",
+      ざ: "za", じ: "ji", ず: "zu", ぜ: "ze", ぞ: "zo",
+      だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do",
+      ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
+      ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
       ー: "",
     };
 
@@ -244,7 +172,7 @@
 
   function getUsedNumbers(subject) {
     const slug = slugForSubject(subject);
-    const regex = new RegExp(`^${slug}(\\d+)\\.pdf$`, "i");
+    const regex = new RegExp(`^${slug}(\\d+)(?:-kotae)?\\.pdf$`, "i");
     const numbers = new Set();
     for (const paper of Array.isArray(pdfData.papers) ? pdfData.papers : []) {
       if (!paper || paper.category !== subject) continue;
@@ -312,7 +240,6 @@
 
     let counter = 2;
     while (true) {
-      // 重複時はカッコを付けず全角数字を付与（例: 富士山２）
       candidate = `${base}${formatJapaneseNumber(counter)}`;
       if (!usedTitles.has(candidate.toLowerCase())) {
         return candidate;
@@ -405,57 +332,68 @@
     );
   }
 
+  function applyAnswerSuffixToFilename(filename) {
+    if (!filename) return "";
+    const isAnswer = typeSelect && typeSelect.value === "answer";
+    if (!isAnswer) return filename;
+
+    const { base, ext } = splitFilename(filename);
+    if (base.endsWith("-kotae")) {
+      return `${base}${ext || ".pdf"}`;
+    }
+    return `${base}-kotae${ext || ".pdf"}`;
+  }
+
+  function applyAnswerSuffixToTitle(title) {
+    if (!title) return "";
+    const isAnswer = typeSelect && typeSelect.value === "answer";
+    if (!isAnswer) return title;
+
+    if (title.endsWith("（答え）")) {
+      return title;
+    }
+    return `${title}（答え）`;
+  }
+
   function buildDefaultFilename(subject, fileName) {
     if (!subject) {
       return "";
     }
+    let rawFilename = "";
     if (subject === "共通") {
-      return makeUniqueFilename(
-        subject,
-        buildAutoFilename(subject) ||
-          `kyoutsu-${stripPdfExtension(normalizeText(fileName))}.pdf`,
-      );
+      rawFilename = buildAutoFilename(subject) || `kyoutsu-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+    } else if (subject === "自然観察") {
+      rawFilename = buildAutoFilename(subject) || `shizekan-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+    } else if (subject === "中国大会") {
+      rawFilename = buildAutoFilename(subject) || `chutai2026-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+    } else if (subjectUsesAutoTitle(subject)) {
+      rawFilename = buildAutoFilename(subject);
+    } else {
+      rawFilename = buildAutoFilename(subject) || normalizeText(fileName) || "";
     }
-    if (subject === "自然観察") {
-      return makeUniqueFilename(
-        subject,
-        buildAutoFilename(subject) ||
-          `shizekan-${stripPdfExtension(normalizeText(fileName))}.pdf`,
-      );
-    }
-    if (subject === "中国大会") {
-      return makeUniqueFilename(
-        subject,
-        buildAutoFilename(subject) ||
-          `chutai2026-${stripPdfExtension(normalizeText(fileName))}.pdf`,
-      );
-    }
-    if (subjectUsesAutoTitle(subject)) {
-      return makeUniqueFilename(subject, buildAutoFilename(subject));
-    }
-    return makeUniqueFilename(
-      subject,
-      buildAutoFilename(subject) || normalizeText(fileName) || "",
-    );
+
+    const filenameWithSuffix = applyAnswerSuffixToFilename(rawFilename);
+    return makeUniqueFilename(subject, filenameWithSuffix);
   }
 
   function buildDefaultTitle(subject, filename) {
     if (!subject) {
       return "";
     }
+    let rawTitle = "";
     if (subjectUsesAutoTitle(subject)) {
-      return makeUniqueTitle(buildGeneratedName(subject).title);
+      rawTitle = buildGeneratedName(subject).title;
+    } else {
+      const mountain = mountainInput ? normalizeText(mountainInput.value) : "";
+      if (subjectUsesMountainInput(subject) && mountain) {
+        rawTitle = mountain;
+      } else {
+        rawTitle = normalizeText(titleInput.value) || stripPdfExtension(filename) || "";
+      }
     }
 
-    const mountain = mountainInput ? normalizeText(mountainInput.value) : "";
-    if (subjectUsesMountainInput(subject) && mountain) {
-      // タイトルには日本語の山名を設定（例: 富士山）
-      return makeUniqueTitle(mountain);
-    }
-
-    return makeUniqueTitle(
-      normalizeText(titleInput.value) || stripPdfExtension(filename) || "",
-    );
+    const titleWithSuffix = applyAnswerSuffixToTitle(rawTitle);
+    return makeUniqueTitle(titleWithSuffix);
   }
 
   function currentSubjectEntries(subject) {
@@ -463,58 +401,161 @@
     return list.filter((paper) => paper && paper.category === subject);
   }
 
+  // 編集可・自動生成項目の制御とデザイン調整
   function syncSubjectFieldModes(subject) {
-    // 山の名前（日本語）項目の表示・非表示
+    const docType = typeSelect ? typeSelect.value : "";
+    const hasType = Boolean(docType);
+    const hasSubject = Boolean(subject);
+
+    // 種別選択の有無で科目フィールドを有効化/無効化
+    if (subjectSelect) {
+      subjectSelect.disabled = !hasType;
+      const firstOption = subjectSelect.options[0];
+      if (firstOption) {
+        firstOption.textContent = hasType ? "選択してください" : "まず種別を選択してください";
+      }
+    }
+
+    // 種別と科目の両方が選択されていないと後続フォームを有効化しない
+    const isReady = hasType && hasSubject;
+
+    if (fileInput) fileInput.disabled = !isReady;
+    if (uploaderInput) uploaderInput.disabled = !isReady;
+    if (uploadButton) uploadButton.disabled = !isReady;
+
     if (mountainLabel) {
-      if (subjectUsesMountainInput(subject)) {
+      if (isReady && subjectUsesMountainInput(subject)) {
         mountainLabel.style.display = "";
         if (mountainInput) {
           mountainInput.required = true;
+          mountainInput.disabled = false;
           mountainInput.placeholder = "例: 富士山 または ふじさん";
         }
       } else {
         mountainLabel.style.display = "none";
         if (mountainInput) {
           mountainInput.required = false;
+          mountainInput.disabled = true;
           mountainInput.value = "";
         }
       }
     }
 
-    // 山の名前（英語・ローマ字）項目の表示・非表示
     if (mountainEnLabel) {
-      if (subjectUsesMountainInput(subject)) {
+      if (isReady && subjectUsesMountainInput(subject)) {
         mountainEnLabel.style.display = "";
         if (mountainEnInput) {
           mountainEnInput.required = true;
-          mountainEnInput.placeholder =
-            subject === "共通" ? "例: fuji" : "例: fuji";
+          mountainEnInput.disabled = false;
+          mountainEnInput.placeholder = "例: fuji";
         }
       } else {
         mountainEnLabel.style.display = "none";
         if (mountainEnInput) {
           mountainEnInput.required = false;
+          mountainEnInput.disabled = true;
           mountainEnInput.value = "";
         }
       }
     }
 
-    // filename / title のリードオンリー制御
+    if (!isReady) {
+      filenameInput.disabled = true;
+      filenameInput.readOnly = true;
+      filenameInput.classList.add("is-readonly");
+      filenameInput.classList.remove("is-editable");
+      filenameInput.placeholder = !hasType
+        ? "まず種別を選択してください"
+        : "まず担当科目を選択してください";
+
+      titleInput.disabled = true;
+      titleInput.readOnly = true;
+      titleInput.classList.add("is-readonly");
+      titleInput.classList.remove("is-editable");
+      titleInput.placeholder = !hasType
+        ? "まず種別を選択してください"
+        : "まず担当科目を選択してください";
+
+      if (filenameBadge) {
+        filenameBadge.textContent = "未選択";
+        filenameBadge.className = "badge badge-readonly";
+      }
+      if (titleBadge) {
+        titleBadge.textContent = "未選択";
+        titleBadge.className = "badge badge-readonly";
+      }
+      if (filenameIcon) filenameIcon.textContent = "🔒";
+      if (titleIcon) titleIcon.textContent = "🔒";
+      return;
+    }
+
+    filenameInput.disabled = false;
+    titleInput.disabled = false;
+
+    // filename / title のリードオンリー制御と見た目のバッジ更新
     if (subject === "気象" || subject === "救急") {
       filenameInput.readOnly = true;
+      filenameInput.classList.add("is-readonly");
+      filenameInput.classList.remove("is-editable");
       filenameInput.placeholder = "自動補完されます";
+
       titleInput.readOnly = true;
+      titleInput.classList.add("is-readonly");
+      titleInput.classList.remove("is-editable");
       titleInput.placeholder = "自動補完されます";
+
+      if (filenameBadge) {
+        filenameBadge.textContent = "自動固定";
+        filenameBadge.className = "badge badge-readonly";
+      }
+      if (titleBadge) {
+        titleBadge.textContent = "自動固定";
+        titleBadge.className = "badge badge-readonly";
+      }
+      if (filenameIcon) filenameIcon.textContent = "🔒";
+      if (titleIcon) titleIcon.textContent = "🔒";
     } else if (subjectUsesMountainInput(subject)) {
       filenameInput.readOnly = false;
-      filenameInput.placeholder = "英語名から自動生成（手動修正可）";
+      filenameInput.classList.remove("is-readonly");
+      filenameInput.classList.add("is-editable");
+      filenameInput.placeholder = "英語名から自動生成（手動変更可能）";
+
       titleInput.readOnly = false;
-      titleInput.placeholder = "日本語名から自動生成（手動修正可）";
+      titleInput.classList.remove("is-readonly");
+      titleInput.classList.add("is-editable");
+      titleInput.placeholder = "日本語名から自動生成（手動変更可能）";
+
+      if (filenameBadge) {
+        filenameBadge.textContent = "変更可能";
+        filenameBadge.className = "badge badge-editable";
+      }
+      if (titleBadge) {
+        titleBadge.textContent = "変更可能";
+        titleBadge.className = "badge badge-editable";
+      }
+      if (filenameIcon) filenameIcon.textContent = "✏️";
+      if (titleIcon) titleIcon.textContent = "✏️";
     } else {
       filenameInput.readOnly = false;
+      filenameInput.classList.remove("is-readonly");
+      filenameInput.classList.add("is-editable");
       filenameInput.placeholder = "ファイル名を入力";
+
       titleInput.readOnly = false;
+      titleInput.classList.remove("is-readonly");
+      titleInput.classList.add("is-editable");
       titleInput.placeholder = "タイトルを入力";
+
+      if (filenameBadge) {
+        filenameBadge.textContent = "手動入力";
+        filenameBadge.className = "badge badge-editable";
+      }
+      if (titleBadge) {
+        titleBadge.textContent = "手動入力";
+        titleBadge.className = "badge badge-editable";
+      }
+      if (filenameIcon) filenameIcon.textContent = "✏️";
+      if (titleIcon) titleIcon.textContent = "✏️";
     }
   }
 
@@ -528,7 +569,6 @@
     const filename = buildDefaultFilename(subject, fileName);
     const title = buildDefaultTitle(subject, filename);
 
-    // 自動補完対象の科目の場合、フォーム入力欄にもリアルタイムで反映
     if (subjectUsesAutoTitle(subject)) {
       filenameInput.value = filename;
       titleInput.value = title;
@@ -585,6 +625,7 @@
   async function handleUpload(event) {
     event.preventDefault();
 
+    const docType = normalizeText(typeSelect ? typeSelect.value : "");
     const subject = normalizeText(subjectSelect.value);
     const file = fileInput.files && fileInput.files[0];
     const uploader = normalizeText(uploaderInput.value);
@@ -600,6 +641,10 @@
     );
     const path = `pdf/kadai/${slugForSubject(subject)}/${filename}`;
 
+    if (!docType) {
+      setStatus("種別（問題または答え）を選んでください。", "error");
+      return;
+    }
     if (!subject) {
       setStatus("担当科目を選んでください。", "error");
       return;
@@ -626,10 +671,6 @@
       setStatus("filename を入力してください。", "error");
       return;
     }
-    if (!endpoint) {
-      setStatus("今使えねぇはごめんね", "error");
-      return;
-    }
 
     try {
       uploadButton.disabled = true;
@@ -637,6 +678,7 @@
 
       const bodyData = new FormData();
       bodyData.append("file", file);
+      bodyData.append("doc_type", docType);
       bodyData.append("subject", subject);
       bodyData.append("filename", filename);
       bodyData.append("title", title);
@@ -665,7 +707,7 @@
         "error",
       );
     } finally {
-      uploadButton.disabled = false;
+      syncSubjectFieldModes(subjectSelect.value);
     }
   }
 
@@ -681,6 +723,14 @@
       "ファイルをアップロード後１～２日掲載にお時間をいただきます。";
   }
 
+  if (typeSelect) {
+    typeSelect.addEventListener("change", () => {
+      filenameInput.value = "";
+      titleInput.value = "";
+      updateCategoryPreview();
+    });
+  }
+
   subjectSelect.addEventListener("change", () => {
     isMountainEnManuallyEdited = false;
     if (mountainInput) mountainInput.value = "";
@@ -692,7 +742,6 @@
 
   if (mountainInput) {
     mountainInput.addEventListener("input", () => {
-      // 英語欄が手動変更されていない場合は、ひらがな/カタカナ/英字からローマ字へ自動変換して補完
       if (!isMountainEnManuallyEdited && mountainEnInput) {
         const autoRomaji = kanaToRomaji(mountainInput.value);
         if (autoRomaji || mountainInput.value === "") {
@@ -705,7 +754,6 @@
 
   if (mountainEnInput) {
     mountainEnInput.addEventListener("input", () => {
-      // ユーザーが英語欄を直接編集した場合はフラグを立てて自動上書きを停止
       isMountainEnManuallyEdited = true;
       updateCategoryPreview();
     });

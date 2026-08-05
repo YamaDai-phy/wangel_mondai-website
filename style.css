@@ -8,6 +8,10 @@
   --link: #0f4c81;
   --link-hover: #0b3a63;
   --focus: #111827;
+  --editable-bg: #f0f7ff;
+  --editable-border: #3b82f6;
+  --readonly-bg: #f3f4f6;
+  --readonly-border: #e5e7eb;
 }
 * {
   box-sizing: border-box;
@@ -35,175 +39,20 @@ p,
 a {
   color: var(--text);
 }
-/* pdf.index */
+
+/* 共通ヘッダー */
 header {
   background-color: var(--border);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-
-  h1 {
-    font-size: 2rem;
-  }
+  padding: 0.5rem 1rem;
 }
-.details-section,
-.dawnload-method {
-  margin: 1rem;
-}
-/* ダウンロード方法 */
-.method-ios summary,
-.method-pc summary {
-  list-style: none;
-}
-.method-ios p,
-.method-pc p {
-  margin: 0.5rem 0;
-  font-weight: 500;
-}
-table {
-  width: min(920px, 100%);
-  margin: 1rem auto;
-  border-collapse: collapse;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: var(--surface);
-}
-th,
-td {
-  padding: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-  vertical-align: middle;
-}
-thead th {
-  background-color: var(--header);
-  font-weight: 700;
-  color: #111827;
-  text-align: center;
-}
-tbody tr:last-child td {
-  border-bottom: 1px solid var(--border);
-}
-tbody tr td:nth-child(2n),
-tbody tr td:nth-child(3) {
-  text-align: center;
-}
-.details-section a,
-.dawnload-method a {
-  display: inline-block;
-  padding: 8px 12px;
-  border: 1px solid var(--link);
-  border-radius: 6px;
-  color: var(--link);
-  font-weight: 600;
-  text-decoration: none;
-  transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
-}
-a:hover {
-  background-color: var(--link);
-  color: #ffffff;
-}
-a.download-link.is-checked {
-  background-color: #1f7a3d;
-  border-color: #1f7a3d;
-  color: #ffffff;
-}
-a.download-link.is-checked:hover {
-  background-color: #166030;
-  border-color: #166030;
-}
-a:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 2px;
-}
-.accordion {
-  margin: 0.5em 0;
-}
-/* details のコンテンツ領域に対してアニメーション */
-.accordion::details-content,
-.accordion-2::details-content {
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  transition:
-    height 0.35s ease,
-    opacity 0.35s ease,
-    content-visibility 0.35s allow-discrete;
+header h1 {
+  font-size: 2rem;
 }
 
-/* 開いた状態のスタイル */
-.accordion[open]::details-content,
-.accordion-2[open]::details-content {
-  opacity: 1;
-  height: auto;
-}
-.accordion__summary {
-  display: block;
-  background: #b2e5ff; /* 見出しの背景色 */
-  font-weight: bold;
-  position: relative;
-  list-style: none; /* 矢印を消す */
-  cursor: pointer;
-  padding: 10px 38px 10px 10px;
-  border-radius: 10px;
-}
-.accordion__summary::-webkit-details-marker {
-  display: none;
-}
-.accordion__summary::after {
-  content: "+";
-  font-size: 1.4em; /* 記号のサイズ */
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.accordion[open] .accordion__summary::after {
-  content: "−";
-}
-
-.accordion-2 {
-  margin: 0.1rem 0.5rem;
-}
-.accordion__summary-2 {
-  display: block;
-  background: #ffc3c3; /* 見出しの背景色 */
-  font-weight: bold;
-  position: relative;
-  list-style: none; /* 矢印を消す */
-  cursor: pointer;
-  padding: 10px 38px 10px 10px;
-  border-radius: 10px;
-}
-.accordion__summary-2::-webkit-details-marker {
-  display: none;
-}
-.accordion__summary-2::after {
-  content: "+";
-  font-size: 1.4em; /* 記号のサイズ */
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.accordion-2[open] .accordion__summary-2::after {
-  content: "−";
-}
-footer {
-  padding: 5rem 1rem 1rem;
-  text-align: center;
-}
-.footer-contents {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  justify-content: center;
-}
-
-/* upload page */
+/* アップロードセクション */
 .upload-section {
   margin: 1rem;
 }
@@ -223,15 +72,7 @@ footer {
 .upload-hero p {
   font-weight: 500;
 }
-.upload-kicker {
-  display: inline-block;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: #dbeafe;
-  color: #1d4ed8;
-  font-size: 0.82rem;
-  font-weight: 700;
-}
+
 .upload-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
@@ -240,59 +81,137 @@ footer {
   margin: 0 auto;
 }
 .upload-card {
-  padding: 1rem;
+  padding: 1.2rem;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--surface);
   box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
 }
-.upload-card label {
+
+/* フォームフィールド構造 */
+.field-group {
   display: block;
-  margin-bottom: 0.85rem;
-  font-weight: 700;
+  margin-bottom: 1.2rem;
 }
-.upload-card input,
+.label-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #111827;
+}
+.field-help {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 0.15rem;
+}
+
+/* バッジスタイル */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.badge-required {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+.badge-editable {
+  background-color: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #93c5fd;
+}
+.badge-readonly {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+/* 入力欄アイコン付きラッパー */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon {
+  position: absolute;
+  right: 0.75rem;
+  font-size: 0.9rem;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* 入力欄スタイル */
+.upload-card input[type="text"],
+.upload-card input[type="file"],
 .upload-card select {
   width: 100%;
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
   padding: 0.75rem 0.85rem;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: 10px;
   background: #ffffff;
   font: inherit;
+  transition: all 0.2s ease;
 }
-.upload-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-  margin-top: 0.4rem;
+
+/* 手動入力可能な欄の強調効果 */
+.upload-card input[type="text"]:focus,
+.upload-card select:focus {
+  outline: none;
+  border-color: var(--link);
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
 }
-.upload-row span,
-.upload-note,
-.upload-status,
-.upload-preview-list dd {
-  font-weight: 500;
+
+.upload-card input.is-editable {
+  background-color: var(--editable-bg);
+  border-color: var(--editable-border);
 }
-.upload-row button,
+
+/* 自動補完（読み取り専用）入力欄 */
+.upload-card input.is-readonly {
+  background-color: var(--readonly-bg);
+  border-color: var(--readonly-border);
+  color: #6b7280;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.form-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 1.2rem 0;
+}
+
+/* ボタンとアクション */
+.upload-actions {
+  margin-top: 1.2rem;
+}
 .upload-actions button {
+  width: 100%;
   border: 1px solid var(--link);
   background: var(--link);
   color: #ffffff;
   border-radius: 10px;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.18s ease;
 }
-.upload-row button:hover,
 .upload-actions button:hover {
   background: var(--link-hover);
   border-color: var(--link-hover);
 }
-.upload-actions {
-  margin-top: 1rem;
-}
+
+/* プレビューエリア */
 .upload-preview-card h3 {
   margin-bottom: 0.75rem;
 }
@@ -313,6 +232,7 @@ footer {
 }
 .upload-preview-list dd {
   word-break: break-all;
+  font-weight: 600;
 }
 .upload-note {
   margin: 1rem 0;
@@ -320,6 +240,7 @@ footer {
   border-radius: 12px;
   background: #eff6ff;
   color: #1e3a8a;
+  font-size: 0.88rem;
 }
 .upload-tags {
   display: flex;
@@ -338,8 +259,8 @@ footer {
   font-weight: 600;
 }
 .upload-status {
-  width: min(920px, 100%);
-  margin: 1rem auto 0;
+  width: 100%;
+  margin-top: 1rem;
   padding: 0.9rem 1rem;
   border-radius: 12px;
   border: 1px solid transparent;
@@ -360,95 +281,17 @@ footer {
   background: #fef2f2;
   color: #991b1b;
 }
-/* release.html */
-.release-body tbody tr td:nth-child(2n),
-.release-body tbody tr td:nth-child(3) {
-  text-align: left;
+
+footer {
+  padding: 4rem 1rem 1rem;
+  text-align: center;
 }
 
 @media (max-width: 640px) {
-  .details-section {
-    margin: 0.5rem;
-  }
-
   .upload-section {
     margin: 0.5rem;
   }
-
   .upload-grid {
     grid-template-columns: 1fr;
   }
-
-  th,
-  td {
-    padding: 10px 10px;
-    font-size: 14px;
-  }
-
-  a {
-    width: 100%;
-    text-align: center;
-  }
-  .footer-contents {
-    gap: 0.3rem;
-    
-    a{
-      font-size: 0.7rem;
-    }
-  }
-}
-
-/* search results */
-.search-section {
-  margin: 1rem;
-}
-.search-label {
-  display: flex;
-  align-items: center;
-}
-#pdf-search {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-#search-results {
-  display: none;
-  width: min(920px, 100%);
-  margin: 0.5rem auto 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.5rem;
-}
-/* hide until used */
-.search-item {
-  padding: 0.5rem;
-  cursor: pointer;
-  border-bottom: 1px solid var(--border);
-}
-.search-item:hover {
-  background: #fff3f3;
-}
-
-@keyframes flashRed {
-  0% {
-    background-color: transparent;
-  }
-  25% {
-    background-color: #ffb3b3;
-  }
-  50% {
-    background-color: transparent;
-  }
-  75% {
-    background-color: #ffb3b3;
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-.flash-red {
-  animation: flashRed 1s ease-in-out 0s 3;
 }
