@@ -272,7 +272,7 @@
   }
 
   function subjectUsesMountainInput(subject) {
-    return subject === "共通" || subject === "自然観察" || subject === "中国大会";
+    return subject === "共通" || subject === "自然観察" || subject === "中国大会予選";
   }
 
   function subjectUsesAutoTitle(subject) {
