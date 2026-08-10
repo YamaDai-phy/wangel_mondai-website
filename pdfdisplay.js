@@ -54,6 +54,7 @@
         共通: "kyotsu-list",
         インターハイ: "inhai-list",
         県総体: "kensotai-list",
+        中国大会予選:"chutaiyosen-list",
       };
       const buckets = {};
       Object.values(mapping).forEach((id) => (buckets[id] = []));
@@ -133,6 +134,7 @@
       renderTable("kyotsu-list", buckets["kyotsu-list"]);
       renderTable("inhai-list", buckets["inhai-list"]);
       renderTable("kensotai-list", buckets["kensotai-list"]);
+      renderTable("chutaiyosen-list", buckets["chutaiyosen-list"])
       // render any uncategorized files
       // create a container if not present
       let other = document.getElementById("other-list");
@@ -179,6 +181,7 @@
               共通: "kyotsu-list",
               インターハイ: "inhai-list",
               県総体: "kensotai-list",
+              中国大会予選:"chutaiyosen-list"
             };
             const listId = mapping[p.category] || (p.path && p.path.indexOf('pdf/kadai/shizekan/') !== -1 ? 'shizekan-list' : 'other-list');
             const listDiv = document.getElementById(listId);
@@ -227,6 +230,7 @@
         "kyotsu-list",
         "inhai-list",
         "kensotai-list",
+        "chutaiyose-list"
       ].forEach((id) => {
         const c = document.getElementById(id);
         if (c) c.innerHTML = "<p>読み込みに失敗しました。</p>";

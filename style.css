@@ -8,11 +8,12 @@
   --link: #0f4c81;
   --link-hover: #0b3a63;
   --focus: #0f172a;
-  
+  --inhai-txt-col: #efd9d3;
+
   /* 編集可能フィールド */
   --editable-bg: #f0f9ff;
   --editable-border: #bae6fd;
-  
+
   /* 編集不可（控えめなデザイン） */
   --readonly-bg: #f8fafc;
   --readonly-border: #f1f5f9;
@@ -36,14 +37,101 @@ body {
   line-height: 1.6;
   font-weight: 500;
   min-height: 100dvh;
+
+  h1,
+  p,
+  a {
+    color: var(--text);
+  }
 }
 body::-webkit-scrollbar {
   display: none;
 }
-h1,
-p,
-a {
+
+/* index.html */
+.landing {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, rgba(15, 76, 129, 0.15), transparent 45%),
+    linear-gradient(180deg, #f8fafc 0%, #eef6fb 100%);
+}
+
+.landing__card {
+  width: min(760px, 100%);
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid rgba(15, 76, 129, 0.16);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.landing__kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.landing__title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.landing__lead {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.landing__steps {
+  margin: 0;
+  padding-left: 1.25rem;
   color: var(--text);
+}
+
+.landing__steps li + li {
+  margin-top: 0.45rem;
+}
+
+.landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.landing__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.3rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #0f4c81, #0b3a63);
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(15, 76, 129, 0.24);
+}
+
+.landing__button:hover {
+  background: linear-gradient(135deg, #0b3a63, #08233e);
+}
+
+.landing__note {
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 /* pdf.index / 共通ヘッダー */
@@ -57,6 +145,45 @@ header {
   h1 {
     font-size: 1.8rem;
   }
+}
+
+/* リスト全体のスタイル */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+/* 各項目のスタイル */
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 区切り文字（＞）の自動挿入 */
+.breadcrumb-item:not(:last-child)::after {
+  content: "＞";
+  margin: 0 8px;
+  color: #888;
+}
+
+/* リンクのスタイル */
+.breadcrumb-item a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+/* 現在地（最後の項目）のスタイル */
+.breadcrumb-item[aria-current="page"] {
+  color: #333;
+  pointer-events: none; /* クリック不可にする */
 }
 .details-section,
 .dawnload-method {
@@ -138,7 +265,7 @@ a:focus-visible {
 
 /* details のコンテンツ領域に対してアニメーション */
 .accordion::details-content,
-.accordion-2::details-content {
+.accordion-second::details-content {
   opacity: 0;
   height: 0;
   overflow: hidden;
@@ -150,7 +277,7 @@ a:focus-visible {
 
 /* 開いた状態のスタイル */
 .accordion[open]::details-content,
-.accordion-2[open]::details-content {
+.accordion-second[open]::details-content {
   opacity: 1;
   height: auto;
 }
@@ -179,10 +306,10 @@ a:focus-visible {
   content: "−";
 }
 
-.accordion-2 {
+.accordion-second {
   margin: 0.1rem 0.5rem;
 }
-.accordion__summary-2 {
+.accordion__summary-second {
   display: block;
   background: #ffc3c3; /* 見出しの背景色 */
   font-weight: bold;
@@ -192,10 +319,10 @@ a:focus-visible {
   padding: 10px 38px 10px 10px;
   border-radius: 10px;
 }
-.accordion__summary-2::-webkit-details-marker {
+.accordion__summary-second::-webkit-details-marker {
   display: none;
 }
-.accordion__summary-2::after {
+.accordion__summary-second::after {
   content: "+";
   font-size: 1.4em; /* 記号のサイズ */
   position: absolute;
@@ -203,7 +330,7 @@ a:focus-visible {
   top: 50%;
   transform: translateY(-50%);
 }
-.accordion-2[open] .accordion__summary-2::after {
+.accordion-second[open] .accordion__summary-second::after {
   content: "−";
 }
 
@@ -386,7 +513,9 @@ a:focus-visible {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.18s ease, opacity 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    opacity 0.18s ease;
 }
 .upload-row button:hover:not(:disabled),
 .upload-actions button:hover:not(:disabled) {
@@ -516,7 +645,7 @@ footer {
   }
   .footer-contents {
     gap: 0.3rem;
-    
+
     a {
       font-size: 0.7rem;
     }
@@ -579,6 +708,71 @@ footer {
   animation: flashRed 1s ease-in-out 0s 3;
 }
 
+/* ニュース */
+.news-banner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.16),
+      transparent 42%
+    ),
+    linear-gradient(135deg, #0b3a63, #0f4c81 52%, #08233e);
+
+  text-align: center;
+
+  animation: newsFadeIn 0.8s ease-out both;
+}
+
+.news-banner__content {
+  position: relative;
+  z-index: 2;
+
+  h3,
+  p {
+    color: var(--inhai-txt-col);
+  }
+}
+
+.news-banner__date {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  opacity: 0.88;
+
+  animation: newsBadgeAppear 0.7s ease-out 0.2s both;
+}
+
+.news-banner__title {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.16),
+    0 6px 20px rgba(0, 0, 0, 0.25);
+
+  animation: newsTitleAppear 0.8s ease-out 0.3s both;
+}
+
+.news-banner__message {
+  margin: 16px 0 0;
+  font-size: clamp(16px, 2.8vw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+
+  animation: newsMessageAppear 0.8s ease-out 0.45s both;
+}
+.news-banner__message a {
+  color: var(--inhai-txt-col);
+}
 /*インハイ*/
 .interhigh-banner {
   position: relative;
@@ -588,18 +782,25 @@ footer {
   box-sizing: border-box;
 
   background:
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.18), transparent 45%),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.18),
+      transparent 45%
+    ),
     linear-gradient(135deg, #7a0000, #c40000 50%, #7a0000);
 
-  color: #fff;
   text-align: center;
 
   animation: interhighFadeIn 0.8s ease-out both;
 }
-
 .interhigh-banner__content {
   position: relative;
   z-index: 2;
+
+  h1,
+  p {
+    color: var(--inhai-txt-col);
+  }
 }
 
 .interhigh-banner__trophy {
@@ -646,6 +847,46 @@ footer {
   animation: messageAppear 0.8s ease-out 0.5s both;
 }
 
+.interhigh-banner__a {
+  display: inline-block;
+
+  border: 2px solid var(--inhai-txt-col);
+  border-radius: 9999px;
+
+  padding: 10px 26px;
+  margin: 18px 0 0;
+
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: var(--inhai-txt-col);
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(2px);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+
+  animation: messageAppear 0.8s ease-out 0.5s both;
+}
+
+.interhigh-banner__a:hover {
+  transform: translateY(-2px);
+  background: var(--inhai-txt-col);
+  color: #111;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+.interhigh-banner__a:active {
+  transform: translateY(0);
+}
+
 /* 光が横切る演出 */
 .interhigh-banner__shine {
   position: absolute;
@@ -678,6 +919,53 @@ footer {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes newsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes newsTitleAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes newsMessageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes newsShine {
+  0% {
+    left: -40%;
+  }
+
+  35%,
+  100% {
+    left: 130%;
   }
 }
 
@@ -746,6 +1034,26 @@ footer {
 
 /* スマホ */
 @media (max-width: 600px) {
+  .news-banner {
+    padding: 32px 16px;
+  }
+
+  .news-banner__badge {
+    font-size: 11px;
+  }
+
+  .news-banner__date {
+    font-size: 11px;
+  }
+
+  .news-banner__title {
+    letter-spacing: 0.04em;
+  }
+
+  .news-banner__message {
+    margin-top: 12px;
+  }
+
   .interhigh-banner {
     padding: 36px 16px;
   }
@@ -769,6 +1077,12 @@ footer {
 
 /* 動きを減らす設定の端末ではアニメーションを停止 */
 @media (prefers-reduced-motion: reduce) {
+  .news-banner,
+  .news-banner__badge,
+  .news-banner__date,
+  .news-banner__title,
+  .news-banner__message,
+  .news-banner__shine,
   .interhigh-banner,
   .interhigh-banner__trophy,
   .interhigh-banner__title,

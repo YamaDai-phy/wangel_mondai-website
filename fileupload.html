@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ワンゲル図書館</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   </head>
   <body>
     <header>
       <svg width="2rem" height="2rem" xmlns="http://www.w3.org/2000/svg">
-        <image href="upload.svg" height="2rem" width="2rem" />
+        <image href="icons/upload.svg" height="2rem" width="2rem" />
       </svg>
       <h1>受付</h1>
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
+          <li class="breadcrumb-item"><a href="pdf.html">書庫</a></li>
+          <li class="breadcrumb-item"><a href="about.html">資料室</a></li>
+          <li class="breadcrumb-item" aria-current="page">受付</li>
+        </ol>
+      </nav>
     </header>
 
     <section class="upload-section">

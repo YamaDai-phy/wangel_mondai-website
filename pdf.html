@@ -5,42 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ワンゲル図書館</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   </head>
   <body>
     <header>
       <svg width="2rem" height="2rem" xmlns="http://www.w3.org/2000/svg">
-        <image href="book.svg" height="2rem" width="2rem" />
+        <image href="icons/book.svg" height="2rem" width="2rem" />
       </svg>
       <h1>書庫</h1>
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">ホーム</a></li>
+          <li class="breadcrumb-item" aria-current="page">書庫</li>
+        </ol>
+      </nav>
     </header>
+    <section class="interhigh-banner">
+      <div class="interhigh-banner__content">
+        <div class="interhigh-banner__trophy">🏆️</div>
+        <p class="interhigh-banner__year">2026 INTER-HIGH</p>
+        <h1 class="interhigh-banner__title">インターハイ優勝！</h1>
+        <p class="interhigh-banner__message">おめでとうございます！</p>
+        <!-- <p><a href="" class="interhigh-banner__a">インハイの問題を解く</a></p> -->
+      </div>
+      <div class="interhigh-banner__shine"></div>
+    </section>
     <section class="search-section">
       <div class="search-label">
         <svg width="1rem" height="1rem" xmlns="http://www.w3.org/2000/svg">
-          <image href="search-icon.svg" height="1rem" width="1rem" />
+          <image href="icons/search-icon.svg" height="1rem" width="1rem" />
         </svg>
         <p>検索</p>
       </div>
       <input id="pdf-search" placeholder="山名・担当科目で検索" />
       <div id="search-results"></div>
     </section>
-    <section class="interhigh-banner" aria-label="2026年インターハイ優勝のお知らせ">
-  <div class="interhigh-banner__content">
-    <div class="interhigh-banner__trophy">🏆</div>
-
-    <p class="interhigh-banner__year">2026 INTER-HIGH</p>
-
-    <h1 class="interhigh-banner__title">
-      インターハイ優勝！
-    </h1>
-
-    <p class="interhigh-banner__message">
-      おめでとうございます！
-    </p>
-  </div>
-
-  <div class="interhigh-banner__shine"></div>
-</section>
     <section>
       <div class="dawnload-method">
         <p>ダウンロード方法</p>
@@ -65,58 +64,75 @@
     <section class="details-section">
       <p>問題</p>
       <details class="accordion" open>
-        <summary class="accordion__summary">過去の問題</summary>
-        <details class="accordion-2">
-          <summary class="accordion__summary-2">共通課題</summary>
+        <summary class="accordion__summary">過去問</summary>
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">共通課題</summary>
           <div id="kyotsu-list">
             <p>読み込み中…</p>
           </div>
         </details>
-        <details class="accordion-2">
-          <summary class="accordion__summary-2">自然観察課題</summary>
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">自然観察課題</summary>
           <div id="chuishizekan-list"></div>
           <div id="mondaishizekan-list"></div>
           <div id="shizekan-list">
             <p>読み込み中…</p>
           </div>
         </details>
-        <details class="accordion-2">
-          <summary class="accordion__summary-2">気象課題</summary>
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">気象課題</summary>
           <div id="kisho-list">
             <p>読み込み中…</p>
           </div>
         </details>
-        <details class="accordion-2">
-          <summary class="accordion__summary-2">救急課題</summary>
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">救急課題</summary>
           <div id="kyukyu-list">
             <p>読み込み中…</p>
           </div>
         </details>
       </details>
       <details class="accordion">
-        <summary class="accordion__summary">
-          2026県総体 - 七国見山、野呂山
-        </summary>
-        <div id="kensotai-list">読み込み中…</div>
-      </details>
-      <details class="accordion">
-        <summary class="accordion__summary">
-          2026インターハイ - 氷ノ山一帯
-        </summary>
+        <summary class="accordion__summary">自作問題</summary>
+
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">
+            2026県総体 - 七国見山、野呂山
+          </summary>
+          <div id="kensotai-list">読み込み中…</div>
+        </details>
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">
+            2026インターハイ - 氷ノ山一帯
+          </summary>
           <div id="inhai-list">
             <p>読み込み中…</p>
           </div>
-      </details>
-      <details class="accordion">
-        <summary class="accordion__summary">
-          2026中体予選 comming soon...
-        </summary>
+        </details>
+        <details class="accordion-second">
+          <summary class="accordion__summary-second">
+            2026中体予選 comming soon...
+          </summary>
+          <div id="chutaiyosen-list"></div>
+        </details>
       </details>
     </section>
+    <section class="news-banner">
+      <div class="news-banner__content">
+        <p class="news-banner__date">2026.08.05</p>
+        <h3 class="news-banner__title">問題掲載者募集中</h3>
+        <p class="news-banner__message">
+          問題の掲載を募集しております。<br />詳しくは<a
+            href="about.html#upload"
+            >こちら</a
+          >から。
+        </p>
+      </div>
+    </section>
     <footer>
-        <a href="about.html#recent-table">リリース</a>
-        <a href="about.html#authors-table">制作者一覧</a>
-        <a href="about.html#upload">問題掲載希望者へ</a>
+      <a href="about.html#recent-table">リリース</a>
+      <a href="about.html#authors-table">制作者一覧</a>
+      <a href="about.html#upload">問題掲載希望者へ</a>
       <p>更新日：2026/08/03</p>
       <p>&copy;https://wangel-mondai.pages.dev</p>
     </footer>
