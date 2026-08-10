@@ -578,3 +578,202 @@ footer {
 .flash-red {
   animation: flashRed 1s ease-in-out 0s 3;
 }
+
+/*インハイ*/
+.interhigh-banner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 48px 20px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.18), transparent 45%),
+    linear-gradient(135deg, #7a0000, #c40000 50%, #7a0000);
+
+  color: #fff;
+  text-align: center;
+
+  animation: interhighFadeIn 0.8s ease-out both;
+}
+
+.interhigh-banner__content {
+  position: relative;
+  z-index: 2;
+}
+
+.interhigh-banner__trophy {
+  font-size: 58px;
+  line-height: 1;
+  margin-bottom: 18px;
+
+  animation:
+    trophyAppear 0.8s ease-out 0.2s both,
+    trophyFloat 3s ease-in-out 1s infinite;
+}
+
+.interhigh-banner__year {
+  margin: 0 0 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  opacity: 0.9;
+}
+
+.interhigh-banner__title {
+  margin: 0;
+
+  font-size: clamp(32px, 7vw, 64px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.25);
+
+  animation: titleAppear 0.8s ease-out 0.35s both;
+}
+
+.interhigh-banner__message {
+  margin: 18px 0 0;
+
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  animation: messageAppear 0.8s ease-out 0.5s both;
+}
+
+/* 光が横切る演出 */
+.interhigh-banner__shine {
+  position: absolute;
+  z-index: 1;
+
+  top: -50%;
+  left: -30%;
+
+  width: 30%;
+  height: 200%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+
+  transform: rotate(20deg);
+  animation: shine 4s ease-in-out 1s infinite;
+}
+
+/* 全体 */
+@keyframes interhighFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* トロフィー登場 */
+@keyframes trophyAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* トロフィー浮遊 */
+@keyframes trophyFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* タイトル */
+@keyframes titleAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* メッセージ */
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 光 */
+@keyframes shine {
+  0% {
+    left: -40%;
+  }
+
+  35%,
+  100% {
+    left: 130%;
+  }
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  .interhigh-banner {
+    padding: 36px 16px;
+  }
+
+  .interhigh-banner__trophy {
+    font-size: 48px;
+  }
+
+  .interhigh-banner__year {
+    font-size: 12px;
+  }
+
+  .interhigh-banner__title {
+    letter-spacing: 0.04em;
+  }
+
+  .interhigh-banner__message {
+    margin-top: 12px;
+  }
+}
+
+/* 動きを減らす設定の端末ではアニメーションを停止 */
+@media (prefers-reduced-motion: reduce) {
+  .interhigh-banner,
+  .interhigh-banner__trophy,
+  .interhigh-banner__title,
+  .interhigh-banner__message,
+  .interhigh-banner__shine {
+    animation: none;
+  }
+}
