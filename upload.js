@@ -9,7 +9,7 @@
     自然観察: "shizekan",
     気象: "kishou",
     救急: "kyukyu",
-    インターハイ: "inhai",
+    "2026インハイ" : "inhai2026",
     県総体: "kensotai",
     中国大会予選: "chutaiyusen",
   };
@@ -19,7 +19,7 @@
     自然観察: "自然観察",
     気象: "気象",
     救急: "救急",
-    インターハイ: "インターハイ",
+    "2026インハイ": "2026インハイ",
     県総体: "県総体",
     中国大会予選: "中国大会予選",
   };
@@ -106,35 +106,113 @@
       .toLowerCase();
 
     const comboMap = {
-      きゃ: "kya", きゅ: "kyu", きょ: "kyo",
-      しゃ: "sha", しゅ: "shu", しょ: "sho",
-      ちゃ: "cha", ちゅ: "chu", ちょ: "cho",
-      にゃ: "nya", にゅ: "nyu", にょ: "nyo",
-      ひゃ: "hya", ひゅ: "hyu", ひょ: "hyo",
-      みゃ: "mya", みゅ: "myu", みょ: "myo",
-      りゃ: "rya", りゅ: "ryu", りょ: "ryo",
-      ぎゃ: "gya", ぎゅ: "gyu", ぎょ: "gyo",
-      じゃ: "ja",  じゅ: "ju",  じょ: "jo",
-      びゃ: "bya", びゅ: "byu", びょ: "byo",
-      ぴゃ: "pya", ぴゅ: "pyu", ぴょ: "pyo",
+      きゃ: "kya",
+      きゅ: "kyu",
+      きょ: "kyo",
+      しゃ: "sha",
+      しゅ: "shu",
+      しょ: "sho",
+      ちゃ: "cha",
+      ちゅ: "chu",
+      ちょ: "cho",
+      にゃ: "nya",
+      にゅ: "nyu",
+      にょ: "nyo",
+      ひゃ: "hya",
+      ひゅ: "hyu",
+      ひょ: "hyo",
+      みゃ: "mya",
+      みゅ: "myu",
+      みょ: "myo",
+      りゃ: "rya",
+      りゅ: "ryu",
+      りょ: "ryo",
+      ぎゃ: "gya",
+      ぎゅ: "gyu",
+      ぎょ: "gyo",
+      じゃ: "ja",
+      じゅ: "ju",
+      じょ: "jo",
+      びゃ: "bya",
+      びゅ: "byu",
+      びょ: "byo",
+      ぴゃ: "pya",
+      ぴゅ: "pyu",
+      ぴょ: "pyo",
     };
 
     const singleMap = {
-      あ: "a", い: "i", う: "u", え: "e", お: "o",
-      か: "ka", き: "ki", く: "ku", け: "ke", こ: "ko",
-      さ: "sa", し: "shi", す: "su", せ: "se", そ: "so",
-      た: "ta", ち: "chi", つ: "tsu", て: "te", と: "to",
-      な: "na", に: "ni", ぬ: "nu", ね: "ne", の: "no",
-      は: "ha", ひ: "hi", ふ: "fu", へ: "he", ほ: "ho",
-      ま: "ma", み: "mi", む: "mu", め: "me", も: "mo",
-      や: "ya", ゆ: "yu", よ: "yo",
-      ら: "ra", り: "ri", る: "ru", れ: "re", ろ: "ro",
-      わ: "wa", を: "o", ん: "n",
-      が: "ga", ぎ: "gi", ぐ: "gu", げ: "ge", ご: "go",
-      ざ: "za", じ: "ji", ず: "zu", ぜ: "ze", ぞ: "zo",
-      だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do",
-      ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
-      ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
+      あ: "a",
+      い: "i",
+      う: "u",
+      え: "e",
+      お: "o",
+      か: "ka",
+      き: "ki",
+      く: "ku",
+      け: "ke",
+      こ: "ko",
+      さ: "sa",
+      し: "shi",
+      す: "su",
+      せ: "se",
+      そ: "so",
+      た: "ta",
+      ち: "chi",
+      つ: "tsu",
+      て: "te",
+      と: "to",
+      な: "na",
+      に: "ni",
+      ぬ: "nu",
+      ね: "ne",
+      の: "no",
+      は: "ha",
+      ひ: "hi",
+      ふ: "fu",
+      へ: "he",
+      ほ: "ho",
+      ま: "ma",
+      み: "mi",
+      む: "mu",
+      め: "me",
+      も: "mo",
+      や: "ya",
+      ゆ: "yu",
+      よ: "yo",
+      ら: "ra",
+      り: "ri",
+      る: "ru",
+      れ: "re",
+      ろ: "ro",
+      わ: "wa",
+      を: "o",
+      ん: "n",
+      が: "ga",
+      ぎ: "gi",
+      ぐ: "gu",
+      げ: "ge",
+      ご: "go",
+      ざ: "za",
+      じ: "ji",
+      ず: "zu",
+      ぜ: "ze",
+      ぞ: "zo",
+      だ: "da",
+      ぢ: "ji",
+      づ: "zu",
+      で: "de",
+      ど: "do",
+      ば: "ba",
+      び: "bi",
+      ぶ: "bu",
+      べ: "be",
+      ぼ: "bo",
+      ぱ: "pa",
+      ぴ: "pi",
+      ぷ: "pu",
+      ぺ: "pe",
+      ぽ: "po",
       ー: "",
     };
 
@@ -272,7 +350,12 @@
   }
 
   function subjectUsesMountainInput(subject) {
-    return subject === "共通" || subject === "自然観察" || subject === "中国大会予選";
+    return (
+      subject === "共通" ||
+      subject === "自然観察" ||
+      subject === "中国大会予選" ||
+      subject === "2026インハイ"
+    );
   }
 
   function subjectUsesAutoTitle(subject) {
@@ -311,16 +394,24 @@
       return `shizekan-${baseName}.pdf`;
     }
 
-    if (subject === "気象" || subject === "救急") {
-      return buildGeneratedName(subject).filename;
+    if (subject === "2026インハイ") {
+      if (!baseName) return "";
+      if (/^2026インハイ-/i.test(baseName)) {
+        return `${baseName}.pdf`;
+      }
+      return `inhai2026-${baseName}.pdf`;
     }
 
     if (subject === "中国大会予選") {
       if (!baseName) return "";
-      if (/^shizekan-/i.test(baseName)) {
+      if (/^chutaiyosen2026-/i.test(baseName)) {
         return `${baseName}.pdf`;
       }
       return `chutaiyosen2026-${baseName}.pdf`;
+    }
+
+    if (subject === "気象" || subject === "救急") {
+      return buildGeneratedName(subject).filename;
     }
 
     return (
@@ -361,11 +452,21 @@
     }
     let rawFilename = "";
     if (subject === "共通") {
-      rawFilename = buildAutoFilename(subject) || `kyoutsu-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+      rawFilename =
+        buildAutoFilename(subject) ||
+        `kyoutsu-${stripPdfExtension(normalizeText(fileName))}.pdf`;
     } else if (subject === "自然観察") {
-      rawFilename = buildAutoFilename(subject) || `shizekan-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+      rawFilename =
+        buildAutoFilename(subject) ||
+        `shizekan-${stripPdfExtension(normalizeText(fileName))}.pdf`;
     } else if (subject === "中国大会予選") {
-      rawFilename = buildAutoFilename(subject) || `chutaiyosen2026-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+      rawFilename =
+        buildAutoFilename(subject) ||
+        `chutaiyosen2026-${stripPdfExtension(normalizeText(fileName))}.pdf`;
+    } else if (subject === "2026インハイ") {
+      rawFilename =
+        buildAutoFilename(subject) ||
+        `inhai2026-${stripPdfExtension(normalizeText(fileName))}.pdf`;
     } else if (subjectUsesAutoTitle(subject)) {
       rawFilename = buildAutoFilename(subject);
     } else {
@@ -388,7 +489,8 @@
       if (subjectUsesMountainInput(subject) && mountain) {
         rawTitle = mountain;
       } else {
-        rawTitle = normalizeText(titleInput.value) || stripPdfExtension(filename) || "";
+        rawTitle =
+          normalizeText(titleInput.value) || stripPdfExtension(filename) || "";
       }
     }
 
@@ -412,7 +514,9 @@
       subjectSelect.disabled = !hasType;
       const firstOption = subjectSelect.options[0];
       if (firstOption) {
-        firstOption.textContent = hasType ? "選択してください" : "まず種別を選択してください";
+        firstOption.textContent = hasType
+          ? "選択してください"
+          : "まず種別を選択してください";
       }
     }
 
