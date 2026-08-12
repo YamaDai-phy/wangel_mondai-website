@@ -69,18 +69,6 @@ body::-webkit-scrollbar {
   backdrop-filter: blur(8px);
 }
 
-.landing__kicker {
-  display: inline-block;
-  margin-bottom: 12px;
-  padding: 0.3rem 0.75rem;
-  border-radius: 9999px;
-  background: #dbeafe;
-  color: #1d4ed8;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-}
-
 .landing__title {
   font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1.2;
@@ -735,7 +723,7 @@ footer {
 
   h3,
   p {
-    color: var(--inhai-txt-col);
+    color: var(--bg);
   }
 }
 
@@ -771,7 +759,7 @@ footer {
   animation: newsMessageAppear 0.8s ease-out 0.45s both;
 }
 .news-banner__message a {
-  color: var(--inhai-txt-col);
+  color: var(--editable-bg);
 }
 /*インハイ*/
 .interhigh-banner {
