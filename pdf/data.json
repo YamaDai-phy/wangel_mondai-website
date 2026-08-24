@@ -199,6 +199,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou19-kotae.pdf",
+      "path": "pdf/kadai/kishou/kishou19-kotae.pdf",
+      "title": "気象19 2026インハイ",
+      "ext": "pdf",
+      "category": "気象",
+      "size": 70693,
+      "mtime": "2026-08-21T04:47:55.637Z"
+    },
+    {
       "filename": "kishou2.pdf",
       "path": "pdf/kadai/kishou/kishou2.pdf",
       "title": "気象２",
@@ -334,6 +343,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kyotsu-hyonosen2-kotae.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-hyonosen2-kotae.pdf",
+      "title": "氷ノ山２（答え） 2026インハイ",
+      "ext": "pdf",
+      "category": "共通",
+      "size": 63610,
+      "mtime": "2026-08-21T04:45:19.918Z"
+    },
+    {
       "filename": "kyotsu-misen.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-misen.pdf",
       "title": "弥山 2023中国大会",
@@ -406,6 +424,15 @@
       "ext": "pdf"
     },
     {
+      "filename": "kyukyu5-kotae.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu5-kotae.pdf",
+      "title": "救急５（答え） 2026インハイ",
+      "ext": "pdf",
+      "category": "救急",
+      "size": 60148,
+      "mtime": "2026-08-21T04:48:56.549Z"
+    },
+    {
       "filename": "kyukyu50attack1.pdf",
       "path": "pdf/kadai/kyukyu/kyukyu50attack1.pdf",
       "title": "アタック50第１弾",
@@ -427,7 +454,7 @@
       "filename": "shizekan-chizu1mon1tou.pdf",
       "path": "pdf/kadai/shizekan/shizekan-chizu1mon1tou.pdf",
       "title": "地図記号１問１答",
-      "category": "問題自然観察",
+      "category": "自然観察",
       "size": 457004,
       "mtime": "2026-08-02T10:14:42.311Z",
       "ext": "pdf"
@@ -436,7 +463,7 @@
       "filename": "shizekan-chuiten.pdf",
       "path": "pdf/kadai/shizekan/shizekan-chuiten.pdf",
       "title": "注意点",
-      "category": "注意自然観察",
+      "category": "自然観察",
       "size": 278720,
       "mtime": "2026-08-02T08:27:23.445Z",
       "ext": "pdf"
@@ -512,6 +539,24 @@
       "size": 621377,
       "mtime": "2026-07-29T06:02:02.000Z",
       "ext": "pdf"
+    },
+    {
+      "filename": "shizekan-hyonosen3-kotae.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-hyonosen3-kotae.pdf",
+      "title": "氷ノ山３（答え） 2026インハイ",
+      "ext": "pdf",
+      "category": "自然観察",
+      "size": 84062,
+      "mtime": "2026-08-21T04:48:29.710Z"
+    },
+    {
+      "filename": "shizekan-hyonosen3.pdf",
+      "path": "pdf/kadai/shizekan/shizekan-hyonosen3.pdf",
+      "title": "氷ノ山３ 2026インハイ",
+      "ext": "pdf",
+      "category": "自然観察",
+      "size": 918051,
+      "mtime": "2026-08-24T13:50:44.502Z"
     },
     {
       "filename": "shizekan-misen1.pdf",
@@ -679,7 +724,7 @@
       "filename": "shizekan-tozanyogo1mon1tou.pdf",
       "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf",
       "title": "登山用語１問１答",
-      "category": "問題自然観察",
+      "category": "自然観察",
       "size": 441180,
       "mtime": "2026-08-02T08:22:38.916Z",
       "ext": "pdf"
