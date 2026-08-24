@@ -316,9 +316,9 @@
       "ext": "pdf"
     },
     {
-      "filename": "kyotsu-gokurkuji.pdf",
-      "path": "pdf/kadai/kyotsu/kyotsu-gokurkuji.pdf",
-      "title": "極楽寺 2025中国大会",
+      "filename": "kyotsu-gokurakuji.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-gokurakuji.pdf",
+      "title": "極楽寺山 2025中国大会",
       "category": "共通",
       "size": 630837,
       "mtime": "2026-08-02T08:10:53.497Z",
@@ -480,7 +480,7 @@
     {
       "filename": "shizekan-gokurakuji3.pdf",
       "path": "pdf/kadai/shizekan/shizekan-gokurakuji3.pdf",
-      "title": "極楽寺山３ 中国大会予選2025",
+      "title": "極楽寺山３ 2025中国大会予選",
       "category": "自然観察",
       "size": 648869,
       "mtime": "2026-08-02T10:13:55.028Z",
