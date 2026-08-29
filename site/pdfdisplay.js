@@ -17,44 +17,83 @@
   }
 
   const checkedLinks = loadChecked();
+// 共有処理を呼び出す関数
+  function sharePaper(p) {
+    const shareUrl = new URL(p.path, window.location.href).href;
+    const shareData = {
+      title: p.title,
+      text: `ワンゲル図書館: ${p.title} (${p.tournament || ''})`,
+      url: shareUrl
+    };
 
+    if (navigator.share) {
+      navigator.share(shareData).catch((err) => {
+        if (err.name !== 'AbortError') console.error('共有失敗:', err);
+      });
+    } else {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        alert('URLをクリップボードにコピーしました！');
+      }).catch(() => {
+        alert('コピーに失敗しました。');
+      });
+    }
+  }
+
+  // チェック状態を付与する処理
   function setCheckedLink(a, p) {
     const key = p.path || p.filename || p.title;
     if (checkedLinks.has(key)) {
       a.classList.add("is-checked");
-      a.textContent = "リンク ✓";
+      a.textContent = "リンク";
     }
     a.addEventListener("click", () => {
       if (checkedLinks.has(key)) return;
       checkedLinks.add(key);
       saveChecked(checkedLinks);
       a.classList.add("is-checked");
-      a.textContent = "リンク ✓";
+      a.textContent = "リンク";
     });
   }
 
+  // ダウンロードリンクと共有ボタンを生成してラッパーで返す関数
   function mkLink(p) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "action-container";
+
+    // ダウンロードリンクの作成
     const a = document.createElement("a");
     a.href = p.path;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     a.download = p.filename;
-    a.textContent = p.title;
-    return a;
+    a.textContent = "リンク";
+    a.classList.add("download-link");
+    setCheckedLink(a, p);
+    wrapper.appendChild(a);
+
+    // 共有ボタンの作成
+    const shareBtn = document.createElement("button");
+    shareBtn.textContent = "共有";
+    shareBtn.className = "share-btn";
+    shareBtn.type = "button";
+    shareBtn.addEventListener("click", () => sharePaper(p));
+    wrapper.appendChild(shareBtn);
+
+    return wrapper;
   }
   fetch("pdf/data.json")
     .then((r) => r.json())
     .then((data) => {
       const mapping = {
-        "注意自然観察": "shizekan-list",
-        "問題自然観察": "shizekan-list",
-        "自然観察": "shizekan-list",
+        注意自然観察: "shizekan-list",
+        問題自然観察: "shizekan-list",
+        自然観察: "shizekan-list",
         気象: "kisho-list",
         救急: "kyukyu-list",
         共通: "kyotsu-list",
         インターハイ: "inhai-list",
         県総体: "kensotai-list",
-        chutaiyosen:"chutaiyosen-list",
+        chutaiyosen: "chutaiyosen-list",
       };
       const buckets = {};
       Object.values(mapping).forEach((id) => (buckets[id] = []));
@@ -89,43 +128,48 @@
             const bPri = ib !== -1;
             if (aPri && bPri) {
               if (ia !== ib) return ia - ib;
-              return (a.title || "").localeCompare(b.title || "", "ja", { numeric: true });
+              return (a.title || "").localeCompare(b.title || "", "ja", {
+                numeric: true,
+              });
             }
             if (aPri) return -1;
             if (bPri) return 1;
-            return (a.title || "").localeCompare(b.title || "", "ja", { numeric: true });
+            return (a.title || "").localeCompare(b.title || "", "ja", {
+              numeric: true,
+            });
           });
         } else {
           items.sort((a, b) =>
-            (a.title || "").localeCompare(b.title || "", "ja", { numeric: true }),
+            (a.title || "").localeCompare(b.title || "", "ja", {
+              numeric: true,
+            }),
           );
         }
         const table = document.createElement("table");
         const thead = document.createElement("thead");
-        thead.innerHTML = "<tr><th>タイトル</th><th>大会</th><th>ダウンロード</th></tr>";
+        thead.innerHTML =
+          "<tr><th>タイトル</th><th>大会</th><th>ダウンロード</th></tr>";
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         for (const p of items) {
           const tr = document.createElement("tr");
           tr.dataset.path = p.path || p.filename || p.title || "";
           tr.dataset.category = p.category || "";
-          
+
           // タイトル列
           const tdTitle = document.createElement("td");
           let t = p.title.replace(/\.(pdf)$/i, "");
           tdTitle.textContent = p.uploader ? `${t}（${p.uploader}）` : t;
-          
+
           // 大会名列
           const tdTournament = document.createElement("td");
           tdTournament.textContent = p.tournament || "-";
 
-          // ダウンロードリンク列
+          // ダウンロード＆共有ボタン列
           const tdLink = document.createElement("td");
+          // mkLink(p) がリンクとボタンをまとめた div を返すためそのまま append
+          tdLink.appendChild(mkLink(p));
           const a = mkLink(p);
-          a.textContent = "リンク";
-          a.classList.add("download-link");
-          setCheckedLink(a, p);
-          tdLink.appendChild(a);
 
           tr.appendChild(tdTitle);
           tr.appendChild(tdTournament);
@@ -164,53 +208,60 @@
 
       // build search index
       const allPapers = papers.slice();
-      const searchInput = document.getElementById('pdf-search');
-      const resultsBox = document.getElementById('search-results');
+      const searchInput = document.getElementById("pdf-search");
+      const resultsBox = document.getElementById("search-results");
       function renderResults(matches) {
         if (!resultsBox) return;
-        resultsBox.style.display = 'block';
-        resultsBox.innerHTML = '';
+        resultsBox.style.display = "block";
+        resultsBox.innerHTML = "";
         if (!matches || matches.length === 0) {
-          resultsBox.textContent = '一致するファイルはありません。';
+          resultsBox.textContent = "一致するファイルはありません。";
           return;
         }
         for (const p of matches) {
-          const div = document.createElement('div');
-          div.className = 'search-item';
-          const uploader = p.uploader ? ` — ${p.uploader}` : '';
-          const tournament = p.tournament ? ` [${p.tournament}]` : '';
-          div.textContent = `${p.title.replace(/\.pdf$/i,'')}${tournament} — ${p.category || ''}${uploader}`;
-          div.addEventListener('click', () => {
+          const div = document.createElement("div");
+          div.className = "search-item";
+          const uploader = p.uploader ? ` — ${p.uploader}` : "";
+          const tournament = p.tournament ? ` [${p.tournament}]` : "";
+          div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}${uploader}`;
+          div.addEventListener("click", () => {
             // open ancestor details of the target list
             const mapping = {
-              "自然観察注意": "shizekan-list",
-              "自然観察": "shizekan-list",
+              自然観察注意: "shizekan-list",
+              自然観察: "shizekan-list",
               気象: "kisho-list",
               救急: "kyukyu-list",
               共通: "kyotsu-list",
               インターハイ: "inhai-list",
               県総体: "kensotai-list",
-              中国大会予選:"chutaiyosen-list"
+              中国大会予選: "chutaiyosen-list",
             };
-            const listId = mapping[p.category] || (p.path && p.path.indexOf('pdf/kadai/shizekan/') !== -1 ? 'shizekan-list' : 'other-list');
+            const listId =
+              mapping[p.category] ||
+              (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
+                ? "shizekan-list"
+                : "other-list");
             const listDiv = document.getElementById(listId);
             if (listDiv) {
               // open all ancestor details
               let el = listDiv;
               while (el) {
-                if (el.tagName && el.tagName.toLowerCase() === 'details') el.open = true;
+                if (el.tagName && el.tagName.toLowerCase() === "details")
+                  el.open = true;
                 el = el.parentElement;
               }
               // find the row
               const selector = `tbody tr[data-path="${p.path}"]`;
-              const row = listDiv.querySelector(selector) || listDiv.querySelector(`tbody tr[data-path="${p.filename}"]`);
+              const row =
+                listDiv.querySelector(selector) ||
+                listDiv.querySelector(`tbody tr[data-path="${p.filename}"]`);
               if (row) {
-                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                row.classList.remove('flash-red');
+                row.scrollIntoView({ behavior: "smooth", block: "center" });
+                row.classList.remove("flash-red");
                 // trigger reflow to restart animation
                 void row.offsetWidth;
-                row.classList.add('flash-red');
-                setTimeout(() => row.classList.remove('flash-red'), 3500);
+                row.classList.add("flash-red");
+                setTimeout(() => row.classList.remove("flash-red"), 3500);
               }
             }
           });
@@ -219,15 +270,25 @@
       }
 
       if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-          const q = (e.target.value || '').trim().toLowerCase();
-          if (!q) { if (resultsBox) { resultsBox.innerHTML = ''; resultsBox.style.display = 'none'; } return; }
-          const matches = allPapers.filter(p => {
-            return (p.title && p.title.toLowerCase().includes(q)) || 
-                   (p.tournament && p.tournament.toLowerCase().includes(q)) ||
-                   (p.filename && p.filename.toLowerCase().includes(q)) || 
-                   (p.category && p.category.toLowerCase().includes(q));
-          }).slice(0, 100);
+        searchInput.addEventListener("input", (e) => {
+          const q = (e.target.value || "").trim().toLowerCase();
+          if (!q) {
+            if (resultsBox) {
+              resultsBox.innerHTML = "";
+              resultsBox.style.display = "none";
+            }
+            return;
+          }
+          const matches = allPapers
+            .filter((p) => {
+              return (
+                (p.title && p.title.toLowerCase().includes(q)) ||
+                (p.tournament && p.tournament.toLowerCase().includes(q)) ||
+                (p.filename && p.filename.toLowerCase().includes(q)) ||
+                (p.category && p.category.toLowerCase().includes(q))
+              );
+            })
+            .slice(0, 100);
           renderResults(matches);
         });
       }
@@ -240,7 +301,7 @@
         "kyotsu-list",
         "inhai-list",
         "kensotai-list",
-        "chutaiyose-list"
+        "chutaiyose-list",
       ].forEach((id) => {
         const c = document.getElementById(id);
         if (c) c.innerHTML = "<p>読み込みに失敗しました。</p>";

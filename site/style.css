@@ -224,6 +224,7 @@ tbody tr td:nth-child(3) {
 .details-section a,
 .dawnload-method a {
   display: inline-block;
+  width: fit-content;
   padding: 6px 12px;
   border: 1px solid var(--link);
   border-radius: 6px;
@@ -252,7 +253,32 @@ a:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
 }
+/* アクションボタンのコンテナ */
+.action-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
+/* 共有ボタン */
+.share-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  background-color: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.share-btn:hover {
+  background-color: var(--border);
+}
 /* ==========================================
    アコーディオン（モダンデザイン化）
    ========================================== */
@@ -263,7 +289,9 @@ a:focus-visible {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border);
   overflow: hidden;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .accordion:hover {
@@ -1077,7 +1105,7 @@ footer {
 @media (max-width: 600px) {
   thead tr th:nth-child(2n),
   tbody tr td:nth-child(2n),
-  #file-authors-table{
+  #file-authors-table {
     display: none;
   }
   .news-banner {
