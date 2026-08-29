@@ -1022,6 +1022,11 @@ footer {
 
 /* スマホ */
 @media (max-width: 600px) {
+  thead tr th:nth-child(2n),
+  tbody tr td:nth-child(2n),
+  #file-authors-table{
+    display: none;
+  }
   .news-banner {
     padding: 32px 16px;
   }

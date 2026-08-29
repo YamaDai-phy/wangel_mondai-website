@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const root = path.resolve(__dirname, '..');
+const root = __dirname;
 const pdfDir = path.join(root, 'pdf');
 const outPath = path.join(pdfDir, 'data.json');
 

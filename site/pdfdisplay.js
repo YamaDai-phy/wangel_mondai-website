@@ -81,7 +81,7 @@
         // For the main natural-observation list, show 注意自然観察 first,
         // then 問題自然観察, then the rest. Otherwise sort by title.
         if (containerId === "shizekan-list") {
-          const priority = ["注意自然観察", "問題自然観察"];
+          const priority = ["自然観察注意点"];
           items.sort((a, b) => {
             const ia = priority.indexOf(a.category);
             const ib = priority.indexOf(b.category);
@@ -102,24 +102,33 @@
         }
         const table = document.createElement("table");
         const thead = document.createElement("thead");
-        thead.innerHTML = "<tr><th>タイトル</th><th>ダウンロード</th></tr>";
+        thead.innerHTML = "<tr><th>タイトル</th><th>大会</th><th>ダウンロード</th></tr>";
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         for (const p of items) {
           const tr = document.createElement("tr");
           tr.dataset.path = p.path || p.filename || p.title || "";
           tr.dataset.category = p.category || "";
+          
+          // タイトル列
           const tdTitle = document.createElement("td");
           let t = p.title.replace(/\.(pdf)$/i, "");
-          if (p.mtime);
           tdTitle.textContent = p.uploader ? `${t}（${p.uploader}）` : t;
+          
+          // 大会名列
+          const tdTournament = document.createElement("td");
+          tdTournament.textContent = p.tournament || "-";
+
+          // ダウンロードリンク列
           const tdLink = document.createElement("td");
           const a = mkLink(p);
           a.textContent = "リンク";
           a.classList.add("download-link");
           setCheckedLink(a, p);
           tdLink.appendChild(a);
+
           tr.appendChild(tdTitle);
+          tr.appendChild(tdTournament);
           tr.appendChild(tdLink);
           tbody.appendChild(tr);
         }
@@ -134,7 +143,7 @@
       renderTable("kyotsu-list", buckets["kyotsu-list"]);
       renderTable("inhai-list", buckets["inhai-list"]);
       renderTable("kensotai-list", buckets["kensotai-list"]);
-      renderTable("chutaiyosen-list", buckets["chutaiyosen-list"])
+      renderTable("chutaiyosen-list", buckets["chutaiyosen-list"]);
       // render any uncategorized files
       // create a container if not present
       let other = document.getElementById("other-list");
@@ -169,12 +178,12 @@
           const div = document.createElement('div');
           div.className = 'search-item';
           const uploader = p.uploader ? ` — ${p.uploader}` : '';
-          div.textContent = `${p.title.replace(/\.pdf$/i,'')} — ${p.category || ''}${uploader}`;
+          const tournament = p.tournament ? ` [${p.tournament}]` : '';
+          div.textContent = `${p.title.replace(/\.pdf$/i,'')}${tournament} — ${p.category || ''}${uploader}`;
           div.addEventListener('click', () => {
             // open ancestor details of the target list
             const mapping = {
-              "注意自然観察": "shizekan-list",
-              "問題自然観察": "shizekan-list",
+              "自然観察注意": "shizekan-list",
               "自然観察": "shizekan-list",
               気象: "kisho-list",
               救急: "kyukyu-list",
@@ -214,7 +223,10 @@
           const q = (e.target.value || '').trim().toLowerCase();
           if (!q) { if (resultsBox) { resultsBox.innerHTML = ''; resultsBox.style.display = 'none'; } return; }
           const matches = allPapers.filter(p => {
-            return (p.title && p.title.toLowerCase().includes(q)) || (p.filename && p.filename.toLowerCase().includes(q)) || (p.category && p.category.toLowerCase().includes(q));
+            return (p.title && p.title.toLowerCase().includes(q)) || 
+                   (p.tournament && p.tournament.toLowerCase().includes(q)) ||
+                   (p.filename && p.filename.toLowerCase().includes(q)) || 
+                   (p.category && p.category.toLowerCase().includes(q));
           }).slice(0, 100);
           renderResults(matches);
         });
@@ -223,8 +235,6 @@
     .catch((err) => {
       [
         "shizekan-list",
-        "chuishizekan-list",
-        "mondaishizekan-list",
         "kisho-list",
         "kyukyu-list",
         "kyotsu-list",
