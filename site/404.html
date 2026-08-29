@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404</title>
+    <style>
+      :root {
+        --title: red;
+        --message: #666;
+        --bg-color: #fff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        font-family: "Noto Sans JP", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .container {
+        background: var(--bg-color);
+        border-radius: 2rem;
+        padding: 3rem 2rem;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .title {
+        color: var(--title);
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+      }
+
+      .message {
+        font-size: 1.6rem;
+        color: var(--message);
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 1rem;
+        }
+        .container {
+          padding: 3rem 2rem;
+        }
+
+        .title {
+          font-size: 3.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">404</h1>
+      <p class="message">お探しのページは見つかりませんでした。<br><a href="pdf.html">資料室に戻る</a></p>
+    </div>
+  </body>
+</html>
