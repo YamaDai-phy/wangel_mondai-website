@@ -67,7 +67,30 @@
   <body>
     <div class="container">
       <h1 class="title">404</h1>
-      <p class="message">お探しのページは見つかりませんでした。<br><a href="../pdf.html">書庫に戻る</a></p>
+      <p class="message">
+        お探しのページは見つかりませんでした。<br /><a href="/"
+          >書庫に戻る</a
+        >
+      </p>
     </div>
   </body>
+  <script>
+    (function () {
+      // 1. 現在のURLのパス名を取得
+      const path = window.location.pathname;
+
+      // 2. パスを「/」で分割して空の要素を除外
+      const pathSegments = path.split("/").filter(Boolean);
+
+      // 3. 最初のディレクトリが存在するかチェック
+      if (pathSegments.length > 0) {
+        const firstDirectory = pathSegments[0];
+        const targetLink = document.getElementById("back-to-first-dir");
+
+        // 4. リンク先を最初のディレクトリ（例: /aaa/）に書き換え
+        targetLink.href = "/" + firstDirectory + "/";
+        targetLink.textContent = "「/" + firstDirectory + "/」のトップへ戻る";
+      }
+    });
+  </script>
 </html>
