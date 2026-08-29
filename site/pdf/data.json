@@ -1,6 +1,56 @@
 {
   "papers": [
     {
+      "filename": "chutaiyosen2026-garyu.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu.pdf",
+      "title": "臥龍山",
+      "tournament": "2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 382665,
+      "mtime": "2026-08-29T00:33:05.105Z"
+    },
+    {
+      "filename": "chutaiyosen2026-garyu1-kotae.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu1-kotae.pdf",
+      "title": "臥龍山１（答え）",
+      "tournament": "2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 316227,
+      "mtime": "2026-08-29T00:33:00.596Z"
+    },
+    {
+      "filename": "chutaiyosen2026-garyu1.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu1.pdf",
+      "title": "臥龍山１",
+      "tournament": "2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 844351,
+      "mtime": "2026-08-29T00:32:57.416Z"
+    },
+    {
+      "filename": "chutaiyosen2026-garyu2-kotae.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu2-kotae.pdf",
+      "title": "臥龍山２（答え）",
+      "tournament": "2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 421417,
+      "mtime": "2026-08-29T08:34:19.312Z"
+    },
+    {
+      "filename": "chutaiyosen2026-garyu2.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu2.pdf",
+      "title": "臥龍山２",
+      "tournament": "2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 426101,
+      "mtime": "2026-08-29T08:34:19.615Z"
+    },
+    {
       "filename": "kyotsu1-mon-haihu.pdf",
       "path": "pdf/inhai/kyotsu1-mon-haihu.pdf",
       "title": "共通１配布地図",
@@ -29,37 +79,6 @@
       "size": 496979,
       "mtime": "2026-07-29T06:05:58.000Z",
       "ext": "pdf"
-    },
-
-    {
-      "filename": "kyoutsu-garyu-1-kotae.pdf",
-      "path": "pdf/kadai/kyotsu/kyoutsu-garyu-1-kotae.pdf",
-      "title": "臥龍山１（答え）",
-      "tournament": "2026中大予選",
-      "ext": "pdf",
-      "category": "中国大会予選",
-      "size": 316227,
-      "mtime": "2026-08-29T00:33:00.596Z"
-    },
-    {
-      "filename": "kyoutsu-garyu-1.pdf",
-      "path": "pdf/kadai/kyotsu/kyoutsu-garyu-1.pdf",
-      "title": "臥龍山１",
-      "tournament": "2026中大予選",
-      "ext": "pdf",
-      "category": "中国大会予選",
-      "size": 844351,
-      "mtime": "2026-08-29T00:32:57.416Z"
-    },
-    {
-      "filename": "kyoutsu-garyu.pdf",
-      "path": "pdf/kadai/kyotsu/kyoutsu-garyu.pdf",
-      "title": "臥龍山",
-      "tournament": "2026中大予選",
-      "ext": "pdf",
-      "category": "中国大会予選",
-      "size": 382665,
-      "mtime": "2026-08-29T00:33:05.105Z"
     },
     {
       "filename": "kishou1.pdf",
@@ -482,36 +501,6 @@
       "ext": "pdf"
     },
     {
-      "filename": "kyoutsu-garyu-1-kotae.pdf",
-      "path": "pdf/kadai/kyotsu/kyoutsu-garyu-1-kotae.pdf",
-      "title": "臥龍山１（答え）",
-      "tournament": "",
-      "ext": "pdf",
-      "category": "共通",
-      "size": 316227,
-      "mtime": "2026-08-29T00:33:00.596Z"
-    },
-    {
-      "filename": "kyoutsu-garyu-1.pdf",
-      "path": "pdf/kadai/kyotsu/kyoutsu-garyu-1.pdf",
-      "title": "臥龍山１ 自作",
-      "tournament": "2026中大予選",
-      "ext": "pdf",
-      "category": "共通",
-      "size": 844351,
-      "mtime": "2026-08-29T00:32:57.416Z"
-    },
-    {
-      "filename": "kyoutsu-garyu.pdf",
-      "path": "pdf/kadai/kyotsu/kyoutsu-garyu.pdf",
-      "title": "臥龍山 自作",
-      "tournament": "2026中大予選",
-      "ext": "pdf",
-      "category": "共通",
-      "size": 382665,
-      "mtime": "2026-08-29T00:33:05.105Z"
-    },
-    {
       "filename": "kyukyu1.pdf",
       "path": "pdf/kadai/kyukyu/kyukyu1.pdf",
       "title": "救急１",
@@ -586,7 +575,7 @@
       "path": "pdf/kadai/shizekan/shizekan-chizu1mon1tou.pdf",
       "title": "地図記号１問１答",
       "tournament": "",
-      "category": "自然観察注意点",
+      "category": "自然観察",
       "size": 457004,
       "mtime": "2026-08-02T10:14:42.311Z",
       "ext": "pdf"
@@ -596,7 +585,7 @@
       "path": "pdf/kadai/shizekan/shizekan-chuiten.pdf",
       "title": "注意点",
       "tournament": "",
-      "category": "自然観察注意点",
+      "category": "自然観察",
       "size": 278720,
       "mtime": "2026-08-02T08:27:23.445Z",
       "ext": "pdf"
@@ -886,7 +875,7 @@
       "path": "pdf/kadai/shizekan/shizekan-tozanyogo1mon1tou.pdf",
       "title": "登山用語１問１答",
       "tournament": "",
-      "category": "自然観察注意点",
+      "category": "自然観察",
       "size": 441180,
       "mtime": "2026-08-02T08:22:38.916Z",
       "ext": "pdf"

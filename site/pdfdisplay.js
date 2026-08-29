@@ -54,7 +54,7 @@
         共通: "kyotsu-list",
         インターハイ: "inhai-list",
         県総体: "kensotai-list",
-        中国大会予選:"chutaiyosen-list",
+        chutaiyosen:"chutaiyosen-list",
       };
       const buckets = {};
       Object.values(mapping).forEach((id) => (buckets[id] = []));
