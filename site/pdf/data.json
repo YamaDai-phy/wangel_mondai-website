@@ -51,6 +51,26 @@
       "mtime": "2026-08-29T08:34:19.615Z"
     },
     {
+      "filename": "chutaiyosen2026-garyu3-kotae.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu3-kotae.pdf",
+      "title": "臥龍山３（答え）",
+      "tournament":"2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 582809,
+      "mtime": "2026-08-29T13:55:31.389Z"
+    },
+    {
+      "filename": "chutaiyosen2026-garyu3.pdf",
+      "path": "pdf/chutaiyosen/chutaiyosen2026-garyu3.pdf",
+      "title": "臥龍山３",
+      "tournament":"2026中体予選",
+      "ext": "pdf",
+      "category": "chutaiyosen",
+      "size": 556231,
+      "mtime": "2026-08-29T13:51:05.671Z"
+    },
+    {
       "filename": "kyotsu1-mon-haihu.pdf",
       "path": "pdf/inhai/kyotsu1-mon-haihu.pdf",
       "title": "共通１配布地図",
