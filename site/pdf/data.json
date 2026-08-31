@@ -101,6 +101,69 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou-22.JPG",
+      "path": "pdf/kadai/kishou/kishou-22.JPG",
+      "title": "気象22",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 244820,
+      "mtime": "2026-08-31T10:59:35.720Z"
+    },
+    {
+      "filename": "kishou-23.JPG",
+      "path": "pdf/kadai/kishou/kishou-23.JPG",
+      "title": "気象23",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 340117,
+      "mtime": "2026-08-31T10:59:35.764Z"
+    },
+    {
+      "filename": "kishou-24.JPG",
+      "path": "pdf/kadai/kishou/kishou-24.JPG",
+      "title": "気象24",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 199273,
+      "mtime": "2026-08-31T10:59:35.784Z"
+    },
+    {
+      "filename": "kishou-25-1.JPG",
+      "path": "pdf/kadai/kishou/kishou-25-1.JPG",
+      "title": "気象25（セット）",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 247159,
+      "mtime": "2026-08-31T10:59:35.832Z"
+    },
+    {
+      "filename": "kishou-25.JPG",
+      "path": "pdf/kadai/kishou/kishou-25.JPG",
+      "title": "気象25",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 381386,
+      "mtime": "2026-08-31T10:59:35.812Z"
+    },
+    {
+      "filename": "kishou-26-1.JPG",
+      "path": "pdf/kadai/kishou/kishou-26-1.JPG",
+      "title": "気象26（セット）",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 150773,
+      "mtime": "2026-08-31T10:59:35.874Z"
+    },
+    {
+      "filename": "kishou-26.JPG",
+      "path": "pdf/kadai/kishou/kishou-26.JPG",
+      "title": "気象26",
+      "ext": "jpg",
+      "category": "気象",
+      "size": 405069,
+      "mtime": "2026-08-31T10:59:35.856Z"
+    },
+    {
       "filename": "kishou1.pdf",
       "path": "pdf/kadai/kishou/kishou1.pdf",
       "title": "気象１",
@@ -331,9 +394,9 @@
       "mtime": "2026-08-29T00:22:23.797Z"
     },
     {
-      "filename": "kishou21-kotae.pdf",
-      "path": "pdf/kadai/kishou/kishou21-kotae.pdf",
-      "title": "気象21（答え）",
+      "filename": "kishou21-26-kotae.pdf",
+      "path": "pdf/kadai/kishou/kishou21-26-kotae.pdf",
+      "title": "気象21~26（答え）",
       "ext": "pdf",
       "category": "気象",
       "size": 562571,

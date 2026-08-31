@@ -22,7 +22,7 @@ function walk(dir) {
     const full = path.join(dir, ent.name);
     if (ent.isDirectory()) {
       results = results.concat(walk(full));
-    } else if (ent.isFile() && /\.(pdf|txt)$/i.test(ent.name)) {
+    } else if (ent.isFile() && /\.(pdf|txt|jpg)$/i.test(ent.name)) {
       const rel = path.relative(root, full).replace(/\\/g, '/');
       const stat = fs.statSync(full);
       const parts = rel.split('/');
