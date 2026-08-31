@@ -54,7 +54,7 @@
       "filename": "chutaiyosen2026-garyu3-kotae.pdf",
       "path": "pdf/chutaiyosen/chutaiyosen2026-garyu3-kotae.pdf",
       "title": "臥龍山３（答え）",
-      "tournament":"2026中体予選",
+      "tournament": "2026中体予選",
       "ext": "pdf",
       "category": "chutaiyosen",
       "size": 582809,
@@ -64,7 +64,7 @@
       "filename": "chutaiyosen2026-garyu3.pdf",
       "path": "pdf/chutaiyosen/chutaiyosen2026-garyu3.pdf",
       "title": "臥龍山３",
-      "tournament":"2026中体予選",
+      "tournament": "2026中体予選",
       "ext": "pdf",
       "category": "chutaiyosen",
       "size": 556231,
@@ -329,6 +329,24 @@
       "category": "気象",
       "size": 295719,
       "mtime": "2026-08-29T00:22:23.797Z"
+    },
+    {
+      "filename": "kishou21-kotae.pdf",
+      "path": "pdf/kadai/kishou/kishou21-kotae.pdf",
+      "title": "気象21（答え）",
+      "ext": "pdf",
+      "category": "気象",
+      "size": 562571,
+      "mtime": "2026-08-31T10:15:11.401Z"
+    },
+    {
+      "filename": "kishou21.pdf",
+      "path": "pdf/kadai/kishou/kishou21.pdf",
+      "title": "気象21",
+      "ext": "pdf",
+      "category": "気象",
+      "size": 452108,
+      "mtime": "2026-08-31T10:14:57.098Z"
     },
     {
       "filename": "kishou3.pdf",
