@@ -204,7 +204,7 @@ async function serveR2Object(request, bucket, key, filename, corsHeaders, inline
   const headers = new Headers(corsHeaders || undefined);
   object.writeHttpMetadata(headers);
   headers.set("Content-Type", "application/pdf");
-  headers.set("Content-Disposition", `${inline ? "inline" : "attachment"}; filename="${filename}"`);
+  headers.set("Content-Disposition", contentDisposition(filename, inline));
   headers.set("ETag", object.httpEtag);
   headers.set("Accept-Ranges", "bytes");
   headers.set("Cache-Control", "private, no-store");
@@ -281,9 +281,15 @@ export function createCorsHeaders(origin, configuredOrigins) {
 }
 
 function normalizeFilename(value) {
-  const filename = cleanText(value, 120);
-  if (!filename || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.pdf$/i.test(filename) || filename.includes("..")) return "";
+  const filename = cleanText(value, 120).normalize("NFC");
+  if (!filename || !filename.toLowerCase().endsWith(".pdf")) return "";
+  if (filename.includes("..") || /[\\/\u0000-\u001f\u007f]/.test(filename)) return "";
   return filename;
+}
+
+function contentDisposition(filename, inline) {
+  const fallback = filename.replace(/[^A-Za-z0-9._-]/g, "_") || "document.pdf";
+  return `${inline ? "inline" : "attachment"}; filename="${fallback}"; filename*=UTF-8''${encodeURIComponent(filename)}`;
 }
 
 function cleanText(value, maxLength) {

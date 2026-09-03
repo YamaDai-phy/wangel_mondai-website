@@ -820,6 +820,7 @@
           const res = await fetch(endpoint, { method: "POST", body: bodyData });
           const result = await res.json();
           if (!res.ok || !result.success) {
+            console.error("Upload rejected", { status: res.status, error: result.error, filename });
             throw new Error(result.error || "アップロードに失敗しました。");
           }
           successCount += 1;

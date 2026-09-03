@@ -28,6 +28,11 @@ test("未完成品を受け付ける", async () => {
   assert.equal(input.docType, "incomplete");
 });
 
+test("日本語のPDFファイル名を受け付ける", async () => {
+  const input = await validateUpload(validForm({ filename: "自然観察問題.pdf" }));
+  assert.equal(input.filename, "自然観察問題.pdf");
+});
+
 test("不正なファイル名を拒否する", async () => {
   await assert.rejects(validateUpload(validForm({ filename: "../sample.pdf" })), /PDF形式/);
 });
