@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pdf-upload-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-03",
+  "preview_urls": false,
+
+  "vars": {
+    "ALLOWED_ORIGINS": "https://wangel-mondai.pages.dev",
+    "MAX_FILE_SIZE": "20971520"
+  },
+
+  "r2_buckets": [
+    {
+      "binding": "PDF_BUCKET",
+      "bucket_name": "pdf-storage"
+    }
+  ],
+
+  "secrets": {
+    "required": ["LINE_CHANNEL_ACCESS_TOKEN", "LINE_USER_ID"]
+  }
+}
