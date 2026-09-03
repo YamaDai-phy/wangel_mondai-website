@@ -425,25 +425,48 @@
 
   function applyAnswerSuffixToFilename(filename) {
     if (!filename) return "";
-    const isAnswer = typeSelect && typeSelect.value === "answer";
-    if (!isAnswer) return filename;
+    const docType = typeSelect ? typeSelect.value : "";
+    if (docType !== "answer" && docType !== "incomplete") return filename;
 
     const { base, ext } = splitFilename(filename);
-    if (base.endsWith("-kotae")) {
+    const suffix = docType === "answer" ? "-kotae" : "-mikansei";
+    if (base.endsWith(suffix)) {
       return `${base}${ext || ".pdf"}`;
     }
-    return `${base}-kotae${ext || ".pdf"}`;
+    return `${base}${suffix}${ext || ".pdf"}`;
   }
 
   function applyAnswerSuffixToTitle(title) {
     if (!title) return "";
-    const isAnswer = typeSelect && typeSelect.value === "answer";
-    if (!isAnswer) return title;
+    const docType = typeSelect ? typeSelect.value : "";
+    if (docType !== "answer" && docType !== "incomplete") return title;
 
-    if (title.endsWith("（答え）")) {
+    const suffix = docType === "answer" ? "（答え）" : "（未完成品）";
+    if (title.endsWith(suffix)) {
       return title;
     }
-    return `${title}（答え）`;
+    return `${title}${suffix}`;
+  }
+
+  function addBatchNumberToFilename(filename, index) {
+    if (index === 0) return filename;
+    const { base, ext } = splitFilename(filename);
+    for (const suffix of ["-kotae", "-mikansei"]) {
+      if (base.endsWith(suffix)) {
+        return `${base.slice(0, -suffix.length)}-${index + 1}${suffix}${ext || ".pdf"}`;
+      }
+    }
+    return `${base}-${index + 1}${ext || ".pdf"}`;
+  }
+
+  function addBatchNumberToTitle(title, index) {
+    if (index === 0) return title;
+    for (const suffix of ["（答え）", "（未完成品）"]) {
+      if (title.endsWith(suffix)) {
+        return `${title.slice(0, -suffix.length)}（${index + 1}）${suffix}`;
+      }
+    }
+    return `${title}（${index + 1}）`;
   }
 
   function buildDefaultFilename(subject, fileName) {
@@ -689,7 +712,8 @@
 
     const path =
       subject && filename ? `pdf/kadai/${slug}/${filename}` : "未設定";
-    targetPath.textContent = path;
+    const selectedCount = fileInput.files ? fileInput.files.length : 0;
+    targetPath.textContent = selectedCount > 1 ? `${path} ほか${selectedCount - 1}件` : path;
     pathHidden.value = path === "未設定" ? "" : path;
 
     titlePreview.textContent = title || "未設定";
@@ -731,22 +755,12 @@
 
     const docType = normalizeText(typeSelect ? typeSelect.value : "");
     const subject = normalizeText(subjectSelect.value);
-    const file = fileInput.files && fileInput.files[0];
+    const files = fileInput.files ? Array.from(fileInput.files) : [];
     const uploader = normalizeText(uploaderInput.value);
     const endpoint = getEndpoint();
-    const defaultFilename = buildDefaultFilename(subject, file && file.name);
-    const defaultTitle = buildDefaultTitle(subject, defaultFilename);
-    const filename = makeUniqueFilename(
-      subject,
-      normalizeText(filenameInput.value) || defaultFilename,
-    );
-    const title = makeUniqueTitle(
-      normalizeText(titleInput.value) || defaultTitle,
-    );
-    const path = `pdf/kadai/${slugForSubject(subject)}/${filename}`;
 
     if (!docType) {
-      setStatus("種別（問題または答え）を選んでください。", "error");
+      setStatus("種別（問題、答え、未完成品）を選んでください。", "error");
       return;
     }
     if (!subject) {
@@ -763,7 +777,7 @@
         return;
       }
     }
-    if (!file) {
+    if (files.length === 0) {
       setStatus("PDF をアップロードしてください。", "error");
       return;
     }
@@ -771,38 +785,56 @@
       setStatus("アップロード者名を入力してください。", "error");
       return;
     }
-    if (!filename) {
+    if (!normalizeText(filenameInput.value) && !buildDefaultFilename(subject, files[0].name)) {
       setStatus("filename を入力してください。", "error");
       return;
     }
 
     try {
       uploadButton.disabled = true;
-      setStatus("アップロード中...", "info");
+      const failures = [];
+      let successCount = 0;
 
-      const bodyData = new FormData();
-      bodyData.append("file", file);
-      bodyData.append("doc_type", docType);
-      bodyData.append("subject", subject);
-      bodyData.append("filename", filename);
-      bodyData.append("title", title);
-      bodyData.append("uploader", uploader);
-      bodyData.append("path", path);
+      for (let index = 0; index < files.length; index += 1) {
+        const file = files[index];
+        setStatus(`${files.length}件中 ${index + 1}件目をアップロード中...`, "info");
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        body: bodyData,
-      });
+        const defaultFilename = buildDefaultFilename(subject, file.name);
+        const baseFilename = normalizeText(filenameInput.value) || defaultFilename;
+        const filename = makeUniqueFilename(
+          subject,
+          addBatchNumberToFilename(baseFilename, index),
+        );
+        const defaultTitle = buildDefaultTitle(subject, filename);
+        const baseTitle = normalizeText(titleInput.value) || defaultTitle;
+        const title = makeUniqueTitle(addBatchNumberToTitle(baseTitle, index));
+        const bodyData = new FormData();
+        bodyData.append("file", file);
+        bodyData.append("doc_type", docType);
+        bodyData.append("subject", subject);
+        bodyData.append("filename", filename);
+        bodyData.append("title", title);
+        bodyData.append("uploader", uploader);
 
-      const result = await res.json();
+        try {
+          const res = await fetch(endpoint, { method: "POST", body: bodyData });
+          const result = await res.json();
+          if (!res.ok || !result.success) {
+            throw new Error(result.error || "アップロードに失敗しました。");
+          }
+          successCount += 1;
+        } catch (error) {
+          failures.push(`${file.name}: ${error.message || "送信失敗"}`);
+        }
+      }
 
-      if (res.ok && result.success) {
-        setStatus(result.message || "アップロードが完了しました。", "success");
+      if (failures.length === 0) {
+        setStatus(`${successCount}件のアップロードが完了しました。`, "success");
         form.reset();
         isMountainEnManuallyEdited = false;
         updateCategoryPreview();
       } else {
-        throw new Error(result.error || "アップロードに失敗しました。");
+        setStatus(`${successCount}件成功、${failures.length}件失敗：${failures.join(" / ")}`, "error");
       }
     } catch (error) {
       console.error(error);

@@ -23,6 +23,11 @@ test("有効な投稿を正規化する", async () => {
   assert.equal(input.filename, "sample.pdf");
 });
 
+test("未完成品を受け付ける", async () => {
+  const input = await validateUpload(validForm({ doc_type: "incomplete" }));
+  assert.equal(input.docType, "incomplete");
+});
+
 test("不正なファイル名を拒否する", async () => {
   await assert.rejects(validateUpload(validForm({ filename: "../sample.pdf" })), /PDF形式/);
 });

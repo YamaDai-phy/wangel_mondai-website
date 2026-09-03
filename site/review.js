@@ -39,7 +39,8 @@
       const { submission } = await request("");
       document.getElementById("review-title").textContent = submission.title;
       document.getElementById("review-subject").textContent = submission.subject;
-      document.getElementById("review-type").textContent = submission.docType === "answer" ? "答え" : "問題";
+      const typeLabels = { question: "問題", answer: "答え", incomplete: "未完成品" };
+      document.getElementById("review-type").textContent = typeLabels[submission.docType] || submission.docType;
       document.getElementById("review-uploader").textContent = submission.uploader;
       document.getElementById("review-filename").textContent = submission.filename;
       document.getElementById("review-size").textContent = `${(submission.size / 1024 / 1024).toFixed(2)} MB`;

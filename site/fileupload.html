@@ -46,6 +46,7 @@
               <option value="" selected>選択してください</option>
               <option value="question">問題</option>
               <option value="answer">答え</option>
+              <option value="incomplete">未完成品</option>
             </select>
           </label>
           <!-- 担当科目 -->
@@ -76,8 +77,10 @@
               name="file"
               type="file"
               accept="application/pdf,.pdf"
+              multiple
               required
             />
+            <span class="field-help">複数のPDFをまとめて選択できます</span>
           </label>
 
           <!-- 山の名前（日本語） -->

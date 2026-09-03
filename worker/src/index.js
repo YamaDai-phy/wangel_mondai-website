@@ -248,7 +248,7 @@ export async function validateUpload(formData, configuredMaxSize) {
   const maxFileSize = parseMaxFileSize(configuredMaxSize);
 
   if (!file || typeof file.stream !== "function") throw new ApiError("ファイルが添付されていません。");
-  if (!["question", "answer"].includes(docType)) throw new ApiError("種別が正しくありません。");
+  if (!["question", "answer", "incomplete"].includes(docType)) throw new ApiError("種別が正しくありません。");
   if (!SUBJECTS[subject]) throw new ApiError("担当科目が正しくありません。");
   if (!title) throw new ApiError("タイトルを入力してください。");
   if (!uploader) throw new ApiError("アップロード者名を入力してください。");
