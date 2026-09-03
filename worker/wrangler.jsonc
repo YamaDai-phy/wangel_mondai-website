@@ -7,13 +7,23 @@
 
   "vars": {
     "ALLOWED_ORIGINS": "https://wangel-mondai.pages.dev",
-    "MAX_FILE_SIZE": "20971520"
+    "MAX_FILE_SIZE": "20971520",
+    "PUBLIC_SITE_URL": "https://wangel-mondai.pages.dev"
   },
 
   "r2_buckets": [
     {
       "binding": "PDF_BUCKET",
       "bucket_name": "pdf-storage"
+    }
+  ],
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wangel-papers",
+      "database_id": "1b5f1dac-b17a-4f5b-85d9-3277be96cf47",
+      "migrations_dir": "migrations"
     }
   ],
 

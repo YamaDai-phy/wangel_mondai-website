@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+    <title>ワンゲル図書館 | 投稿確認</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header>
+      <h1>投稿確認</h1>
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
+          <li class="breadcrumb-item" aria-current="page">投稿確認</li>
+        </ol>
+      </nav>
+    </header>
+
+    <main class="review-page">
+      <div id="review-status" class="upload-status is-info" aria-live="polite">
+        投稿情報を読み込んでいます…
+      </div>
+
+      <section id="review-content" class="review-content" hidden>
+        <div class="upload-card">
+          <h2 id="review-title"></h2>
+          <dl class="upload-preview-list">
+            <div><dt>科目</dt><dd id="review-subject"></dd></div>
+            <div><dt>種別</dt><dd id="review-type"></dd></div>
+            <div><dt>投稿者</dt><dd id="review-uploader"></dd></div>
+            <div><dt>ファイル名</dt><dd id="review-filename"></dd></div>
+            <div><dt>サイズ</dt><dd id="review-size"></dd></div>
+            <div><dt>投稿日時</dt><dd id="review-created"></dd></div>
+          </dl>
+          <div class="review-actions">
+            <button type="button" id="approve-button">公開する</button>
+            <button type="button" id="reject-button" class="danger-button">却下する</button>
+          </div>
+        </div>
+
+        <div class="upload-card review-preview-card">
+          <h2>PDFプレビュー</h2>
+          <iframe id="review-pdf" title="投稿されたPDFのプレビュー"></iframe>
+        </div>
+      </section>
+    </main>
+
+    <footer><p><a href="index.html">ホームへ戻る</a></p></footer>
+    <script src="review.js"></script>
+  </body>
+</html>

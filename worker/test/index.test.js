@@ -17,10 +17,10 @@ function validForm(overrides = {}) {
   return form;
 }
 
-test("保存パスをクライアント入力ではなく科目から生成する", async () => {
-  const form = validForm();
-  form.set("path", "../../invalid.pdf");
-  assert.equal((await validateUpload(form)).savePath, "pdf/kadai/shizekan/sample.pdf");
+test("有効な投稿を正規化する", async () => {
+  const input = await validateUpload(validForm());
+  assert.equal(input.subject, "自然観察");
+  assert.equal(input.filename, "sample.pdf");
 });
 
 test("不正なファイル名を拒否する", async () => {
@@ -34,6 +34,10 @@ test("未登録の科目を拒否する", async () => {
 test("拡張子だけを偽装したファイルを拒否する", async () => {
   const fake = new File(["not a pdf"], "sample.pdf", { type: "application/pdf" });
   await assert.rejects(validateUpload(validForm({ file: fake })), /内容/);
+});
+
+test("設定されたサイズ上限を適用する", async () => {
+  await assert.rejects(validateUpload(validForm(), 5), /0MB以下/);
 });
 
 test("許可されたOriginだけにCORSヘッダーを返す", () => {

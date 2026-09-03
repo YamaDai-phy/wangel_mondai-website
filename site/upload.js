@@ -797,7 +797,7 @@
       const result = await res.json();
 
       if (res.ok && result.success) {
-        setStatus(`アップロード完了: ${result.path}`, "success");
+        setStatus(result.message || "アップロードが完了しました。", "success");
         form.reset();
         isMountainEnManuallyEdited = false;
         updateCategoryPreview();

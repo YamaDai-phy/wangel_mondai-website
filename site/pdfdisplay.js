@@ -1,4 +1,5 @@
 (function () {
+  const papersApi = "https://pdf-upload-api.yamadai.workers.dev/papers";
   const checkedKey = "download-link-checked";
   function loadChecked() {
     try {
@@ -81,8 +82,24 @@
 
     return wrapper;
   }
-  fetch("pdf/data.json")
-    .then((r) => r.json())
+  Promise.all([
+    fetch("pdf/data.json").then((response) => {
+      if (!response.ok) throw new Error("既存のPDF一覧を読み込めませんでした。");
+      return response.json();
+    }),
+    fetch(papersApi, { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error("投稿されたPDF一覧を読み込めませんでした。");
+        return response.json();
+      })
+      .catch((error) => {
+        console.error(error);
+        return { papers: [] };
+      }),
+  ])
+    .then(([localData, uploadedData]) => ({
+      papers: [...(localData.papers || []), ...(uploadedData.papers || [])],
+    }))
     .then((data) => {
       const mapping = {
         注意自然観察: "shizekan-list",

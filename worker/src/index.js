@@ -4,111 +4,240 @@ const DEFAULT_ALLOWED_ORIGINS = [
   "http://127.0.0.1:8787",
 ];
 
-const SUBJECT_PATHS = {
-  共通: "kyotsu",
-  自然観察: "shizekan",
-  気象: "kishou",
-  救急: "kyukyu",
-  "2026インハイ": "inhai2026",
-  県総体: "kensotai",
-  中国大会予選: "chutaiyusen",
+const SUBJECTS = {
+  共通: { slug: "kyotsu", category: "共通" },
+  自然観察: { slug: "shizekan", category: "自然観察" },
+  気象: { slug: "kishou", category: "気象" },
+  救急: { slug: "kyukyu", category: "救急" },
+  "2026インハイ": { slug: "inhai2026", category: "インターハイ" },
+  県総体: { slug: "kensotai", category: "県総体" },
+  中国大会予選: { slug: "chutaiyusen", category: "chutaiyosen" },
 };
 
 const DEFAULT_MAX_FILE_SIZE = 20 * 1024 * 1024;
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
     const origin = request.headers.get("Origin");
     const corsHeaders = createCorsHeaders(origin, env.ALLOWED_ORIGINS);
 
-    if (origin && !corsHeaders) {
-      return json({ error: "このサイトからは送信できません。" }, 403);
-    }
-
-    if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: corsHeaders });
-    }
-
-    if (request.method === "GET") {
-      return json({ ok: true, service: "pdf-upload-api" }, 200, corsHeaders);
-    }
-
-    if (request.method !== "POST") {
-      return json(
-        { error: "Method Not Allowed" },
-        405,
-        corsHeaders,
-        { Allow: "GET, POST, OPTIONS" },
-      );
-    }
+    if (origin && !corsHeaders) return json({ error: "このサイトからは送信できません。" }, 403);
+    if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders });
 
     try {
-      const formData = await request.formData();
-      const input = await validateUpload(formData, env.MAX_FILE_SIZE);
-      const existing = await env.PDF_BUCKET.head(input.savePath);
-
-      if (existing) {
-        return json(
-          { error: "同名のファイルがすでに送信されています。ファイル名を変更してください。" },
-          409,
-          corsHeaders,
-        );
+      if (request.method === "GET" && url.pathname === "/") {
+        return json({ ok: true, service: "pdf-upload-api" }, 200, corsHeaders);
+      }
+      if (request.method === "POST" && url.pathname === "/") {
+        return await handleUpload(request, env, corsHeaders, url);
+      }
+      if (request.method === "GET" && url.pathname === "/papers") {
+        return await listPublished(env, corsHeaders, url);
       }
 
-      const stored = await env.PDF_BUCKET.put(input.savePath, input.file.stream(), {
-        httpMetadata: {
-          contentType: "application/pdf",
-          contentDisposition: `attachment; filename="${input.filename}"`,
-        },
-        customMetadata: {
-          docType: input.docType,
-          subject: input.subject,
-          title: input.title,
-          uploader: input.uploader,
-          uploadedAt: new Date().toISOString(),
-        },
-        onlyIf: { etagDoesNotMatch: "*" },
-      });
-
-      if (!stored) {
-        return json(
-          { error: "同名のファイルが同時に送信されました。ファイル名を変更してください。" },
-          409,
-          corsHeaders,
-        );
+      const publicFileMatch = url.pathname.match(/^\/files\/([0-9a-f-]{36})(?:\/.*)?$/i);
+      if (request.method === "GET" && publicFileMatch) {
+        return await servePublicFile(request, env, corsHeaders, publicFileMatch[1]);
       }
 
-      let notificationSent = false;
-      if (env.LINE_CHANNEL_ACCESS_TOKEN && env.LINE_USER_ID) {
-        try {
-          await sendLineNotification(env.LINE_CHANNEL_ACCESS_TOKEN, env.LINE_USER_ID, input);
-          notificationSent = true;
-        } catch (error) {
-          console.error("LINE notification failed", error);
-        }
+      const reviewMatch = url.pathname.match(/^\/review\/([0-9a-f-]{36})(?:\/(file|approve|reject))?$/i);
+      if (reviewMatch) {
+        return await handleReview(request, env, corsHeaders, reviewMatch[1], reviewMatch[2], url);
       }
 
-      return json(
-        {
-          success: true,
-          message: "アップロードが完了しました。確認後に掲載されます。",
-          path: input.savePath,
-          notificationSent,
-        },
-        201,
-        corsHeaders,
-      );
+      return json({ error: "Not Found" }, 404, corsHeaders);
     } catch (error) {
-      const status = error instanceof UploadError ? error.status : 500;
-      if (status === 500) console.error("Upload failed", error);
+      const status = error instanceof ApiError ? error.status : 500;
+      if (status === 500) console.error("Request failed", error);
       return json(
-        { error: status === 500 ? "アップロード処理中にエラーが発生しました。" : error.message },
+        { error: status === 500 ? "処理中にエラーが発生しました。" : error.message },
         status,
         corsHeaders,
       );
     }
   },
 };
+
+async function handleUpload(request, env, corsHeaders, requestUrl) {
+  const input = await validateUpload(await request.formData(), env.MAX_FILE_SIZE);
+  const id = crypto.randomUUID();
+  const reviewToken = createReviewToken();
+  const reviewTokenHash = await hashToken(reviewToken);
+  const createdAt = new Date().toISOString();
+  const r2Key = `submissions/${id}/${input.filename}`;
+
+  await env.PDF_BUCKET.put(r2Key, input.file.stream(), {
+    httpMetadata: { contentType: "application/pdf" },
+    customMetadata: {
+      docType: input.docType,
+      subject: input.subject,
+      title: input.title,
+      uploader: input.uploader,
+      uploadedAt: createdAt,
+    },
+  });
+
+  try {
+    await env.DB.prepare(
+      `INSERT INTO submissions
+       (id, r2_key, filename, title, uploader, subject, category, doc_type,
+        status, review_token_hash, size, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`,
+    ).bind(
+      id,
+      r2Key,
+      input.filename,
+      input.title,
+      input.uploader,
+      input.subject,
+      SUBJECTS[input.subject].category,
+      input.docType,
+      reviewTokenHash,
+      input.file.size,
+      createdAt,
+    ).run();
+  } catch (error) {
+    await env.PDF_BUCKET.delete(r2Key);
+    throw error;
+  }
+
+  const siteUrl = String(env.PUBLIC_SITE_URL || requestUrl.origin).replace(/\/$/, "");
+  const reviewUrl = `${siteUrl}/review.html?id=${encodeURIComponent(id)}&token=${encodeURIComponent(reviewToken)}`;
+  let notificationSent = false;
+
+  if (env.LINE_CHANNEL_ACCESS_TOKEN && env.LINE_USER_ID) {
+    try {
+      await sendLineNotification(env.LINE_CHANNEL_ACCESS_TOKEN, env.LINE_USER_ID, input, reviewUrl);
+      notificationSent = true;
+    } catch (error) {
+      console.error("LINE notification failed", error);
+    }
+  }
+
+  return json({
+    success: true,
+    message: "アップロードが完了しました。確認後に掲載されます。",
+    submissionId: id,
+    notificationSent,
+  }, 201, corsHeaders);
+}
+
+async function listPublished(env, corsHeaders, url) {
+  const result = await env.DB.prepare(
+    `SELECT id, filename, title, uploader, category, subject, doc_type, size,
+            created_at, reviewed_at
+       FROM submissions
+      WHERE status = 'published'
+      ORDER BY reviewed_at DESC, created_at DESC`,
+  ).all();
+
+  const papers = result.results.map((row) => ({
+    filename: row.filename,
+    title: row.title,
+    uploader: row.uploader,
+    category: row.category,
+    tournament: tournamentForSubject(row.subject),
+    docType: row.doc_type,
+    size: row.size,
+    mtime: row.reviewed_at || row.created_at,
+    path: `${url.origin}/files/${row.id}/${encodeURIComponent(row.filename)}`,
+  }));
+
+  return json({ papers }, 200, corsHeaders, { "Cache-Control": "public, max-age=60" });
+}
+
+async function servePublicFile(request, env, corsHeaders, id) {
+  const row = await env.DB.prepare(
+    "SELECT r2_key, filename FROM submissions WHERE id = ? AND status = 'published'",
+  ).bind(id).first();
+  if (!row) throw new ApiError("ファイルが見つかりません。", 404);
+  return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders);
+}
+
+async function handleReview(request, env, corsHeaders, id, action, url) {
+  const token = url.searchParams.get("token") || "";
+  if (!token) throw new ApiError("確認リンクが正しくありません。", 401);
+
+  const tokenHash = await hashToken(token);
+  const row = await env.DB.prepare(
+    `SELECT id, r2_key, filename, title, uploader, subject, category, doc_type,
+            status, size, created_at
+       FROM submissions
+      WHERE id = ? AND review_token_hash = ? AND status = 'pending'`,
+  ).bind(id, tokenHash).first();
+  if (!row) throw new ApiError("確認リンクが無効または処理済みです。", 404);
+
+  if (!action && request.method === "GET") {
+    return json({ submission: publicReviewRow(row) }, 200, corsHeaders);
+  }
+  if (action === "file" && request.method === "GET") {
+    return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders, true);
+  }
+  if (action === "approve" && request.method === "POST") {
+    const result = await env.DB.prepare(
+      `UPDATE submissions
+          SET status = 'published', reviewed_at = ?, review_token_hash = NULL
+        WHERE id = ? AND review_token_hash = ? AND status = 'pending'`,
+    ).bind(new Date().toISOString(), id, tokenHash).run();
+    if (result.meta.changes !== 1) throw new ApiError("すでに処理されています。", 409);
+    return json({ success: true, status: "published" }, 200, corsHeaders);
+  }
+  if (action === "reject" && request.method === "POST") {
+    const result = await env.DB.prepare(
+      `UPDATE submissions
+          SET status = 'rejected', reviewed_at = ?, review_token_hash = NULL
+        WHERE id = ? AND review_token_hash = ? AND status = 'pending'`,
+    ).bind(new Date().toISOString(), id, tokenHash).run();
+    if (result.meta.changes !== 1) throw new ApiError("すでに処理されています。", 409);
+    await env.PDF_BUCKET.delete(row.r2_key);
+    return json({ success: true, status: "rejected" }, 200, corsHeaders);
+  }
+
+  throw new ApiError("Method Not Allowed", 405);
+}
+
+async function serveR2Object(request, bucket, key, filename, corsHeaders, inline = true) {
+  const object = await bucket.get(key, { range: request.headers, onlyIf: request.headers });
+  if (!object) throw new ApiError("ファイルが見つかりません。", 404);
+  if (!object.body) return new Response(null, { status: 304, headers: corsHeaders });
+
+  const headers = new Headers(corsHeaders || undefined);
+  object.writeHttpMetadata(headers);
+  headers.set("Content-Type", "application/pdf");
+  headers.set("Content-Disposition", `${inline ? "inline" : "attachment"}; filename="${filename}"`);
+  headers.set("ETag", object.httpEtag);
+  headers.set("Accept-Ranges", "bytes");
+  headers.set("Cache-Control", "private, no-store");
+
+  let status = 200;
+  if (object.range && "offset" in object.range && "length" in object.range) {
+    status = 206;
+    headers.set("Content-Range", `bytes ${object.range.offset}-${object.range.offset + object.range.length - 1}/${object.size}`);
+    headers.set("Content-Length", String(object.range.length));
+  }
+  return new Response(object.body, { status, headers });
+}
+
+function publicReviewRow(row) {
+  return {
+    id: row.id,
+    filename: row.filename,
+    title: row.title,
+    uploader: row.uploader,
+    subject: row.subject,
+    category: row.category,
+    docType: row.doc_type,
+    size: row.size,
+    createdAt: row.created_at,
+  };
+}
+
+function tournamentForSubject(subject) {
+  if (subject === "2026インハイ") return "2026インターハイ";
+  if (subject === "中国大会予選") return "中国大会予選";
+  return "";
+}
 
 export async function validateUpload(formData, configuredMaxSize) {
   const file = formData.get("file");
@@ -119,48 +248,32 @@ export async function validateUpload(formData, configuredMaxSize) {
   const filename = normalizeFilename(formData.get("filename") || file?.name);
   const maxFileSize = parseMaxFileSize(configuredMaxSize);
 
-  if (!file || typeof file.stream !== "function") {
-    throw new UploadError("ファイルが添付されていません。");
-  }
-  if (!["question", "answer"].includes(docType)) {
-    throw new UploadError("種別が正しくありません。");
-  }
-  if (!SUBJECT_PATHS[subject]) {
-    throw new UploadError("担当科目が正しくありません。");
-  }
-  if (!title) throw new UploadError("タイトルを入力してください。");
-  if (!uploader) throw new UploadError("アップロード者名を入力してください。");
-  if (!filename) throw new UploadError("PDF形式のファイル名を指定してください。");
-  if (file.size <= 0) throw new UploadError("ファイルが空です。");
+  if (!file || typeof file.stream !== "function") throw new ApiError("ファイルが添付されていません。");
+  if (!["question", "answer"].includes(docType)) throw new ApiError("種別が正しくありません。");
+  if (!SUBJECTS[subject]) throw new ApiError("担当科目が正しくありません。");
+  if (!title) throw new ApiError("タイトルを入力してください。");
+  if (!uploader) throw new ApiError("アップロード者名を入力してください。");
+  if (!filename) throw new ApiError("PDF形式のファイル名を指定してください。");
+  if (file.size <= 0) throw new ApiError("ファイルが空です。");
   if (file.size > maxFileSize) {
-    throw new UploadError(`ファイルサイズは${Math.floor(maxFileSize / 1024 / 1024)}MB以下にしてください。`, 413);
+    throw new ApiError(`ファイルサイズは${Math.floor(maxFileSize / 1024 / 1024)}MB以下にしてください。`, 413);
   }
   const signature = new Uint8Array(await file.slice(0, 5).arrayBuffer());
-  if (String.fromCharCode(...signature) !== "%PDF-") {
-    throw new UploadError("PDFファイルの内容を確認できませんでした。");
-  }
+  if (String.fromCharCode(...signature) !== "%PDF-") throw new ApiError("PDFファイルの内容を確認できませんでした。");
 
-  return {
-    file,
-    docType,
-    subject,
-    title,
-    uploader,
-    filename,
-    savePath: `pdf/kadai/${SUBJECT_PATHS[subject]}/${filename}`,
-  };
+  return { file, docType, subject, title, uploader, filename };
 }
 
 export function createCorsHeaders(origin, configuredOrigins) {
   const allowed = configuredOrigins
     ? String(configuredOrigins).split(",").map((value) => value.trim()).filter(Boolean)
     : DEFAULT_ALLOWED_ORIGINS;
-
   if (origin && !allowed.includes(origin)) return null;
 
   const headers = new Headers({
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Range, If-None-Match",
+    "Access-Control-Expose-Headers": "Content-Length, Content-Range, ETag",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   });
@@ -170,8 +283,7 @@ export function createCorsHeaders(origin, configuredOrigins) {
 
 function normalizeFilename(value) {
   const filename = cleanText(value, 120);
-  if (!filename || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.pdf$/i.test(filename)) return "";
-  if (filename.includes("..")) return "";
+  if (!filename || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.pdf$/i.test(filename) || filename.includes("..")) return "";
   return filename;
 }
 
@@ -184,6 +296,16 @@ function parseMaxFileSize(value) {
   return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : DEFAULT_MAX_FILE_SIZE;
 }
 
+function createReviewToken() {
+  const bytes = crypto.getRandomValues(new Uint8Array(32));
+  return btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+async function hashToken(token) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(token));
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
 function json(body, status, corsHeaders, extraHeaders = {}) {
   const headers = new Headers(corsHeaders || undefined);
   headers.set("Content-Type", "application/json; charset=utf-8");
@@ -192,28 +314,24 @@ function json(body, status, corsHeaders, extraHeaders = {}) {
   return new Response(JSON.stringify(body), { status, headers });
 }
 
-class UploadError extends Error {
+class ApiError extends Error {
   constructor(message, status = 400) {
     super(message);
     this.status = status;
   }
 }
 
-async function sendLineNotification(token, userId, data) {
+async function sendLineNotification(token, userId, data, reviewUrl) {
   const response = await fetch("https://api.line.me/v2/bot/message/push", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify({
       to: userId,
       messages: [{
         type: "text",
-        text: `ファイルがアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n【保存パス】\n${data.savePath}`,
+        text: `ファイルがアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n確認・公開:\n${reviewUrl}`,
       }],
     }),
   });
-
   if (!response.ok) throw new Error(`LINE API returned ${response.status}`);
 }

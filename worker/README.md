@@ -1,6 +1,6 @@
 # PDF Upload Worker
 
-投稿されたPDFをR2へ保存し、設定されている場合はLINEへ通知するCloudflare Workerです。
+投稿されたPDFをR2へ保存し、D1で審査状態を管理するCloudflare Workerです。LINEに届く確認リンクから公開または却下できます。
 
 ## 初期設定
 
@@ -21,9 +21,20 @@ npx wrangler secret put LINE_USER_ID
 ```powershell
 npm run check
 npm run dev
+npm run db:migrate:remote
 npm run deploy
 ```
 
 ローカル開発用の秘密情報は `.dev.vars.example` を `.dev.vars` にコピーして設定します。`.dev.vars` と `.env` はGitへ追加されません。
 
-アップロードされたオブジェクトは `pdf/kadai/<科目>/<ファイル名>` に保存されます。公開一覧への反映は別工程で確認後に行う前提です。
+アップロードされたオブジェクトは `submissions/<ID>/<ファイル名>` に保存されます。承認後は `/papers` に表示され、`/files/<ID>/<ファイル名>` から配信されます。却下するとR2上のPDFも削除されます。
+
+## API
+
+- `POST /`: PDF投稿
+- `GET /papers`: 公開済みPDF一覧
+- `GET /files/:id/:filename`: 公開済みPDF
+- `GET /review/:id?token=...`: 確認待ち投稿の情報
+- `GET /review/:id/file?token=...`: 確認用PDF
+- `POST /review/:id/approve?token=...`: 公開
+- `POST /review/:id/reject?token=...`: 却下
