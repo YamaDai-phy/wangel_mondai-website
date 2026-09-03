@@ -1,7 +1,16 @@
 (function () {
-  fetch("release.json")
-    .then((r) => r.json())
-    .then((data) => {
+  const papersApi = "https://pdf-upload-api.yamadai.workers.dev/papers";
+
+  Promise.all([
+    fetch("release.json").then((response) => response.json()),
+    fetch(papersApi, { cache: "no-store" })
+      .then((response) => response.ok ? response.json() : { papers: [] })
+      .catch(() => ({ papers: [] })),
+  ])
+    .then(([data, uploadedData]) => {
+      const uploadedPapers = Array.isArray(uploadedData.papers)
+        ? uploadedData.papers
+        : [];
       const recent = document.getElementById("recent-table");
       const upcoming = document.getElementById("upcoming-table");
       const authors = document.getElementById("authors-table");
@@ -52,7 +61,23 @@
       if (fileAuthors && Array.isArray(data.fileAuthors)) {
         const tbody = fileAuthors.querySelector("tbody");
         tbody.innerHTML = "";
-        if (data.fileAuthors.length === 0) {
+        const uploadedByAuthor = new Map();
+        uploadedPapers.forEach((paper) => {
+          const creator = paper && paper.uploader ? String(paper.uploader) : "";
+          const file = paper && (paper.title || paper.filename)
+            ? String(paper.title || paper.filename).replace(/\.pdf$/i, "")
+            : "";
+          if (!creator || !file) return;
+          if (!uploadedByAuthor.has(creator)) uploadedByAuthor.set(creator, new Set());
+          uploadedByAuthor.get(creator).add(file);
+        });
+        const uploadedFileAuthors = [...uploadedByAuthor].map(([creator, files]) => ({
+          creator,
+          file: [...files].sort((a, b) => a.localeCompare(b, "ja", { numeric: true })).join("、"),
+        }));
+        const fileAuthorRows = [...data.fileAuthors, ...uploadedFileAuthors];
+
+        if (fileAuthorRows.length === 0) {
           const tr = document.createElement("tr");
           const td = document.createElement("td");
           td.colSpan = 2;
@@ -60,7 +85,7 @@
           tr.appendChild(td);
           tbody.appendChild(tr);
         } else {
-          data.fileAuthors.forEach((row) => {
+          fileAuthorRows.forEach((row) => {
             const tr = document.createElement("tr");
             const tdCreator = document.createElement("td");
             tdCreator.textContent = row.creator || "";
@@ -79,7 +104,8 @@
         fetch("pdf/data.json")
           .then((r) => r.json())
           .then((pdfData) => {
-            const papers = Array.isArray(pdfData.papers) ? pdfData.papers : [];
+            const localPapers = Array.isArray(pdfData.papers) ? pdfData.papers : [];
+            const papers = [...localPapers, ...uploadedPapers];
             if (publicFileCount) {
               publicFileCount.innerHTML = `公開中ファイル数：${papers.length}件 詳しくは <a href="#filename-list" style="width:fit-content">こちら</a>`;
             }

@@ -176,7 +176,7 @@
           // タイトル列
           const tdTitle = document.createElement("td");
           let t = p.title.replace(/\.(pdf)$/i, "");
-          tdTitle.textContent = p.uploader ? `${t}（${p.uploader}）` : t;
+          tdTitle.textContent = t;
 
           // 大会名列
           const tdTournament = document.createElement("td");
@@ -238,9 +238,8 @@
         for (const p of matches) {
           const div = document.createElement("div");
           div.className = "search-item";
-          const uploader = p.uploader ? ` — ${p.uploader}` : "";
           const tournament = p.tournament ? ` [${p.tournament}]` : "";
-          div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}${uploader}`;
+          div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}`;
           div.addEventListener("click", () => {
             // open ancestor details of the target list
             const mapping = {
