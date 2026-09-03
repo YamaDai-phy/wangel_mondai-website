@@ -1,7 +1,6 @@
 const DEFAULT_ALLOWED_ORIGINS = [
   "https://wangel-mondai.pages.dev",
-  "http://localhost:8787",
-  "http://127.0.0.1:8787",
+  "https://yamadai-phy.github.io"
 ];
 
 const SUBJECTS = {
