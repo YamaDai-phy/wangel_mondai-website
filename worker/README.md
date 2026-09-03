@@ -2,6 +2,8 @@
 
 投稿されたPDFをR2へ保存し、D1で審査状態を管理するCloudflare Workerです。LINEに届く確認リンクから公開または却下できます。
 
+「未完成品」は `incomplete/` へ分けて保存し、公開・却下の対象にしません。LINEには編集用PDFのダウンロードリンクだけが届きます。編集後は「問題」または「答え」として再投稿します。
+
 ## 初期設定
 
 1. `npm install`
@@ -38,3 +40,4 @@ npm run deploy
 - `GET /review/:id/file?token=...`: 確認用PDF
 - `POST /review/:id/approve?token=...`: 公開
 - `POST /review/:id/reject?token=...`: 却下
+- `GET /incomplete/:id/file?token=...`: 未完成品の編集用ダウンロード

@@ -864,6 +864,11 @@
     typeSelect.addEventListener("change", () => {
       filenameInput.value = "";
       titleInput.value = "";
+      if (uploadNote) {
+        uploadNote.textContent = typeSelect.value === "incomplete"
+          ? "未完成品は公開されません。管理者へ編集用PDFの通知だけが届きます。"
+          : "ファイルをアップロード後１～２日掲載にお時間をいただきます。";
+      }
       updateCategoryPreview();
     });
   }

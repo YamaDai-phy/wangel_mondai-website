@@ -45,6 +45,11 @@ export default {
         return await handleReview(request, env, corsHeaders, reviewMatch[1], reviewMatch[2], url);
       }
 
+      const incompleteMatch = url.pathname.match(/^\/incomplete\/([0-9a-f-]{36})\/file$/i);
+      if (request.method === "GET" && incompleteMatch) {
+        return await serveIncompleteFile(request, env, corsHeaders, incompleteMatch[1], url);
+      }
+
       return json({ error: "Not Found" }, 404, corsHeaders);
     } catch (error) {
       const status = error instanceof ApiError ? error.status : 500;
@@ -64,7 +69,9 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
   const reviewToken = createReviewToken();
   const reviewTokenHash = await hashToken(reviewToken);
   const createdAt = new Date().toISOString();
-  const r2Key = `submissions/${id}/${input.filename}`;
+  const isIncomplete = input.docType === "incomplete";
+  const status = isIncomplete ? "incomplete" : "pending";
+  const r2Key = `${isIncomplete ? "incomplete" : "submissions"}/${id}/${input.filename}`;
 
   await env.PDF_BUCKET.put(r2Key, input.file.stream(), {
     httpMetadata: { contentType: "application/pdf" },
@@ -82,7 +89,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
       `INSERT INTO submissions
        (id, r2_key, filename, title, uploader, subject, category, doc_type,
         status, review_token_hash, size, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     ).bind(
       id,
       r2Key,
@@ -92,6 +99,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
       input.subject,
       SUBJECTS[input.subject].category,
       input.docType,
+      status,
       reviewTokenHash,
       input.file.size,
       createdAt,
@@ -102,12 +110,20 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
   }
 
   const siteUrl = String(env.PUBLIC_SITE_URL || requestUrl.origin).replace(/\/$/, "");
-  const reviewUrl = `${siteUrl}/review.html?id=${encodeURIComponent(id)}&token=${encodeURIComponent(reviewToken)}`;
+  const notificationUrl = isIncomplete
+    ? `${requestUrl.origin}/incomplete/${encodeURIComponent(id)}/file?token=${encodeURIComponent(reviewToken)}`
+    : `${siteUrl}/review.html?id=${encodeURIComponent(id)}&token=${encodeURIComponent(reviewToken)}`;
   let notificationSent = false;
 
   if (env.LINE_CHANNEL_ACCESS_TOKEN && env.LINE_USER_ID) {
     try {
-      await sendLineNotification(env.LINE_CHANNEL_ACCESS_TOKEN, env.LINE_USER_ID, input, reviewUrl);
+      await sendLineNotification(
+        env.LINE_CHANNEL_ACCESS_TOKEN,
+        env.LINE_USER_ID,
+        input,
+        notificationUrl,
+        isIncomplete,
+      );
       notificationSent = true;
     } catch (error) {
       console.error("LINE notification failed", error);
@@ -116,7 +132,9 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
 
   return json({
     success: true,
-    message: "アップロードが完了しました。確認後に掲載されます。",
+    message: isIncomplete
+      ? "未完成品を送信しました。管理者へ通知されました。"
+      : "アップロードが完了しました。確認後に掲載されます。",
     submissionId: id,
     notificationSent,
   }, 201, corsHeaders);
@@ -194,6 +212,21 @@ async function handleReview(request, env, corsHeaders, id, action, url) {
   }
 
   throw new ApiError("Method Not Allowed", 405);
+}
+
+async function serveIncompleteFile(request, env, corsHeaders, id, url) {
+  const token = url.searchParams.get("token") || "";
+  if (!token) throw new ApiError("ダウンロードリンクが正しくありません。", 401);
+
+  const tokenHash = await hashToken(token);
+  const row = await env.DB.prepare(
+    `SELECT r2_key, filename
+       FROM submissions
+      WHERE id = ? AND review_token_hash = ? AND status = 'incomplete'`,
+  ).bind(id, tokenHash).first();
+  if (!row) throw new ApiError("ダウンロードリンクが無効です。", 404);
+
+  return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders, false);
 }
 
 async function serveR2Object(request, bucket, key, filename, corsHeaders, inline = true) {
@@ -326,7 +359,7 @@ class ApiError extends Error {
   }
 }
 
-async function sendLineNotification(token, userId, data, reviewUrl) {
+async function sendLineNotification(token, userId, data, notificationUrl, isIncomplete) {
   const response = await fetch("https://api.line.me/v2/bot/message/push", {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -334,7 +367,9 @@ async function sendLineNotification(token, userId, data, reviewUrl) {
       to: userId,
       messages: [{
         type: "text",
-        text: `ファイルがアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n確認・公開:\n${reviewUrl}`,
+        text: isIncomplete
+          ? `未完成品がアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n編集用PDF:\n${notificationUrl}\n\n編集後は「問題」または「答え」として再度アップロードしてください。`
+          : `ファイルがアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n確認・公開:\n${notificationUrl}`,
       }],
     }),
   });
