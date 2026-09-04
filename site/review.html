@@ -27,6 +27,19 @@
       <section id="review-content" class="review-content" hidden>
         <div class="upload-card">
           <h2 id="review-title"></h2>
+          <form id="metadata-form" class="review-edit-form">
+            <label class="field-group">
+              <span class="label-header">ファイル名 (filename) <span class="badge badge-editable">変更可能</span></span>
+              <div class="input-with-icon"><input id="review-filename-input" type="text" required /><span class="input-icon">✏️</span></div>
+            </label>
+            <label class="field-group">
+              <span class="label-header">タイトル (title) <span class="badge badge-editable">変更可能</span></span>
+              <div class="input-with-icon"><input id="review-title-input" type="text" required /><span class="input-icon">✏️</span></div>
+            </label>
+            <label class="field-group"><span class="label-header">大会名 <span class="badge badge-required">必須</span></span><input id="review-tournament-name" type="text" required /></label>
+            <label class="field-group"><span class="label-header">大会年度 <span class="badge badge-required">必須</span></span><input id="review-tournament-year" type="number" min="1900" max="2099" required /></label>
+            <button type="submit" id="metadata-save-button">変更を保存</button>
+          </form>
           <dl class="upload-preview-list">
             <div>
               <dt>科目</dt>
@@ -59,6 +72,16 @@
               却下する
             </button>
           </div>
+        </div>
+
+        <div id="comments-card" class="upload-card review-comments" hidden>
+          <h2>未完成ファイルへのコメント</h2>
+          <div id="comment-list" class="comment-list"></div>
+          <form id="comment-form">
+            <label class="field-group"><span class="label-header">投稿者</span><input id="comment-author" type="text" maxlength="80" required /></label>
+            <label class="field-group"><span class="label-header">コメント</span><textarea id="comment-body" maxlength="1000" rows="4" required></textarea></label>
+            <button type="submit" id="comment-submit">コメントを追加</button>
+          </form>
         </div>
 
         <div class="upload-card review-preview-card">

@@ -45,6 +45,8 @@
   const titleIcon = document.getElementById("title-icon");
 
   const uploaderInput = document.getElementById("uploader-input");
+  const tournamentNameInput = document.getElementById("tournament-name-input");
+  const tournamentYearInput = document.getElementById("tournament-year-input");
   const pathHidden = document.getElementById("path-hidden");
   const targetPath = document.getElementById("target-path");
   const titlePreview = document.getElementById("title-preview");
@@ -56,6 +58,8 @@
 
   let pdfData = { papers: [] };
   let isMountainEnManuallyEdited = false;
+  let isFilenameManuallyEdited = false;
+  let isTitleManuallyEdited = false;
   const endpointKey = "upload-endpoint-url";
 
   function slugForSubject(subject) {
@@ -548,6 +552,8 @@
 
     if (fileInput) fileInput.disabled = !isReady;
     if (uploaderInput) uploaderInput.disabled = !isReady;
+    if (tournamentNameInput) tournamentNameInput.disabled = !isReady;
+    if (tournamentYearInput) tournamentYearInput.disabled = !isReady;
     if (uploadButton) uploadButton.disabled = !isReady;
 
     if (mountainLabel) {
@@ -705,8 +711,8 @@
         ? normalizeText(mountainEnInput.value)
         : "";
       if (mountain || mountainEn) {
-        filenameInput.value = filename;
-        titleInput.value = title;
+        if (!isFilenameManuallyEdited) filenameInput.value = filename;
+        if (!isTitleManuallyEdited) titleInput.value = title;
       }
     }
 
@@ -757,10 +763,12 @@
     const subject = normalizeText(subjectSelect.value);
     const files = fileInput.files ? Array.from(fileInput.files) : [];
     const uploader = normalizeText(uploaderInput.value);
+    const tournamentName = normalizeText(tournamentNameInput.value);
+    const tournamentYear = normalizeText(tournamentYearInput.value);
     const endpoint = getEndpoint();
 
     if (!docType) {
-      setStatus("種別（問題、答え、未完成品）を選んでください。", "error");
+      setStatus("種別（問題、答え、過去問、未完成品）を選んでください。", "error");
       return;
     }
     if (!subject) {
@@ -783,6 +791,14 @@
     }
     if (!uploader) {
       setStatus("アップロード者名を入力してください。", "error");
+      return;
+    }
+    if (!tournamentName) {
+      setStatus("大会名を入力してください。", "error");
+      return;
+    }
+    if (!/^(?:19|20)\d{2}$/.test(tournamentYear)) {
+      setStatus("大会年度を4桁で入力してください。", "error");
       return;
     }
     if (!normalizeText(filenameInput.value) && !buildDefaultFilename(subject, files[0].name)) {
@@ -815,6 +831,8 @@
         bodyData.append("filename", filename);
         bodyData.append("title", title);
         bodyData.append("uploader", uploader);
+        bodyData.append("tournament_name", tournamentName);
+        bodyData.append("tournament_year", tournamentYear);
 
         try {
           const res = await fetch(endpoint, { method: "POST", body: bodyData });
@@ -833,6 +851,8 @@
         setStatus(`${successCount}件のアップロードが完了しました。`, "success");
         form.reset();
         isMountainEnManuallyEdited = false;
+        isFilenameManuallyEdited = false;
+        isTitleManuallyEdited = false;
         updateCategoryPreview();
       } else {
         setStatus(`${successCount}件成功、${failures.length}件失敗：${failures.join(" / ")}`, "error");
@@ -864,6 +884,8 @@
     typeSelect.addEventListener("change", () => {
       filenameInput.value = "";
       titleInput.value = "";
+      isFilenameManuallyEdited = false;
+      isTitleManuallyEdited = false;
       if (uploadNote) {
         uploadNote.textContent = typeSelect.value === "incomplete"
           ? "未完成品は公開されません。管理者へ編集用PDFの通知だけが届きます。"
@@ -875,6 +897,8 @@
 
   subjectSelect.addEventListener("change", () => {
     isMountainEnManuallyEdited = false;
+    isFilenameManuallyEdited = false;
+    isTitleManuallyEdited = false;
     if (mountainInput) mountainInput.value = "";
     if (mountainEnInput) mountainEnInput.value = "";
     filenameInput.value = "";
@@ -919,8 +943,14 @@
     updateCategoryPreview();
   });
 
-  filenameInput.addEventListener("input", updateCategoryPreview);
-  titleInput.addEventListener("input", updateCategoryPreview);
+  filenameInput.addEventListener("input", () => {
+    isFilenameManuallyEdited = true;
+    updateCategoryPreview();
+  });
+  titleInput.addEventListener("input", () => {
+    isTitleManuallyEdited = true;
+    updateCategoryPreview();
+  });
   uploaderInput.addEventListener("input", updateCategoryPreview);
 
   form.addEventListener("submit", handleUpload);

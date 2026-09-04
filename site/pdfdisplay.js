@@ -165,7 +165,7 @@
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         thead.innerHTML =
-          "<tr><th>タイトル</th><th>大会</th><th>ダウンロード</th></tr>";
+          "<tr><th>タイトル</th><th>種別</th><th>大会</th><th>ダウンロード</th></tr>";
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         for (const p of items) {
@@ -182,6 +182,10 @@
           const tdTournament = document.createElement("td");
           tdTournament.textContent = p.tournament || "-";
 
+          const tdType = document.createElement("td");
+          const typeLabels = { question: "問題", answer: "答え", past_exam: "過去問" };
+          tdType.textContent = typeLabels[p.docType] || "-";
+
           // ダウンロード＆共有ボタン列
           const tdLink = document.createElement("td");
           // mkLink(p) がリンクとボタンをまとめた div を返すためそのまま append
@@ -189,6 +193,7 @@
           const a = mkLink(p);
 
           tr.appendChild(tdTitle);
+          tr.appendChild(tdType);
           tr.appendChild(tdTournament);
           tr.appendChild(tdLink);
           tbody.appendChild(tr);
@@ -239,7 +244,9 @@
           const div = document.createElement("div");
           div.className = "search-item";
           const tournament = p.tournament ? ` [${p.tournament}]` : "";
-          div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}`;
+          const typeLabels = { question: "問題", answer: "答え", past_exam: "過去問" };
+          const type = typeLabels[p.docType] ? `・${typeLabels[p.docType]}` : "";
+          div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}${type}`;
           div.addEventListener("click", () => {
             // open ancestor details of the target list
             const mapping = {
@@ -301,7 +308,10 @@
                 (p.title && p.title.toLowerCase().includes(q)) ||
                 (p.tournament && p.tournament.toLowerCase().includes(q)) ||
                 (p.filename && p.filename.toLowerCase().includes(q)) ||
-                (p.category && p.category.toLowerCase().includes(q))
+                (p.category && p.category.toLowerCase().includes(q)) ||
+                (p.docType === "past_exam" && "過去問".includes(q)) ||
+                (p.docType === "question" && "問題".includes(q)) ||
+                (p.docType === "answer" && "答え".includes(q))
               );
             })
             .slice(0, 100);

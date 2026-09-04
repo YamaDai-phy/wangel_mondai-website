@@ -10,6 +10,8 @@ function validForm(overrides = {}) {
     filename: "sample.pdf",
     title: "サンプル問題",
     uploader: "投稿者",
+    tournament_name: "中国大会",
+    tournament_year: "2026",
     ...overrides,
   };
   const form = new FormData();
@@ -26,6 +28,17 @@ test("有効な投稿を正規化する", async () => {
 test("未完成品を受け付ける", async () => {
   const input = await validateUpload(validForm({ doc_type: "incomplete" }));
   assert.equal(input.docType, "incomplete");
+});
+
+test("過去問を受け付ける", async () => {
+  const input = await validateUpload(validForm({ doc_type: "past_exam" }));
+  assert.equal(input.docType, "past_exam");
+});
+
+test("大会名と大会年度を必須にする", async () => {
+  await assert.rejects(validateUpload(validForm({ tournament_name: "" })), /大会名/);
+  await assert.rejects(validateUpload(validForm({ tournament_year: "" })), /大会年度/);
+  await assert.rejects(validateUpload(validForm({ tournament_year: "26" })), /大会年度/);
 });
 
 test("日本語のPDFファイル名を受け付ける", async () => {

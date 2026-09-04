@@ -40,7 +40,7 @@ export default {
         return await servePublicFile(request, env, corsHeaders, publicFileMatch[1]);
       }
 
-      const reviewMatch = url.pathname.match(/^\/review\/([0-9a-f-]{36})(?:\/(file|approve|reject))?$/i);
+      const reviewMatch = url.pathname.match(/^\/review\/([0-9a-f-]{36})(?:\/(file|approve|reject|metadata|comments))?$/i);
       if (reviewMatch) {
         return await handleReview(request, env, corsHeaders, reviewMatch[1], reviewMatch[2], url);
       }
@@ -80,6 +80,8 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
       subject: input.subject,
       title: input.title,
       uploader: input.uploader,
+      tournamentName: input.tournamentName,
+      tournamentYear: input.tournamentYear,
       uploadedAt: createdAt,
     },
   });
@@ -88,8 +90,8 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
     await env.DB.prepare(
       `INSERT INTO submissions
        (id, r2_key, filename, title, uploader, subject, category, doc_type,
-        status, review_token_hash, size, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        status, review_token_hash, size, created_at, tournament_name, tournament_year)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     ).bind(
       id,
       r2Key,
@@ -103,6 +105,8 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
       reviewTokenHash,
       input.file.size,
       createdAt,
+      input.tournamentName,
+      input.tournamentYear,
     ).run();
   } catch (error) {
     await env.PDF_BUCKET.delete(r2Key);
@@ -111,7 +115,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
 
   const siteUrl = String(env.PUBLIC_SITE_URL || requestUrl.origin).replace(/\/$/, "");
   const notificationUrl = isIncomplete
-    ? `${requestUrl.origin}/incomplete/${encodeURIComponent(id)}/file?token=${encodeURIComponent(reviewToken)}`
+    ? `${siteUrl}/review.html?id=${encodeURIComponent(id)}&token=${encodeURIComponent(reviewToken)}`
     : `${siteUrl}/review.html?id=${encodeURIComponent(id)}&token=${encodeURIComponent(reviewToken)}`;
   let notificationSent = false;
 
@@ -143,7 +147,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
 async function listPublished(env, corsHeaders, url) {
   const result = await env.DB.prepare(
     `SELECT id, filename, title, uploader, category, subject, doc_type, size,
-            created_at, reviewed_at
+            created_at, reviewed_at, tournament_name, tournament_year
        FROM submissions
       WHERE status = 'published'
       ORDER BY reviewed_at DESC, created_at DESC`,
@@ -154,7 +158,9 @@ async function listPublished(env, corsHeaders, url) {
     title: row.title,
     uploader: row.uploader,
     category: row.category,
-    tournament: tournamentForSubject(row.subject),
+    tournament: formatTournament(row.tournament_name, row.tournament_year) || tournamentForSubject(row.subject),
+    tournamentName: row.tournament_name || "",
+    tournamentYear: row.tournament_year || "",
     docType: row.doc_type,
     size: row.size,
     mtime: row.reviewed_at || row.created_at,
@@ -179,9 +185,9 @@ async function handleReview(request, env, corsHeaders, id, action, url) {
   const tokenHash = await hashToken(token);
   const row = await env.DB.prepare(
     `SELECT id, r2_key, filename, title, uploader, subject, category, doc_type,
-            status, size, created_at
+            status, size, created_at, tournament_name, tournament_year
        FROM submissions
-      WHERE id = ? AND review_token_hash = ? AND status = 'pending'`,
+      WHERE id = ? AND review_token_hash = ? AND status IN ('pending', 'incomplete')`,
   ).bind(id, tokenHash).first();
   if (!row) throw new ApiError("確認リンクが無効または処理済みです。", 404);
 
@@ -191,7 +197,14 @@ async function handleReview(request, env, corsHeaders, id, action, url) {
   if (action === "file" && request.method === "GET") {
     return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders, true);
   }
-  if (action === "approve" && request.method === "POST") {
+  if (action === "metadata" && request.method === "PATCH") {
+    return await updateMetadata(request, env, corsHeaders, row, tokenHash);
+  }
+  if (action === "comments" && row.status === "incomplete") {
+    if (request.method === "GET") return await listComments(env, corsHeaders, id);
+    if (request.method === "POST") return await addComment(request, env, corsHeaders, id);
+  }
+  if (action === "approve" && request.method === "POST" && row.status === "pending") {
     const result = await env.DB.prepare(
       `UPDATE submissions
           SET status = 'published', reviewed_at = ?, review_token_hash = NULL
@@ -200,7 +213,7 @@ async function handleReview(request, env, corsHeaders, id, action, url) {
     if (result.meta.changes !== 1) throw new ApiError("すでに処理されています。", 409);
     return json({ success: true, status: "published" }, 200, corsHeaders);
   }
-  if (action === "reject" && request.method === "POST") {
+  if (action === "reject" && request.method === "POST" && row.status === "pending") {
     const result = await env.DB.prepare(
       `UPDATE submissions
           SET status = 'rejected', reviewed_at = ?, review_token_hash = NULL
@@ -262,6 +275,9 @@ function publicReviewRow(row) {
     docType: row.doc_type,
     size: row.size,
     createdAt: row.created_at,
+    status: row.status,
+    tournamentName: row.tournament_name || "",
+    tournamentYear: row.tournament_year || "",
   };
 }
 
@@ -271,20 +287,97 @@ function tournamentForSubject(subject) {
   return "";
 }
 
+function formatTournament(name, year) {
+  if (!name && !year) return "";
+  return `${year || ""}${name || ""}`;
+}
+
+async function updateMetadata(request, env, corsHeaders, row, tokenHash) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    throw new ApiError("更新内容が正しくありません。");
+  }
+  const filename = normalizeFilename(body.filename);
+  const title = cleanText(body.title, 120);
+  const tournamentName = cleanText(body.tournamentName, 100);
+  const tournamentYear = normalizeTournamentYear(body.tournamentYear);
+  if (!filename) throw new ApiError("PDF形式のファイル名を指定してください。");
+  if (!title) throw new ApiError("タイトルを入力してください。");
+  if (!tournamentName) throw new ApiError("大会名を入力してください。");
+  if (!tournamentYear) throw new ApiError("大会年度を4桁で入力してください。");
+
+  const result = await env.DB.prepare(
+    `UPDATE submissions
+        SET filename = ?, title = ?, tournament_name = ?, tournament_year = ?
+      WHERE id = ? AND review_token_hash = ? AND status IN ('pending', 'incomplete')`,
+  ).bind(filename, title, tournamentName, tournamentYear, row.id, tokenHash).run();
+  if (result.meta.changes !== 1) throw new ApiError("更新できませんでした。", 409);
+  return json({
+    success: true,
+    submission: publicReviewRow({
+      ...row,
+      filename,
+      title,
+      tournament_name: tournamentName,
+      tournament_year: tournamentYear,
+    }),
+  }, 200, corsHeaders);
+}
+
+async function listComments(env, corsHeaders, submissionId) {
+  const result = await env.DB.prepare(
+    `SELECT id, author, body, created_at
+       FROM submission_comments
+      WHERE submission_id = ?
+      ORDER BY created_at ASC`,
+  ).bind(submissionId).all();
+  return json({ comments: result.results.map((comment) => ({
+    id: comment.id,
+    author: comment.author,
+    body: comment.body,
+    createdAt: comment.created_at,
+  })) }, 200, corsHeaders);
+}
+
+async function addComment(request, env, corsHeaders, submissionId) {
+  let input;
+  try {
+    input = await request.json();
+  } catch {
+    throw new ApiError("コメントが正しくありません。");
+  }
+  const author = cleanText(input.author, 80);
+  const body = cleanText(input.body, 1000);
+  if (!author) throw new ApiError("投稿者名を入力してください。");
+  if (!body) throw new ApiError("コメントを入力してください。");
+  const comment = { id: crypto.randomUUID(), author, body, createdAt: new Date().toISOString() };
+  await env.DB.prepare(
+    `INSERT INTO submission_comments (id, submission_id, author, body, created_at)
+     VALUES (?, ?, ?, ?, ?)`,
+  ).bind(comment.id, submissionId, author, body, comment.createdAt).run();
+  return json({ success: true, comment }, 201, corsHeaders);
+}
+
 export async function validateUpload(formData, configuredMaxSize) {
   const file = formData.get("file");
   const docType = cleanText(formData.get("doc_type"), 20);
   const subject = cleanText(formData.get("subject"), 40);
   const title = cleanText(formData.get("title"), 120);
   const uploader = cleanText(formData.get("uploader"), 80);
+  const tournamentName = cleanText(formData.get("tournament_name"), 100);
+  const tournamentYear = normalizeTournamentYear(formData.get("tournament_year"));
   const filename = normalizeFilename(formData.get("filename") || file?.name);
   const maxFileSize = parseMaxFileSize(configuredMaxSize);
 
   if (!file || typeof file.stream !== "function") throw new ApiError("ファイルが添付されていません。");
-  if (!["question", "answer", "incomplete"].includes(docType)) throw new ApiError("種別が正しくありません。");
+  if (!["question", "answer", "past_exam", "incomplete"].includes(docType)) throw new ApiError("種別が正しくありません。");
   if (!SUBJECTS[subject]) throw new ApiError("担当科目が正しくありません。");
   if (!title) throw new ApiError("タイトルを入力してください。");
   if (!uploader) throw new ApiError("アップロード者名を入力してください。");
+  if (!tournamentName) throw new ApiError("大会名を入力してください。");
+  if (!tournamentYear) throw new ApiError("大会年度を4桁で入力してください。");
   if (!filename) throw new ApiError("PDF形式のファイル名を指定してください。");
   if (file.size <= 0) throw new ApiError("ファイルが空です。");
   if (file.size > maxFileSize) {
@@ -293,7 +386,7 @@ export async function validateUpload(formData, configuredMaxSize) {
   const signature = new Uint8Array(await file.slice(0, 5).arrayBuffer());
   if (String.fromCharCode(...signature) !== "%PDF-") throw new ApiError("PDFファイルの内容を確認できませんでした。");
 
-  return { file, docType, subject, title, uploader, filename };
+  return { file, docType, subject, title, uploader, filename, tournamentName, tournamentYear };
 }
 
 export function createCorsHeaders(origin, configuredOrigins) {
@@ -303,7 +396,7 @@ export function createCorsHeaders(origin, configuredOrigins) {
   if (origin && !allowed.includes(origin)) return null;
 
   const headers = new Headers({
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Range, If-None-Match",
     "Access-Control-Expose-Headers": "Content-Length, Content-Range, ETag",
     "Access-Control-Max-Age": "86400",
@@ -327,6 +420,11 @@ function contentDisposition(filename, inline) {
 
 function cleanText(value, maxLength) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+}
+
+function normalizeTournamentYear(value) {
+  const year = cleanText(value, 4);
+  return /^(?:19|20)\d{2}$/.test(year) ? year : "";
 }
 
 function parseMaxFileSize(value) {
@@ -368,7 +466,7 @@ async function sendLineNotification(token, userId, data, notificationUrl, isInco
       messages: [{
         type: "text",
         text: isIncomplete
-          ? `未完成品がアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n編集用PDF:\n${notificationUrl}\n\n編集後は「問題」または「答え」として再度アップロードしてください。`
+          ? `未完成品がアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n確認・コメント:\n${notificationUrl}`
           : `ファイルがアップロードされました。\n\n【科目】${data.subject}\n【タイトル】${data.title}\n【投稿者】${data.uploader}\n【ファイル名】${data.filename}\n\n確認・公開:\n${notificationUrl}`,
       }],
     }),
