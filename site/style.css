@@ -1226,6 +1226,46 @@ footer {
 }
 
 @media (max-width: 600px) {
+  body {
+    transition: padding-bottom 220ms ease;
+  }
+
+  body.has-selected-files {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+
+  .bulk-share-bar {
+    position: fixed;
+    z-index: 1000;
+    right: 12px;
+    bottom: 0;
+    left: 12px;
+    justify-content: space-between;
+    min-height: 68px;
+    margin: 0;
+    padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+    border: 1px solid var(--border);
+    border-bottom: 0;
+    border-radius: 18px 18px 0 0;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.18);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(110%);
+    transition: transform 220ms ease, opacity 180ms ease;
+  }
+
+  .bulk-share-bar.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .bulk-share-bar button {
+    min-height: 44px;
+  }
+
   .review-content {
     grid-template-columns: 1fr;
   }
@@ -1284,6 +1324,8 @@ footer {
 
 /* 動きを減らす設定の端末ではアニメーションを停止 */
 @media (prefers-reduced-motion: reduce) {
+  body,
+  .bulk-share-bar,
   .news-banner,
   .news-banner__badge,
   .news-banner__date,

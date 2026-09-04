@@ -19,6 +19,7 @@
 
   const checkedLinks = loadChecked();
   const selectedFiles = new Map();
+  const bulkShareBar = document.querySelector(".bulk-share-bar");
   const selectedCount = document.getElementById("selected-file-count");
   const shareSelectedButton = document.getElementById("share-selected-files");
 
@@ -26,6 +27,11 @@
     const count = selectedFiles.size;
     if (selectedCount) selectedCount.textContent = `${count}件選択中`;
     if (shareSelectedButton) shareSelectedButton.disabled = count === 0;
+    if (bulkShareBar) {
+      bulkShareBar.classList.toggle("is-visible", count > 0);
+      bulkShareBar.setAttribute("aria-hidden", String(count === 0));
+    }
+    document.body.classList.toggle("has-selected-files", count > 0);
   }
 
   async function shareSelectedFiles() {
