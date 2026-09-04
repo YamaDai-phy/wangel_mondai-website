@@ -12,24 +12,21 @@
       <section class="landing__card" aria-label="サイトの使い方">
         <h1 class="landing__title">このサイトの使い方</h1>
         <p class="landing__lead">
-          過去問や自作問題を、科目や山名で探したり、問題を掲載したりできるサイトです。
+          ワンゲルの過去問・自作問題を探して、すぐに読んだり保存したりできる図書館です。
         </p>
-        <ol class="landing__steps">
-          <li>検索欄で山名・担当科目を入れて問題を絞り込む</li>
-          <li>気になる問題を開いてPDFを確認する</li>
-          <li>ダウンロード方法を見ながら端末に保存する</li>
-        </ol>
+        <div class="landing__features">
+          <div><strong>探す</strong><span>山名・科目・大会名で検索</span></div>
+          <div><strong>読む</strong><span>PDFをブラウザで確認</span></div>
+          <div><strong>保存・共有</strong><span>端末へ保存、複数ファイルを共有</span></div>
+          <div><strong>掲載する</strong><span>過去問や自作問題をアップロード</span></div>
+        </div>
         <div class="landing__actions">
-          <a class="landing__button" href="./pdf.html">サイトへ入る</a>
-          <p class="landing__note">数秒後に自動で移動します。</p>
+          <a class="landing__button" href="./pdf.html">問題を探す</a>
+          <a class="landing__button landing__button--secondary" href="./fileupload.html">問題を掲載する</a>
+          <p class="landing__note">上のボタンからすぐに利用できます。</p>
         </div>
       </section>
     </main>
-    <script>
-      window.setTimeout(() => {
-        window.location.replace("./pdf.html");
-      }, 3000);
-    </script>
     <!-- Cloudflare Web Analytics -->
     <script
       type="module"
