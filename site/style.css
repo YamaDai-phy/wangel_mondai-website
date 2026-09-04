@@ -510,6 +510,7 @@ a:focus-visible {
 /* 入力欄共通スタイル */
 .upload-card input[type="text"],
 .upload-card input[type="file"],
+.upload-card input[type="number"],
 .upload-card select {
   width: 100%;
   margin-top: 0.3rem;

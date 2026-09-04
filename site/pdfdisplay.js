@@ -106,7 +106,9 @@
         問題自然観察: "shizekan-list",
         自然観察: "shizekan-list",
         気象: "kisho-list",
-        救急: "kyukyu-list",
+          救急: "kyukyu-list",
+          天気図: "tenkizu-list",
+          混在: "mixed-list",
         共通: "kyotsu-list",
         インターハイ: "inhai-list",
         県総体: "kensotai-list",
@@ -183,8 +185,9 @@
           tdTournament.textContent = p.tournament || "-";
 
           const tdType = document.createElement("td");
-          const typeLabels = { question: "問題", answer: "答え", past_exam: "過去問" };
-          tdType.textContent = typeLabels[p.docType] || "-";
+          const roleLabels = { question: "問題", answer: "答え", mix: "どちらも" };
+          const kindLabels = { self_made: "自作", past_exam: "過去問" };
+          tdType.textContent = [kindLabels[p.fileKind], roleLabels[p.docType]].filter(Boolean).join("・") || "-";
 
           // ダウンロード＆共有ボタン列
           const tdLink = document.createElement("td");
@@ -206,6 +209,8 @@
       renderTable("shizekan-list", buckets["shizekan-list"]);
       renderTable("kisho-list", buckets["kisho-list"]);
       renderTable("kyukyu-list", buckets["kyukyu-list"]);
+      renderTable("tenkizu-list", buckets["tenkizu-list"]);
+      renderTable("mixed-list", buckets["mixed-list"]);
       renderTable("kyotsu-list", buckets["kyotsu-list"]);
       renderTable("inhai-list", buckets["inhai-list"]);
       renderTable("kensotai-list", buckets["kensotai-list"]);
@@ -244,8 +249,10 @@
           const div = document.createElement("div");
           div.className = "search-item";
           const tournament = p.tournament ? ` [${p.tournament}]` : "";
-          const typeLabels = { question: "問題", answer: "答え", past_exam: "過去問" };
-          const type = typeLabels[p.docType] ? `・${typeLabels[p.docType]}` : "";
+          const roleLabels = { question: "問題", answer: "答え", mix: "どちらも" };
+          const kindLabels = { self_made: "自作", past_exam: "過去問" };
+          const typeLabel = [kindLabels[p.fileKind], roleLabels[p.docType]].filter(Boolean).join("・");
+          const type = typeLabel ? `・${typeLabel}` : "";
           div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}${type}`;
           div.addEventListener("click", () => {
             // open ancestor details of the target list
@@ -309,7 +316,8 @@
                 (p.tournament && p.tournament.toLowerCase().includes(q)) ||
                 (p.filename && p.filename.toLowerCase().includes(q)) ||
                 (p.category && p.category.toLowerCase().includes(q)) ||
-                (p.docType === "past_exam" && "過去問".includes(q)) ||
+                (p.fileKind === "past_exam" && "過去問".includes(q)) ||
+                (p.fileKind === "self_made" && "自作".includes(q)) ||
                 (p.docType === "question" && "問題".includes(q)) ||
                 (p.docType === "answer" && "答え".includes(q))
               );

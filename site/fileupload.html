@@ -36,18 +36,29 @@
           enctype="multipart/form-data"
           target="upload-result-frame"
         >
-          <!-- 問題か答えか -->
+          <!-- 自作か過去問か -->
           <label class="field-group">
             <span class="label-header">
               種別
               <span class="badge badge-required">必須</span>
             </span>
-            <select id="type-select" name="doc_type" required>
+            <select id="type-select" name="file_kind" required>
+              <option value="" selected>選択してください</option>
+              <option value="self_made">自作</option>
+              <option value="past_exam">過去問</option>
+            </select>
+          </label>
+          <!-- 問題か答えか -->
+          <label class="field-group">
+            <span class="label-header">
+              問題・答え
+              <span class="badge badge-required">必須</span>
+            </span>
+            <select id="document-role-select" name="doc_type" required>
               <option value="" selected>選択してください</option>
               <option value="question">問題</option>
               <option value="answer">答え</option>
-              <option value="past_exam">過去問</option>
-              <option value="incomplete">未完成品</option>
+              <option value="mix">どちらも</option>
             </select>
           </label>
           <!-- 担当科目 -->
@@ -58,23 +69,43 @@
             </span>
             <select id="subject-select" name="subject" required>
               <option value="" selected>選択してください</option>
-              <option value="2026インハイ">2026インハイ（共通）</option>
               <option value="共通">共通</option>
-              <option value="中国大会予選">中国大会予選（共通）</option>
               <option value="自然観察">自然観察</option>
+              <option value="天気図">天気図</option>
               <option value="気象">気象</option>
               <option value="救急">救急</option>
+              <option value="混在">混在</option>
             </select>
           </label>
 
           <label class="field-group">
-            <span class="label-header">大会名 <span class="badge badge-required">必須</span></span>
-            <input id="tournament-name-input" name="tournament_name" type="text" maxlength="100" placeholder="例: 中国大会" required />
+            <span class="label-header"
+              >大会名 <span class="badge badge-required">必須</span></span
+            >
+            <input
+              id="tournament-name-input"
+              name="tournament_name"
+              type="text"
+              maxlength="100"
+              placeholder="例: 中国大会"
+              required
+            />
           </label>
 
           <label class="field-group">
-            <span class="label-header">大会年度 <span class="badge badge-required">必須</span></span>
-            <input id="tournament-year-input" name="tournament_year" type="number" min="1900" max="2099" step="1" placeholder="例: 2026" required />
+            <span class="label-header"
+              >大会年度 <span class="badge badge-required">必須</span></span
+            >
+            <input
+              id="tournament-year-input"
+              name="tournament_year"
+              type="number"
+              min="1900"
+              max="2099"
+              step="1"
+              placeholder="例: 2026"
+              required
+            />
           </label>
 
           <!-- アップロード PDF -->

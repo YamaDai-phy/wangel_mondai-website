@@ -6,6 +6,7 @@ function validForm(overrides = {}) {
   const values = {
     file: new File(["%PDF-1.7"], "sample.pdf", { type: "application/pdf" }),
     doc_type: "question",
+    file_kind: "self_made",
     subject: "自然観察",
     filename: "sample.pdf",
     title: "サンプル問題",
@@ -25,14 +26,15 @@ test("有効な投稿を正規化する", async () => {
   assert.equal(input.filename, "sample.pdf");
 });
 
-test("未完成品を受け付ける", async () => {
-  const input = await validateUpload(validForm({ doc_type: "incomplete" }));
-  assert.equal(input.docType, "incomplete");
+test("過去問を受け付ける", async () => {
+  const input = await validateUpload(validForm({ file_kind: "past_exam" }));
+  assert.equal(input.fileKind, "past_exam");
 });
 
-test("過去問を受け付ける", async () => {
-  const input = await validateUpload(validForm({ doc_type: "past_exam" }));
-  assert.equal(input.docType, "past_exam");
+test("問題・答えを受け付ける", async () => {
+  const input = await validateUpload(validForm({ doc_type: "answer" }));
+  assert.equal(input.docType, "answer");
+  await assert.rejects(validateUpload(validForm({ file_kind: "past_exam", doc_type: "" })), /問題か答えか/);
 });
 
 test("大会名と大会年度を必須にする", async () => {

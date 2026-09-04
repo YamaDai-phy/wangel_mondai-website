@@ -23,8 +23,9 @@
   function displaySubmission(s) {
     document.getElementById("review-title").textContent = s.title;
     document.getElementById("review-subject").textContent = s.subject;
-    const labels = { question: "問題", answer: "答え", past_exam: "過去問", incomplete: "未完成品" };
-    document.getElementById("review-type").textContent = labels[s.docType] || s.docType;
+    const roleLabels = { question: "問題", answer: "答え", mix: "どちらも", incomplete: "未完成品" };
+    const kindLabels = { self_made: "自作", past_exam: "過去問" };
+    document.getElementById("review-type").textContent = [kindLabels[s.fileKind], roleLabels[s.docType] || s.docType].filter(Boolean).join("・");
     document.getElementById("review-uploader").textContent = s.uploader;
     document.getElementById("review-filename").textContent = s.filename;
     document.getElementById("review-size").textContent = `${(s.size / 1024 / 1024).toFixed(2)} MB`;

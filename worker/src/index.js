@@ -8,6 +8,8 @@ const SUBJECTS = {
   自然観察: { slug: "shizekan", category: "自然観察" },
   気象: { slug: "kishou", category: "気象" },
   救急: { slug: "kyukyu", category: "救急" },
+  天気図: { slug: "tenkizu", category: "天気図" },
+  混在: { slug: "mixed", category: "混在" },
   "2026インハイ": { slug: "inhai2026", category: "インターハイ" },
   県総体: { slug: "kensotai", category: "県総体" },
   中国大会予選: { slug: "chutaiyusen", category: "chutaiyosen" },
@@ -77,6 +79,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
     httpMetadata: { contentType: "application/pdf" },
     customMetadata: {
       docType: input.docType,
+      fileKind: input.fileKind,
       subject: input.subject,
       title: input.title,
       uploader: input.uploader,
@@ -90,8 +93,8 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
     await env.DB.prepare(
       `INSERT INTO submissions
        (id, r2_key, filename, title, uploader, subject, category, doc_type,
-        status, review_token_hash, size, created_at, tournament_name, tournament_year)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        status, review_token_hash, size, created_at, tournament_name, tournament_year, file_kind)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     ).bind(
       id,
       r2Key,
@@ -107,6 +110,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
       createdAt,
       input.tournamentName,
       input.tournamentYear,
+      input.fileKind,
     ).run();
   } catch (error) {
     await env.PDF_BUCKET.delete(r2Key);
@@ -147,7 +151,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
 async function listPublished(env, corsHeaders, url) {
   const result = await env.DB.prepare(
     `SELECT id, filename, title, uploader, category, subject, doc_type, size,
-            created_at, reviewed_at, tournament_name, tournament_year
+            created_at, reviewed_at, tournament_name, tournament_year, file_kind
        FROM submissions
       WHERE status = 'published'
       ORDER BY reviewed_at DESC, created_at DESC`,
@@ -162,6 +166,7 @@ async function listPublished(env, corsHeaders, url) {
     tournamentName: row.tournament_name || "",
     tournamentYear: row.tournament_year || "",
     docType: row.doc_type,
+    fileKind: row.file_kind || "",
     size: row.size,
     mtime: row.reviewed_at || row.created_at,
     path: `${url.origin}/files/${row.id}/${encodeURIComponent(row.filename)}`,
@@ -185,7 +190,7 @@ async function handleReview(request, env, corsHeaders, id, action, url) {
   const tokenHash = await hashToken(token);
   const row = await env.DB.prepare(
     `SELECT id, r2_key, filename, title, uploader, subject, category, doc_type,
-            status, size, created_at, tournament_name, tournament_year
+            status, size, created_at, tournament_name, tournament_year, file_kind
        FROM submissions
       WHERE id = ? AND review_token_hash = ? AND status IN ('pending', 'incomplete')`,
   ).bind(id, tokenHash).first();
@@ -273,6 +278,7 @@ function publicReviewRow(row) {
     subject: row.subject,
     category: row.category,
     docType: row.doc_type,
+    fileKind: row.file_kind || "",
     size: row.size,
     createdAt: row.created_at,
     status: row.status,
@@ -363,6 +369,7 @@ async function addComment(request, env, corsHeaders, submissionId) {
 export async function validateUpload(formData, configuredMaxSize) {
   const file = formData.get("file");
   const docType = cleanText(formData.get("doc_type"), 20);
+  const fileKind = cleanText(formData.get("file_kind"), 20);
   const subject = cleanText(formData.get("subject"), 40);
   const title = cleanText(formData.get("title"), 120);
   const uploader = cleanText(formData.get("uploader"), 80);
@@ -372,7 +379,8 @@ export async function validateUpload(formData, configuredMaxSize) {
   const maxFileSize = parseMaxFileSize(configuredMaxSize);
 
   if (!file || typeof file.stream !== "function") throw new ApiError("ファイルが添付されていません。");
-  if (!["question", "answer", "past_exam", "incomplete"].includes(docType)) throw new ApiError("種別が正しくありません。");
+  if (!["question", "answer", "mix"].includes(docType)) throw new ApiError("問題か答えかの選択が正しくありません。");
+  if (!["self_made", "past_exam"].includes(fileKind)) throw new ApiError("種別が正しくありません。");
   if (!SUBJECTS[subject]) throw new ApiError("担当科目が正しくありません。");
   if (!title) throw new ApiError("タイトルを入力してください。");
   if (!uploader) throw new ApiError("アップロード者名を入力してください。");
@@ -386,7 +394,7 @@ export async function validateUpload(formData, configuredMaxSize) {
   const signature = new Uint8Array(await file.slice(0, 5).arrayBuffer());
   if (String.fromCharCode(...signature) !== "%PDF-") throw new ApiError("PDFファイルの内容を確認できませんでした。");
 
-  return { file, docType, subject, title, uploader, filename, tournamentName, tournamentYear };
+  return { file, docType, fileKind, subject, title, uploader, filename, tournamentName, tournamentYear };
 }
 
 export function createCorsHeaders(origin, configuredOrigins) {

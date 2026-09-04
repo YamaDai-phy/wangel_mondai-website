@@ -27,6 +27,7 @@
   const form = document.getElementById("upload-form");
   const endpointInput = document.getElementById("endpoint-input");
   const typeSelect = document.getElementById("type-select");
+  const documentRoleSelect = document.getElementById("document-role-select");
   const subjectSelect = document.getElementById("subject-select");
   const mountainInput = document.getElementById("mountain-input");
   const mountainLabel =
@@ -429,11 +430,11 @@
 
   function applyAnswerSuffixToFilename(filename) {
     if (!filename) return "";
-    const docType = typeSelect ? typeSelect.value : "";
-    if (docType !== "answer" && docType !== "incomplete") return filename;
+    const docType = documentRoleSelect ? documentRoleSelect.value : "";
+    if (docType !== "answer") return filename;
 
     const { base, ext } = splitFilename(filename);
-    const suffix = docType === "answer" ? "-kotae" : "-mikansei";
+    const suffix = "-kotae";
     if (base.endsWith(suffix)) {
       return `${base}${ext || ".pdf"}`;
     }
@@ -442,10 +443,10 @@
 
   function applyAnswerSuffixToTitle(title) {
     if (!title) return "";
-    const docType = typeSelect ? typeSelect.value : "";
-    if (docType !== "answer" && docType !== "incomplete") return title;
+    const docType = documentRoleSelect ? documentRoleSelect.value : "";
+    if (docType !== "answer") return title;
 
-    const suffix = docType === "answer" ? "（答え）" : "（未完成品）";
+    const suffix = "（答え）";
     if (title.endsWith(suffix)) {
       return title;
     }
@@ -532,9 +533,15 @@
 
   // 編集可・自動生成項目の制御とデザイン調整
   function syncSubjectFieldModes(subject) {
-    const docType = typeSelect ? typeSelect.value : "";
-    const hasType = Boolean(docType);
+    const fileKind = typeSelect ? typeSelect.value : "";
+    const docType = documentRoleSelect ? documentRoleSelect.value : "";
+    const hasType = Boolean(fileKind && docType);
     const hasSubject = Boolean(subject);
+
+    if (documentRoleSelect) {
+      documentRoleSelect.disabled = !fileKind;
+      if (!fileKind) documentRoleSelect.value = "";
+    }
 
     // 種別選択の有無で科目フィールドを有効化/無効化
     if (subjectSelect) {
@@ -543,7 +550,7 @@
       if (firstOption) {
         firstOption.textContent = hasType
           ? "選択してください"
-          : "まず種別を選択してください";
+          : fileKind ? "まず問題か答えかを選択してください" : "まず種別を選択してください";
       }
     }
 
@@ -598,7 +605,7 @@
       filenameInput.classList.add("is-readonly");
       filenameInput.classList.remove("is-editable");
       filenameInput.placeholder = !hasType
-        ? "まず種別を選択してください"
+        ? fileKind ? "まず問題か答えかを選択してください" : "まず種別を選択してください"
         : "まず担当科目を選択してください";
 
       titleInput.disabled = true;
@@ -606,7 +613,7 @@
       titleInput.classList.add("is-readonly");
       titleInput.classList.remove("is-editable");
       titleInput.placeholder = !hasType
-        ? "まず種別を選択してください"
+        ? fileKind ? "まず問題か答えかを選択してください" : "まず種別を選択してください"
         : "まず担当科目を選択してください";
 
       if (filenameBadge) {
@@ -759,7 +766,8 @@
   async function handleUpload(event) {
     event.preventDefault();
 
-    const docType = normalizeText(typeSelect ? typeSelect.value : "");
+    const fileKind = normalizeText(typeSelect ? typeSelect.value : "");
+    const docType = normalizeText(documentRoleSelect ? documentRoleSelect.value : "");
     const subject = normalizeText(subjectSelect.value);
     const files = fileInput.files ? Array.from(fileInput.files) : [];
     const uploader = normalizeText(uploaderInput.value);
@@ -767,8 +775,12 @@
     const tournamentYear = normalizeText(tournamentYearInput.value);
     const endpoint = getEndpoint();
 
+    if (!fileKind) {
+      setStatus("種別（自作、過去問）を選んでください。", "error");
+      return;
+    }
     if (!docType) {
-      setStatus("種別（問題、答え、過去問、未完成品）を選んでください。", "error");
+      setStatus("問題か答えかを選んでください。", "error");
       return;
     }
     if (!subject) {
@@ -827,6 +839,7 @@
         const bodyData = new FormData();
         bodyData.append("file", file);
         bodyData.append("doc_type", docType);
+        bodyData.append("file_kind", fileKind);
         bodyData.append("subject", subject);
         bodyData.append("filename", filename);
         bodyData.append("title", title);
@@ -886,11 +899,16 @@
       titleInput.value = "";
       isFilenameManuallyEdited = false;
       isTitleManuallyEdited = false;
-      if (uploadNote) {
-        uploadNote.textContent = typeSelect.value === "incomplete"
-          ? "未完成品は公開されません。管理者へ編集用PDFの通知だけが届きます。"
-          : "ファイルをアップロード後１～２日掲載にお時間をいただきます。";
-      }
+      updateCategoryPreview();
+    });
+  }
+
+  if (documentRoleSelect) {
+    documentRoleSelect.addEventListener("change", () => {
+      filenameInput.value = "";
+      titleInput.value = "";
+      isFilenameManuallyEdited = false;
+      isTitleManuallyEdited = false;
       updateCategoryPreview();
     });
   }
