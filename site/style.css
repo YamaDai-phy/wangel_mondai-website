@@ -737,6 +737,27 @@ footer {
   border: 1px solid #ccc;
   font-size: 16px;
 }
+
+.bulk-share-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bulk-share-bar button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #2563eb;
+  cursor: pointer;
+}
+
+.bulk-share-bar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 #search-results {
   display: none;
   width: min(920px, 100%);
@@ -1187,10 +1208,10 @@ footer {
     min-height: 60vh;
   }
 
-  thead tr th:nth-child(2),
-  tbody tr td:nth-child(2),
   thead tr th:nth-child(3),
   tbody tr td:nth-child(3),
+  thead tr th:nth-child(4),
+  tbody tr td:nth-child(4),
   #file-authors-table {
     display: none;
   }

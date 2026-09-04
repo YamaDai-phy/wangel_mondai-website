@@ -18,6 +18,33 @@
   }
 
   const checkedLinks = loadChecked();
+  const selectedFiles = new Map();
+  const selectedCount = document.getElementById("selected-file-count");
+  const shareSelectedButton = document.getElementById("share-selected-files");
+
+  function updateSelectedFilesUI() {
+    const count = selectedFiles.size;
+    if (selectedCount) selectedCount.textContent = `${count}件選択中`;
+    if (shareSelectedButton) shareSelectedButton.disabled = count === 0;
+  }
+
+  async function shareSelectedFiles() {
+    const items = [...selectedFiles.values()];
+    if (!items.length) return;
+    const text = items.map((p) => `${p.title || p.filename}\n${new URL(p.path, location.href).href}`).join("\n\n");
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `ワンゲル図書館（${items.length}件）`, text });
+      } else {
+        await navigator.clipboard.writeText(text);
+        alert("選択したファイルのリンクをクリップボードにコピーしました。");
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") alert("共有に失敗しました。");
+    }
+  }
+
+  if (shareSelectedButton) shareSelectedButton.addEventListener("click", shareSelectedFiles);
 // 共有処理を呼び出す関数
   function sharePaper(p) {
     const shareUrl = new URL(p.path, window.location.href).href;
@@ -167,13 +194,25 @@
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         thead.innerHTML =
-          "<tr><th>タイトル</th><th>種別</th><th>大会</th><th>ダウンロード</th></tr>";
+          "<tr><th>選択</th><th>タイトル</th><th>種別</th><th>大会</th><th>ダウンロード</th></tr>";
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         for (const p of items) {
           const tr = document.createElement("tr");
           tr.dataset.path = p.path || p.filename || p.title || "";
           tr.dataset.category = p.category || "";
+
+          const tdSelect = document.createElement("td");
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = selectedFiles.has(p.path);
+          checkbox.setAttribute("aria-label", `${p.title || p.filename}を選択`);
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) selectedFiles.set(p.path, p);
+            else selectedFiles.delete(p.path);
+            updateSelectedFilesUI();
+          });
+          tdSelect.appendChild(checkbox);
 
           // タイトル列
           const tdTitle = document.createElement("td");
@@ -195,6 +234,7 @@
           tdLink.appendChild(mkLink(p));
           const a = mkLink(p);
 
+          tr.appendChild(tdSelect);
           tr.appendChild(tdTitle);
           tr.appendChild(tdType);
           tr.appendChild(tdTournament);
