@@ -149,13 +149,25 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
 }
 
 async function listPublished(env, corsHeaders, url) {
-  const result = await env.DB.prepare(
-    `SELECT id, filename, title, uploader, category, subject, doc_type, size,
-            created_at, reviewed_at, tournament_name, tournament_year, file_kind
-       FROM submissions
-      WHERE status = 'published'
-      ORDER BY reviewed_at DESC, created_at DESC`,
-  ).all();
+  let result;
+  try {
+    result = await env.DB.prepare(
+      `SELECT id, filename, title, uploader, category, subject, doc_type, size,
+              created_at, reviewed_at, tournament_name, tournament_year, file_kind
+         FROM submissions WHERE status = 'published'
+        ORDER BY reviewed_at DESC, created_at DESC`,
+    ).all();
+  } catch (error) {
+    // Allow an older D1 schema to continue serving existing published files
+    // while migrations are being rolled out.
+    console.error("Falling back to legacy submissions schema", error);
+    result = await env.DB.prepare(
+      `SELECT id, filename, title, uploader, category, subject, doc_type, size,
+              created_at, reviewed_at
+         FROM submissions WHERE status = 'published'
+        ORDER BY reviewed_at DESC, created_at DESC`,
+    ).all();
+  }
 
   const papers = result.results.map((row) => ({
     filename: row.filename,
