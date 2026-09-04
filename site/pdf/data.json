@@ -354,6 +354,16 @@
       "ext": "pdf"
     },
     {
+      "filename": "kishou19.pdf",
+      "path": "pdf/kadai/kishou/kishou19.pdf",
+      "title": "気象19",
+      "tournament": "2026インハイ",
+      "ext": "pdf",
+      "category": "気象",
+      "size": 70693,
+      "mtime": "2026-08-21T04:47:55.637Z"
+    },
+    {
       "filename": "kishou19-kotae.pdf",
       "path": "pdf/kadai/kishou/kishou19-kotae.pdf",
       "title": "気象19（答え）",
@@ -562,6 +572,16 @@
       "mtime": "2026-08-21T04:45:19.918Z"
     },
     {
+      "filename": "kyotsu-hyonosen2.pdf",
+      "path": "pdf/kadai/kyotsu/kyotsu-hyonosen2.pdf",
+      "title": "氷ノ山２",
+      "tournament": "2026インハイ",
+      "ext": "pdf",
+      "category": "共通",
+      "size": 63610,
+      "mtime": "2026-08-21T04:45:19.918Z"
+    },
+    {
       "filename": "kyotsu-misen.pdf",
       "path": "pdf/kadai/kyotsu/kyotsu-misen.pdf",
       "title": "弥山",
@@ -645,6 +665,16 @@
       "filename": "kyukyu5-kotae.pdf",
       "path": "pdf/kadai/kyukyu/kyukyu5-kotae.pdf",
       "title": "救急５（答え）",
+      "tournament": "2026インハイ",
+      "ext": "pdf",
+      "category": "救急",
+      "size": 60148,
+      "mtime": "2026-08-21T04:48:56.549Z"
+    },
+    {
+      "filename": "kyukyu5.pdf",
+      "path": "pdf/kadai/kyukyu/kyukyu5.pdf",
+      "title": "救急５",
       "tournament": "2026インハイ",
       "ext": "pdf",
       "category": "救急",
