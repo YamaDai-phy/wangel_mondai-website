@@ -33,7 +33,7 @@ export default {
       if (request.method === "POST" && url.pathname === "/") {
         return await handleUpload(request, env, corsHeaders, url);
       }
-      if (request.method === "GET" && url.pathname === "/papers") {
+      if (request.method === "GET" && (url.pathname === "/papers" || url.pathname === "/data.json")) {
         return await listPublished(env, corsHeaders, url);
       }
 
@@ -170,6 +170,7 @@ async function listPublished(env, corsHeaders, url) {
   }
 
   const papers = result.results.map((row) => ({
+    id: row.id,
     filename: row.filename,
     title: row.title,
     uploader: row.uploader,
@@ -179,12 +180,18 @@ async function listPublished(env, corsHeaders, url) {
     tournamentYear: row.tournament_year || "",
     docType: row.doc_type,
     fileKind: row.file_kind || "",
+    ext: extensionOf(row.filename),
     size: row.size,
     mtime: row.reviewed_at || row.created_at,
     path: `${url.origin}/files/${row.id}/${encodeURIComponent(row.filename)}`,
   }));
 
   return json({ papers }, 200, corsHeaders, { "Cache-Control": "public, max-age=60" });
+}
+
+function extensionOf(filename) {
+  const match = String(filename || "").match(/\.([^.]+)$/);
+  return match ? match[1].toLowerCase() : "";
 }
 
 async function servePublicFile(request, env, corsHeaders, id) {

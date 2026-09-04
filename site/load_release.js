@@ -1,5 +1,5 @@
 (function () {
-  const papersApi = "https://pdf-upload-api.yamadai.workers.dev/papers";
+  const papersApi = "https://pdf-upload-api.yamadai.workers.dev/data.json";
 
   Promise.all([
     fetch("release.json").then((response) => response.json()),
@@ -101,11 +101,8 @@
       const publicFileCount = document.getElementById("public-file-count");
       const filenameList = document.getElementById("filename-list");
       if (publicFileCount || filenameList) {
-        fetch("pdf/data.json")
-          .then((r) => r.json())
-          .then((pdfData) => {
-            const localPapers = Array.isArray(pdfData.papers) ? pdfData.papers : [];
-            const papers = [...localPapers, ...uploadedPapers];
+        Promise.resolve(uploadedPapers)
+          .then((papers) => {
             if (publicFileCount) {
               publicFileCount.innerHTML = `公開中ファイル数：${papers.length}件 詳しくは <a href="#filename-list" style="width:fit-content">こちら</a>`;
             }
@@ -131,7 +128,7 @@
             if (filenameList) {
               filenameList.textContent = "読み込みに失敗しました。";
             }
-            console.error("failed load pdf/data.json", err);
+            console.error("failed load Worker data.json", err);
           });
       }
     })

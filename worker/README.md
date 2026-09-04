@@ -35,6 +35,7 @@ npm run deploy
 
 - `POST /`: PDF投稿
 - `GET /papers`: 公開済みPDF一覧
+- `GET /data.json`: D1で管理する公開ファイル一覧（`/papers`と同じ内容）
 - `GET /files/:id/:filename`: 公開済みPDF
 - `GET /review/:id?token=...`: 確認待ち投稿の情報
 - `GET /review/:id/file?token=...`: 確認用PDF

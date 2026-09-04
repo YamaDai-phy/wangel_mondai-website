@@ -752,9 +752,9 @@
   }
 
   async function loadDataJson() {
-    const response = await fetch("pdf/data.json", { cache: "no-store" });
+    const response = await fetch(`${getEndpoint().replace(/\/$/, "")}/data.json`, { cache: "no-store" });
     if (!response.ok) {
-      throw new Error("pdf/data.json を読み込めませんでした。");
+      throw new Error("Workerのdata.jsonを読み込めませんでした。");
     }
     pdfData = await response.json();
     if (!pdfData || typeof pdfData !== "object") {
@@ -977,7 +977,7 @@
     console.error(error);
     pdfData = { papers: [] };
     updateCategoryPreview();
-    setStatus("pdf/data.json の読み込みに失敗しました。", "error");
+    setStatus("Workerのdata.jsonの読み込みに失敗しました。", "error");
   });
 
   updateCategoryPreview();
