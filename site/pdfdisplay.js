@@ -151,15 +151,16 @@
         chutaiyosen: "chutaiyosen-list",
       };
       const buckets = {};
+      const selfMadeMapping = { 自然観察: "self-made-shizekan-list", 気象: "self-made-kisho-list", 救急: "self-made-kyukyu-list" };
       Object.values(mapping).forEach((id) => (buckets[id] = []));
-      buckets["self-made-list"] = [];
+      Object.values(selfMadeMapping).forEach((id) => (buckets[id] = []));
       buckets["other-list"] = [];
 
       const papers = data.papers || [];
       for (const p of papers) {
         const id =
           p.fileKind === "self_made"
-            ? "self-made-list"
+            ? selfMadeMapping[p.subject] || "other-list"
             : mapping[p.category] ||
               (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
                 ? "shizekan-list"
@@ -178,10 +179,10 @@
         // For the main natural-observation list, show 注意自然観察 first,
         // then 問題自然観察, then the rest. Otherwise sort by title.
         if (containerId === "shizekan-list") {
-          const priority = ["自然観察注意点"];
+          const priority = ["注意点"];
           items.sort((a, b) => {
-            const ia = priority.indexOf(a.category);
-            const ib = priority.indexOf(b.category);
+            const ia = priority.indexOf(a.title);
+            const ib = priority.indexOf(b.title);
             const aPri = ia !== -1;
             const bPri = ib !== -1;
             if (aPri && bPri) {
@@ -274,7 +275,7 @@
       renderTable("inhai-list", buckets["inhai-list"]);
       renderTable("kensotai-list", buckets["kensotai-list"]);
       renderTable("chutaiyosen-list", buckets["chutaiyosen-list"]);
-      renderTable("self-made-list", buckets["self-made-list"]);
+      Object.values(selfMadeMapping).forEach((id) => renderTable(id, buckets[id]));
       // render any uncategorized files
       // create a container if not present
       let other = document.getElementById("other-list");
@@ -334,7 +335,7 @@
             };
             const listId =
               p.fileKind === "self_made"
-                ? "self-made-list"
+                ? selfMadeMapping[p.subject] || "other-list"
                 : mapping[p.category] ||
                   (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
                     ? "shizekan-list"
