@@ -702,6 +702,9 @@
   function updateCategoryPreview() {
     const subject = subjectSelect.value;
     const slug = slugForSubject(subject);
+    const fileKind = normalizeText(typeSelect ? typeSelect.value : "");
+    const tournamentName = normalizeText(tournamentNameInput.value);
+    const tournamentYear = normalizeText(tournamentYearInput.value);
     syncSubjectFieldModes(subject);
 
     const fileName =
@@ -723,8 +726,18 @@
       }
     }
 
-    const path =
-      subject && filename ? `pdf/kadai/${slug}/${filename}` : "未設定";
+    const tournamentFolder = [tournamentYear, tournamentName]
+      .filter(Boolean)
+      .join("-")
+      .replace(/[\\/\u0000-\u001f\u007f]/g, "-")
+      .replace(/\s+/g, "-");
+    const path = !subject || !filename || !fileKind
+      ? "未設定"
+      : fileKind === "past_exam"
+        ? `kadai/${slug}/${filename}`
+        : tournamentFolder
+          ? `tournaments/${tournamentFolder}/${slug}/${filename}`
+          : "tournaments/<年度>-<大会名>/" + `${slug}/${filename}`;
     const selectedCount = fileInput.files ? fileInput.files.length : 0;
     targetPath.textContent = selectedCount > 1 ? `${path} ほか${selectedCount - 1}件` : path;
     pathHidden.value = path === "未設定" ? "" : path;
@@ -970,6 +983,8 @@
     updateCategoryPreview();
   });
   uploaderInput.addEventListener("input", updateCategoryPreview);
+  tournamentNameInput.addEventListener("input", updateCategoryPreview);
+  tournamentYearInput.addEventListener("input", updateCategoryPreview);
 
   form.addEventListener("submit", handleUpload);
 

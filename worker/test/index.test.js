@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createCorsHeaders, validateUpload } from "../src/index.js";
+import { createCorsHeaders, storageKeyFor, validateUpload } from "../src/index.js";
 
 function validForm(overrides = {}) {
   const values = {
@@ -29,6 +29,19 @@ test("有効な投稿を正規化する", async () => {
 test("過去問を受け付ける", async () => {
   const input = await validateUpload(validForm({ file_kind: "past_exam" }));
   assert.equal(input.fileKind, "past_exam");
+});
+
+test("保存先は過去問と自作問題で分ける", async () => {
+  const selfMade = await validateUpload(validForm());
+  const pastExam = await validateUpload(validForm({ file_kind: "past_exam" }));
+  assert.equal(
+    storageKeyFor(selfMade, "submission-id"),
+    "tournaments/2026-中国大会/shizekan/submission-id/sample.pdf",
+  );
+  assert.equal(
+    storageKeyFor(pastExam, "submission-id"),
+    "kadai/shizekan/submission-id/sample.pdf",
+  );
 });
 
 test("問題・答えを受け付ける", async () => {

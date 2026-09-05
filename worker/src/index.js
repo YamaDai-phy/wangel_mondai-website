@@ -83,7 +83,7 @@ async function handleUpload(request, env, corsHeaders, requestUrl) {
   const createdAt = new Date().toISOString();
   const isIncomplete = input.docType === "incomplete";
   const status = isIncomplete ? "incomplete" : "pending";
-  const r2Key = `${isIncomplete ? "incomplete" : "submissions"}/${id}/${input.filename}`;
+  const r2Key = storageKeyFor(input, id, isIncomplete);
 
   await env.PDF_BUCKET.put(r2Key, input.file.stream(), {
     httpMetadata: { contentType: "application/pdf" },
@@ -495,6 +495,30 @@ export async function validateUpload(formData, configuredMaxSize) {
   if (String.fromCharCode(...signature) !== "%PDF-") throw new ApiError("PDFファイルの内容を確認できませんでした。");
 
   return { file, docType, fileKind, subject, title, uploader, filename, tournamentName, tournamentYear };
+}
+
+// Keep the long-standing `kadai` hierarchy exclusively for past exams.  Self-made
+// papers are grouped by the tournament they were written for, then by subject.
+// The UUID avoids collisions while keeping the folders useful when browsing R2.
+export function storageKeyFor(input, id, isIncomplete = false) {
+  if (isIncomplete) return `incomplete/${id}/${input.filename}`;
+
+  const subject = SUBJECTS[input.subject];
+  if (!subject) throw new ApiError("担当科目が正しくありません。");
+  if (input.fileKind === "past_exam") {
+    return `kadai/${subject.slug}/${id}/${input.filename}`;
+  }
+  return `tournaments/${storageSegment(input.tournamentYear)}-${storageSegment(input.tournamentName)}/${subject.slug}/${id}/${input.filename}`;
+}
+
+function storageSegment(value) {
+  // R2 permits Unicode keys, but omit separators and control characters so a
+  // tournament name can never alter the intended hierarchy.
+  return String(value || "")
+    .normalize("NFC")
+    .replace(/[\\/\u0000-\u001f\u007f]/g, "-")
+    .trim()
+    .replace(/\s+/g, "-") || "unknown";
 }
 
 export function createCorsHeaders(origin, configuredOrigins) {
