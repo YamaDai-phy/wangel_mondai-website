@@ -160,7 +160,7 @@
       for (const p of papers) {
         const id =
           p.fileKind === "self_made"
-            ? selfMadeMapping[p.subject] || "other-list"
+            ? selfMadeMapping[p.subject || p.category] || "other-list"
             : mapping[p.category] ||
               (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
                 ? "shizekan-list"
@@ -335,7 +335,7 @@
             };
             const listId =
               p.fileKind === "self_made"
-                ? selfMadeMapping[p.subject] || "other-list"
+                ? selfMadeMapping[p.subject || p.category] || "other-list"
                 : mapping[p.category] ||
                   (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
                     ? "shizekan-list"
