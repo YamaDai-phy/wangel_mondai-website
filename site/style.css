@@ -161,6 +161,63 @@ header {
   }
 }
 
+/* 登山用語クイズへの案内 */
+.tozan-quiz-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(920px, calc(100% - 2rem));
+  margin: 1rem auto 0;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(251, 191, 36, 0.26), transparent 34%),
+    linear-gradient(125deg, #123b2a, #176447 55%, #0e3a2d);
+  box-shadow: 0 10px 24px rgba(15, 76, 53, 0.18);
+  color: #f8fafc;
+}
+
+.tozan-quiz-banner__copy {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.tozan-quiz-banner__eyebrow {
+  color: #fde68a;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.tozan-quiz-banner__copy strong {
+  font-size: clamp(1.1rem, 2.8vw, 1.45rem);
+  letter-spacing: 0.04em;
+}
+
+.tozan-quiz-banner__copy > span:last-child {
+  color: #dcfce7;
+  font-size: 0.88rem;
+}
+
+.tozan-quiz-banner__link {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  border-radius: 999px;
+  color: #ffffff !important;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.tozan-quiz-banner__link:hover {
+  background: #ffffff !important;
+  color: #14532d !important;
+  transform: translateY(-1px);
+}
+
 /* リスト全体のスタイル */
 .breadcrumb {
   display: flex;
@@ -717,6 +774,18 @@ footer {
 }
 
 @media (max-width: 640px) {
+  .tozan-quiz-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    width: calc(100% - 1rem);
+    margin-top: 0.5rem;
+  }
+
+  .tozan-quiz-banner__link {
+    width: auto;
+    text-align: left;
+  }
+
   .details-section {
     margin: 0.5rem;
   }
