@@ -255,15 +255,16 @@
 
   function getUsedNumbers(subject) {
     const slug = slugForSubject(subject);
-    const regex = new RegExp(`^${slug}(\\d+)(?:-kotae)?\\.pdf$`, "i");
+    const filenameRegex = new RegExp(`^${slug}-?(\\d+)(?:-\\d+)?(?:-kotae)?(?:\\.[^.]+)?$`, "i");
+    const titleRegex = new RegExp(`^${titlePrefixForSubject(subject)}\\s*(\\d+)`);
     const numbers = new Set();
     for (const paper of Array.isArray(pdfData.papers) ? pdfData.papers : []) {
       if (!paper || paper.category !== subject) continue;
-      const filename = String(paper.filename || "");
-      const match = filename.match(regex);
-      if (match) {
-        numbers.add(Number(match[1]));
-      }
+      const filenameMatch = String(paper.filename || "").match(filenameRegex);
+      const titleMatch = String(paper.title || "").match(titleRegex);
+      [filenameMatch, titleMatch].forEach((match) => {
+        if (match) numbers.add(Number(match[1]));
+      });
     }
     return numbers;
   }
@@ -333,11 +334,7 @@
 
   function getNextNumber(subject) {
     const usedNumbers = getUsedNumbers(subject);
-    let number = 1;
-    while (usedNumbers.has(number)) {
-      number += 1;
-    }
-    return number;
+    return usedNumbers.size ? Math.max(...usedNumbers) + 1 : 1;
   }
 
   function buildGeneratedName(subject) {
