@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>登山用語クイズ | ワンゲル図書館</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="app">
+      <section id="homeScreen" class="home-screen">
+        <div class="home-hero">
+          <span class="eyebrow">MOUNTAIN WORDS</span>
+          <h1>登山用語クイズ</h1>
+          <p>133語から選んで、山の心を身につけよう。</p>
+          <p style="font-size: 0.8rem;">令和７年度　登山部報　NO.69　⑧主な登山用語より</p>
+        </div>
+        <section class="home-panel" aria-labelledby="courseTitle">
+          <h2 id="courseTitle">出題数を選ぶ</h2>
+          <div class="course-grid">
+            <button class="course" data-count="10"><strong>10問</strong><span>すきま時間に</span></button>
+            <button class="course" data-count="25"><strong>25問</strong><span>しっかり練習</span></button>
+            <button class="course" data-count="50"><strong>50問</strong><span>腕試し</span></button>
+            <button class="course" data-count="133"><em>おすすめ</em><strong>全133問</strong><span>完全制覇に挑戦</span></button>
+          </div>
+          <div class="timer-setting" role="group" aria-labelledby="timerTitle">
+            <span id="timerTitle">カウントダウン</span>
+            <button class="timer-option selected" data-timer="off" aria-pressed="true">なし</button>
+            <button class="timer-option" data-timer="on" aria-pressed="false">20秒</button>
+          </div>
+          <button id="startBtn" class="primary start-btn" disabled>出題数を選んで開始</button>
+          <button id="weakStartBtn" class="secondary weak-start" disabled>苦手問題を復習（0問）</button>
+        </section>
+        <section class="history-panel" aria-labelledby="historyTitle">
+          <div class="section-heading"><h2 id="historyTitle">これまでの結果</h2><button id="clearHistoryBtn" class="text-btn" hidden>消去</button></div>
+          <div id="historyEmpty" class="history-empty">まだ記録がありません。クイズを始めてみよう！</div>
+          <ol id="historyList" class="history-list"></ol>
+        </section>
+      </section>
+
+      <header id="topbar" class="topbar" hidden>
+        <button id="closeBtn" class="icon-btn" aria-label="戻る">×</button>
+        <div id="timerWrap" class="progress-wrap" hidden>
+          <div id="progress" class="progress"></div>
+        </div>
+        <span id="timerLabel" class="timer-label" hidden></span>
+        <button id="menuBtn" class="icon-btn" aria-label="メニュー">•••</button>
+      </header>
+      <section id="quizScreen" hidden>
+        <div class="counter"><span id="current">1</span> / <span id="total">0</span></div>
+        <div class="card">
+          <div id="word" class="word">アイゼン</div>
+          <button id="bookmark" class="bookmark" aria-label="この問題を記録">
+            ☆
+          </button>
+        </div>
+
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+        <div id="choices" class="choices"></div>
+      </section>
+
+      <section id="resultScreen" hidden>
+        <div class="result-card">
+          <div class="result-label">QUIZ COMPLETE</div>
+          <div id="score" class="score">0 / 0</div>
+          <div id="rank" class="rank"></div>
+          <p id="resultText"></p>
+          <button id="retryBtn" class="primary">もう一度挑戦</button>
+          <button id="reviewBtn" class="secondary">間違えた問題を復習</button>
+          <button id="homeBtn" class="text-btn home-link">ホームへ戻る</button>
+        </div>
+      </section>
+    </main>
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
