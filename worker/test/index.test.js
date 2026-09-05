@@ -44,6 +44,11 @@ test("保存先は過去問と自作問題で分ける", async () => {
   );
 });
 
+test("気象・救急の自作問題は大会情報なしで受け付ける", async () => {
+  const input = await validateUpload(validForm({ subject: "気象", tournament_name: "", tournament_year: "" }));
+  assert.equal(storageKeyFor(input, "submission-id"), "self-made/kishou/submission-id/sample.pdf");
+});
+
 test("問題・答えを受け付ける", async () => {
   const input = await validateUpload(validForm({ doc_type: "answer" }));
   assert.equal(input.docType, "answer");

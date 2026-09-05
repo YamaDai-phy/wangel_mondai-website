@@ -705,6 +705,9 @@
     const fileKind = normalizeText(typeSelect ? typeSelect.value : "");
     const tournamentName = normalizeText(tournamentNameInput.value);
     const tournamentYear = normalizeText(tournamentYearInput.value);
+    const tournamentIsOptional = fileKind === "self_made" && ["気象", "救急"].includes(subject);
+    tournamentNameInput.required = !tournamentIsOptional;
+    tournamentYearInput.required = !tournamentIsOptional;
     syncSubjectFieldModes(subject);
 
     const fileName =
@@ -735,6 +738,8 @@
       ? "未設定"
       : fileKind === "past_exam"
         ? `kadai/${slug}/${filename}`
+        : tournamentIsOptional
+          ? `self-made/${slug}/${filename}`
         : tournamentFolder
           ? `tournaments/${tournamentFolder}/${slug}/${filename}`
           : "tournaments/<年度>-<大会名>/" + `${slug}/${filename}`;
@@ -818,11 +823,12 @@
       setStatus("アップロード者名を入力してください。", "error");
       return;
     }
-    if (!tournamentName) {
+    const tournamentIsOptional = fileKind === "self_made" && ["気象", "救急"].includes(subject);
+    if (!tournamentIsOptional && !tournamentName) {
       setStatus("大会名を入力してください。", "error");
       return;
     }
-    if (!/^(?:19|20)\d{2}$/.test(tournamentYear)) {
+    if (!tournamentIsOptional && !/^(?:19|20)\d{2}$/.test(tournamentYear)) {
       setStatus("大会年度を4桁で入力してください。", "error");
       return;
     }

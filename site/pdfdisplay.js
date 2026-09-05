@@ -37,10 +37,18 @@
   async function shareSelectedFiles() {
     const items = [...selectedFiles.values()];
     if (!items.length) return;
-    const text = items.map((p) => `${p.title || p.filename}\n${new URL(p.path, location.href).href}`).join("\n\n");
+    const text = items
+      .map(
+        (p) =>
+          `${p.title || p.filename}\n${new URL(p.path, location.href).href}`,
+      )
+      .join("\n\n");
     try {
       if (navigator.share) {
-        await navigator.share({ title: `ワンゲル図書館（${items.length}件）`, text });
+        await navigator.share({
+          title: `ワンゲル図書館（${items.length}件）`,
+          text,
+        });
       } else {
         await navigator.clipboard.writeText(text);
         alert("選択したファイルのリンクをクリップボードにコピーしました。");
@@ -50,26 +58,30 @@
     }
   }
 
-  if (shareSelectedButton) shareSelectedButton.addEventListener("click", shareSelectedFiles);
-// 共有処理を呼び出す関数
+  if (shareSelectedButton)
+    shareSelectedButton.addEventListener("click", shareSelectedFiles);
+  // 共有処理を呼び出す関数
   function sharePaper(p) {
     const shareUrl = new URL(p.path, window.location.href).href;
     const shareData = {
       title: p.title,
-      text: `ワンゲル図書館: ${p.title} (${p.tournament || ''})`,
-      url: shareUrl
+      text: `ワンゲル図書館: ${p.title} (${p.tournament || ""})`,
+      url: shareUrl,
     };
 
     if (navigator.share) {
       navigator.share(shareData).catch((err) => {
-        if (err.name !== 'AbortError') console.error('共有失敗:', err);
+        if (err.name !== "AbortError") console.error("共有失敗:", err);
       });
     } else {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        alert('URLをクリップボードにコピーしました！');
-      }).catch(() => {
-        alert('コピーに失敗しました。');
-      });
+      navigator.clipboard
+        .writeText(shareUrl)
+        .then(() => {
+          alert("URLをクリップボードにコピーしました！");
+        })
+        .catch(() => {
+          alert("コピーに失敗しました。");
+        });
     }
   }
 
@@ -116,23 +128,23 @@
     return wrapper;
   }
   fetch(papersApi, { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) throw new Error("PDF一覧を読み込めませんでした。");
-        return response.json();
-      })
-      .catch((error) => {
-        console.error(error);
-        return { papers: [] };
-      })
+    .then((response) => {
+      if (!response.ok) throw new Error("PDF一覧を読み込めませんでした。");
+      return response.json();
+    })
+    .catch((error) => {
+      console.error(error);
+      return { papers: [] };
+    })
     .then((data) => {
       const mapping = {
         注意自然観察: "shizekan-list",
         問題自然観察: "shizekan-list",
         自然観察: "shizekan-list",
         気象: "kisho-list",
-          救急: "kyukyu-list",
-          天気図: "tenkizu-list",
-          混在: "mixed-list",
+        救急: "kyukyu-list",
+        天気図: "tenkizu-list",
+        混在: "mixed-list",
         共通: "kyotsu-list",
         インターハイ: "inhai-list",
         県総体: "kensotai-list",
@@ -140,15 +152,18 @@
       };
       const buckets = {};
       Object.values(mapping).forEach((id) => (buckets[id] = []));
+      buckets["self-made-list"] = [];
       buckets["other-list"] = [];
 
       const papers = data.papers || [];
       for (const p of papers) {
         const id =
-          mapping[p.category] ||
-          (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
-            ? "shizekan-list"
-            : "other-list");
+          p.fileKind === "self_made"
+            ? "self-made-list"
+            : mapping[p.category] ||
+              (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
+                ? "shizekan-list"
+                : "other-list");
         buckets[id].push(p);
       }
 
@@ -221,9 +236,16 @@
           tdTournament.textContent = p.tournament || "-";
 
           const tdType = document.createElement("td");
-          const roleLabels = { question: "問題", answer: "答え", mix: "どちらも" };
+          const roleLabels = {
+            question: "問題",
+            answer: "答え",
+            mix: "どちらも",
+          };
           const kindLabels = { self_made: "自作", past_exam: "過去問" };
-          tdType.textContent = [kindLabels[p.fileKind], roleLabels[p.docType]].filter(Boolean).join("・") || "-";
+          tdType.textContent =
+            [kindLabels[p.fileKind], roleLabels[p.docType]]
+              .filter(Boolean)
+              .join("・") || "-";
 
           // ダウンロード＆共有ボタン列
           const tdLink = document.createElement("td");
@@ -252,6 +274,7 @@
       renderTable("inhai-list", buckets["inhai-list"]);
       renderTable("kensotai-list", buckets["kensotai-list"]);
       renderTable("chutaiyosen-list", buckets["chutaiyosen-list"]);
+      renderTable("self-made-list", buckets["self-made-list"]);
       // render any uncategorized files
       // create a container if not present
       let other = document.getElementById("other-list");
@@ -286,9 +309,15 @@
           const div = document.createElement("div");
           div.className = "search-item";
           const tournament = p.tournament ? ` [${p.tournament}]` : "";
-          const roleLabels = { question: "問題", answer: "答え", mix: "どちらも" };
+          const roleLabels = {
+            question: "問題",
+            answer: "答え",
+            mix: "どちらも",
+          };
           const kindLabels = { self_made: "自作", past_exam: "過去問" };
-          const typeLabel = [kindLabels[p.fileKind], roleLabels[p.docType]].filter(Boolean).join("・");
+          const typeLabel = [kindLabels[p.fileKind], roleLabels[p.docType]]
+            .filter(Boolean)
+            .join("・");
           const type = typeLabel ? `・${typeLabel}` : "";
           div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}${type}`;
           div.addEventListener("click", () => {
@@ -304,10 +333,12 @@
               中国大会予選: "chutaiyosen-list",
             };
             const listId =
-              mapping[p.category] ||
-              (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
-                ? "shizekan-list"
-                : "other-list");
+              p.fileKind === "self_made"
+                ? "self-made-list"
+                : mapping[p.category] ||
+                  (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
+                    ? "shizekan-list"
+                    : "other-list");
             const listDiv = document.getElementById(listId);
             if (listDiv) {
               // open all ancestor details

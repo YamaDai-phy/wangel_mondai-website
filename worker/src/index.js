@@ -411,8 +411,8 @@ async function updateMetadata(request, env, corsHeaders, row, tokenHash) {
   const tournamentYear = normalizeTournamentYear(body.tournamentYear);
   if (!filename) throw new ApiError("PDF形式のファイル名を指定してください。");
   if (!title) throw new ApiError("タイトルを入力してください。");
-  if (!tournamentName) throw new ApiError("大会名を入力してください。");
-  if (!tournamentYear) throw new ApiError("大会年度を4桁で入力してください。");
+  if (requiresTournamentInfo(row.file_kind, row.subject) && !tournamentName) throw new ApiError("大会名を入力してください。");
+  if (requiresTournamentInfo(row.file_kind, row.subject) && !tournamentYear) throw new ApiError("大会年度を4桁で入力してください。");
 
   const result = await env.DB.prepare(
     `UPDATE submissions
@@ -484,8 +484,8 @@ export async function validateUpload(formData, configuredMaxSize) {
   if (!SUBJECTS[subject]) throw new ApiError("担当科目が正しくありません。");
   if (!title) throw new ApiError("タイトルを入力してください。");
   if (!uploader) throw new ApiError("アップロード者名を入力してください。");
-  if (!tournamentName) throw new ApiError("大会名を入力してください。");
-  if (!tournamentYear) throw new ApiError("大会年度を4桁で入力してください。");
+  if (requiresTournamentInfo(fileKind, subject) && !tournamentName) throw new ApiError("大会名を入力してください。");
+  if (requiresTournamentInfo(fileKind, subject) && !tournamentYear) throw new ApiError("大会年度を4桁で入力してください。");
   if (!filename) throw new ApiError("PDF形式のファイル名を指定してください。");
   if (file.size <= 0) throw new ApiError("ファイルが空です。");
   if (file.size > maxFileSize) {
@@ -508,7 +508,14 @@ export function storageKeyFor(input, id, isIncomplete = false) {
   if (input.fileKind === "past_exam") {
     return `kadai/${subject.slug}/${id}/${input.filename}`;
   }
+  if (!requiresTournamentInfo(input.fileKind, input.subject)) {
+    return `self-made/${subject.slug}/${id}/${input.filename}`;
+  }
   return `tournaments/${storageSegment(input.tournamentYear)}-${storageSegment(input.tournamentName)}/${subject.slug}/${id}/${input.filename}`;
+}
+
+function requiresTournamentInfo(fileKind, subject) {
+  return fileKind !== "self_made" || !["気象", "救急"].includes(subject);
 }
 
 function storageSegment(value) {

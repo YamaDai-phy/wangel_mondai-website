@@ -10,7 +10,9 @@
     "db:migrate:local": "wrangler d1 migrations apply wangel-papers --local",
     "db:migrate:remote": "wrangler d1 migrations apply wangel-papers --remote",
     "types": "wrangler types",
-    "migrate:library": "node scripts/migrate-static-library.mjs"
+    "migrate:library": "node scripts/migrate-static-library.mjs",
+    "migrate:self-made-2023-kensotai": "node scripts/move-self-made-2023-kensotai.mjs",
+    "migrate:self-made-2018-kensotai": "node scripts/move-self-made-2018-kensotai.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.128.0"
