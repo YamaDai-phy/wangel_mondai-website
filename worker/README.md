@@ -16,6 +16,7 @@
 ```powershell
 npx wrangler secret put LINE_CHANNEL_ACCESS_TOKEN
 npx wrangler secret put LINE_USER_ID
+npx wrangler secret put ADMIN_TOKEN
 ```
 
 ## 開発とデプロイ
@@ -42,3 +43,6 @@ npm run deploy
 - `POST /review/:id/approve?token=...`: 公開
 - `POST /review/:id/reject?token=...`: 却下
 - `GET /incomplete/:id/file?token=...`: 未完成品の編集用ダウンロード
+- `GET /admin/submissions`: 管理用PDF一覧（`X-Admin-Token` が必要）
+- `POST /admin/submissions/:id/approve|hide|restore`: 承認・非表示・再公開
+- `DELETE /admin/submissions/:id/delete`: PDFと管理情報を完全削除

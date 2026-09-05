@@ -37,6 +37,16 @@ export default {
         return await listPublished(env, corsHeaders, url);
       }
 
+      const adminListMatch = url.pathname === "/admin/submissions";
+      if (adminListMatch && request.method === "GET") {
+        return await listAdminSubmissions(request, env, corsHeaders);
+      }
+
+      const adminMatch = url.pathname.match(/^\/admin\/submissions\/([0-9a-f-]{36})(?:\/(approve|hide|restore|delete|file))?$/i);
+      if (adminMatch) {
+        return await handleAdminSubmission(request, env, corsHeaders, adminMatch[1], adminMatch[2]);
+      }
+
       const publicFileMatch = url.pathname.match(/^\/files\/([0-9a-f-]{36})(?:\/.*)?$/i);
       if (request.method === "GET" && publicFileMatch) {
         return await servePublicFile(request, env, corsHeaders, publicFileMatch[1]);
@@ -187,6 +197,77 @@ async function listPublished(env, corsHeaders, url) {
   }));
 
   return json({ papers }, 200, corsHeaders, { "Cache-Control": "public, max-age=60" });
+}
+
+function requireAdmin(request, env) {
+  const token = request.headers.get("X-Admin-Token") || "";
+  if (!env.ADMIN_TOKEN) throw new ApiError("管理者用の認証がまだ設定されていません。", 503);
+  if (!token || token !== env.ADMIN_TOKEN) throw new ApiError("管理者トークンが正しくありません。", 401);
+}
+
+function adminSubmissionRow(row) {
+  return {
+    id: row.id,
+    filename: row.filename,
+    title: row.title,
+    uploader: row.uploader,
+    subject: row.subject,
+    category: row.category,
+    docType: row.doc_type,
+    fileKind: row.file_kind || "",
+    status: row.status,
+    size: row.size,
+    createdAt: row.created_at,
+    reviewedAt: row.reviewed_at,
+    tournamentName: row.tournament_name || "",
+    tournamentYear: row.tournament_year || "",
+  };
+}
+
+async function listAdminSubmissions(request, env, corsHeaders) {
+  requireAdmin(request, env);
+  const result = await env.DB.prepare(
+    `SELECT id, filename, title, uploader, subject, category, doc_type, status, size,
+            created_at, reviewed_at, tournament_name, tournament_year, file_kind
+       FROM submissions
+      ORDER BY CASE status WHEN 'pending' THEN 0 WHEN 'incomplete' THEN 1 WHEN 'published' THEN 2 WHEN 'hidden' THEN 3 ELSE 4 END,
+               created_at DESC`,
+  ).all();
+  return json({ submissions: result.results.map(adminSubmissionRow) }, 200, corsHeaders);
+}
+
+async function handleAdminSubmission(request, env, corsHeaders, id, action) {
+  requireAdmin(request, env);
+  const row = await env.DB.prepare(
+    `SELECT id, r2_key, filename, title, uploader, subject, category, doc_type, status, size,
+            created_at, reviewed_at, tournament_name, tournament_year, file_kind
+       FROM submissions WHERE id = ?`,
+  ).bind(id).first();
+  if (!row) throw new ApiError("対象のPDFが見つかりません。", 404);
+
+  if (action === "file" && request.method === "GET") {
+    return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders, true);
+  }
+
+  const transitions = {
+    approve: { from: "pending", to: "published" },
+    hide: { from: "published", to: "hidden" },
+    restore: { from: "hidden", to: "published" },
+  };
+  if (action && transitions[action] && request.method === "POST") {
+    const transition = transitions[action];
+    if (row.status !== transition.from) throw new ApiError("現在の状態ではこの操作はできません。", 409);
+    await env.DB.prepare(
+      "UPDATE submissions SET status = ?, reviewed_at = ?, review_token_hash = NULL WHERE id = ?",
+    ).bind(transition.to, new Date().toISOString(), id).run();
+    return json({ success: true, status: transition.to }, 200, corsHeaders);
+  }
+  if (action === "delete" && request.method === "DELETE") {
+    await env.PDF_BUCKET.delete(row.r2_key);
+    await env.DB.prepare("DELETE FROM submissions WHERE id = ?").bind(id).run();
+    return json({ success: true }, 200, corsHeaders);
+  }
+  throw new ApiError("Method Not Allowed", 405);
 }
 
 function extensionOf(filename) {
@@ -423,8 +504,8 @@ export function createCorsHeaders(origin, configuredOrigins) {
   if (origin && !allowed.includes(origin)) return null;
 
   const headers = new Headers({
-    "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Range, If-None-Match",
+    "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Range, If-None-Match, X-Admin-Token",
     "Access-Control-Expose-Headers": "Content-Length, Content-Range, ETag",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
