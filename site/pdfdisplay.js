@@ -90,14 +90,35 @@
     const key = p.path || p.filename || p.title;
     if (checkedLinks.has(key)) {
       a.classList.add("is-checked");
-      a.textContent = "リンク";
     }
-    a.addEventListener("click", () => {
+    a.addEventListener("click", async (event) => {
+      event.preventDefault();
+      if (a.getAttribute("aria-busy") === "true") return;
+      a.setAttribute("aria-busy", "true");
+      a.textContent = "取得中…";
+      try {
+        const response = await fetch(p.path);
+        if (!response.ok) throw new Error(`PDF取得失敗: ${response.status}`);
+        const blobUrl = URL.createObjectURL(await response.blob());
+        const download = document.createElement("a");
+        download.href = blobUrl;
+        download.download = p.filename || "download.pdf";
+        document.body.appendChild(download);
+        download.click();
+        download.remove();
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+      } catch (error) {
+        console.error(error);
+        alert("ダウンロードに失敗しました。時間をおいて再度お試しください。");
+        return;
+      } finally {
+        a.removeAttribute("aria-busy");
+        a.textContent = "ダウンロード";
+      }
       if (checkedLinks.has(key)) return;
       checkedLinks.add(key);
       saveChecked(checkedLinks);
       a.classList.add("is-checked");
-      a.textContent = "リンク";
     });
   }
 
@@ -109,10 +130,8 @@
     // ダウンロードリンクの作成
     const a = document.createElement("a");
     a.href = p.path;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
     a.download = p.filename;
-    a.textContent = "リンク";
+    a.textContent = "ダウンロード";
     a.classList.add("download-link");
     setCheckedLink(a, p);
     wrapper.appendChild(a);
@@ -151,7 +170,7 @@
         chutaiyosen: "chutaiyosen-list",
       };
       const buckets = {};
-      const selfMadeMapping = { 自然観察: "self-made-shizekan-list", 気象: "self-made-kisho-list", 救急: "self-made-kyukyu-list" };
+      const selfMadeMapping = { 共通: "self-made-kyotsu-list", 自然観察: "self-made-shizekan-list", 気象: "self-made-kisho-list", 救急: "self-made-kyukyu-list" };
       Object.values(mapping).forEach((id) => (buckets[id] = []));
       Object.values(selfMadeMapping).forEach((id) => (buckets[id] = []));
       buckets["other-list"] = [];
