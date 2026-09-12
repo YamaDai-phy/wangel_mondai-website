@@ -22,6 +22,13 @@
   const bulkShareBar = document.querySelector(".bulk-share-bar");
   const selectedCount = document.getElementById("selected-file-count");
   const shareSelectedButton = document.getElementById("share-selected-files");
+  const sharedSection = document.getElementById("shared-list-section");
+  const sharedStatus = document.getElementById("shared-list-status");
+  const copyListButton = document.getElementById("copy-shared-list");
+  const shareListButton = document.getElementById("share-shared-list");
+  const incomingIds = [...new Set((new URL(location.href).searchParams.get("share") || "").split(",").filter(Boolean))];
+  let sharedUrl = "";
+  if (incomingIds.length) sharedSection.hidden = false;
 
   function updateSelectedFilesUI() {
     const count = selectedFiles.size;
@@ -34,32 +41,34 @@
     document.body.classList.toggle("has-selected-files", count > 0);
   }
 
-  async function shareSelectedFiles() {
-    const items = [...selectedFiles.values()];
-    if (!items.length) return;
-    const text = items
-      .map(
-        (p) =>
-          `${p.title || p.filename}\n${new URL(p.path, location.href).href}`,
-      )
-      .join("\n\n");
+  async function copySharedList() {
+    if (!sharedUrl) return;
+    try {
+      await navigator.clipboard.writeText(sharedUrl);
+      sharedStatus.textContent = "共有リストのリンクをコピーしました。";
+    } catch {
+      sharedStatus.textContent = "コピーできませんでした。アドレスバーのURLをコピーしてください。";
+    }
+  }
+
+  async function shareList() {
+    if (!sharedUrl) return;
     try {
       if (navigator.share) {
         await navigator.share({
-          title: `ワンゲル図書館（${items.length}件）`,
-          text,
+          title: "ワンゲル図書館の共有リスト",
+          url: sharedUrl,
         });
       } else {
-        await navigator.clipboard.writeText(text);
-        alert("選択したファイルのリンクをクリップボードにコピーしました。");
+        await copySharedList();
       }
     } catch (error) {
       if (error.name !== "AbortError") alert("共有に失敗しました。");
     }
   }
 
-  if (shareSelectedButton)
-    shareSelectedButton.addEventListener("click", shareSelectedFiles);
+  copyListButton.addEventListener("click", copySharedList);
+  shareListButton.addEventListener("click", shareList);
   // 共有処理を呼び出す関数
   function sharePaper(p) {
     const shareUrl = new URL(p.path, window.location.href).href;
@@ -151,10 +160,6 @@
       if (!response.ok) throw new Error("PDF一覧を読み込めませんでした。");
       return response.json();
     })
-    .catch((error) => {
-      console.error(error);
-      return { papers: [] };
-    })
     .then((data) => {
       const mapping = {
         注意自然観察: "shizekan-list",
@@ -176,7 +181,7 @@
       buckets["other-list"] = [];
 
       const papers = data.papers || [];
-      for (const p of papers) {
+      function listIdFor(p) {
         const id =
           p.fileKind === "self_made"
             ? selfMadeMapping[p.subject || p.category] || "other-list"
@@ -184,10 +189,14 @@
               (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
                 ? "shizekan-list"
                 : "other-list");
-        buckets[id].push(p);
+        return document.getElementById(id) ? id : "other-list";
+      }
+      for (const p of papers) {
+        buckets[listIdFor(p)].push(p);
       }
 
       function renderTable(containerId, items) {
+        const isShared = containerId === "shared-list";
         const container = document.getElementById(containerId);
         if (!container) return;
         container.innerHTML = "";
@@ -216,7 +225,7 @@
               numeric: true,
             });
           });
-        } else {
+        } else if (!isShared) {
           items.sort((a, b) =>
             (a.title || "").localeCompare(b.title || "", "ja", {
               numeric: true,
@@ -226,7 +235,7 @@
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         thead.innerHTML =
-          "<tr><th>選択</th><th>タイトル</th><th>種別</th><th>大会</th><th>ダウンロード</th></tr>";
+          `<tr>${isShared ? "" : "<th>選択</th>"}<th>タイトル</th><th>種別</th><th>大会</th><th>ダウンロード</th></tr>`;
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         for (const p of items) {
@@ -271,9 +280,8 @@
           const tdLink = document.createElement("td");
           // mkLink(p) がリンクとボタンをまとめた div を返すためそのまま append
           tdLink.appendChild(mkLink(p));
-          const a = mkLink(p);
 
-          tr.appendChild(tdSelect);
+          if (!isShared) tr.appendChild(tdSelect);
           tr.appendChild(tdTitle);
           tr.appendChild(tdType);
           tr.appendChild(tdTournament);
@@ -308,10 +316,33 @@
         const div = document.createElement("div");
         div.id = "other-list";
         details.appendChild(div);
-        document.querySelector(".details-section").appendChild(details);
+        document.querySelector(".details-section:not(.shared-list-section)").appendChild(details);
         other = div;
       }
       renderTable("other-list", buckets["other-list"]);
+
+      function showSharedList(ids, scroll = false) {
+        const byId = new Map(papers.map((paper) => [paper.id, paper]));
+        const items = ids.map((id) => byId.get(id)).filter(Boolean);
+        sharedSection.hidden = false;
+        const url = new URL(location.href);
+        url.search = "";
+        url.hash = "";
+        url.searchParams.set("share", ids.join(","));
+        sharedUrl = url.href;
+        history.replaceState(null, "", sharedUrl);
+        renderTable("shared-list", items);
+        const missing = ids.length - items.length;
+        sharedStatus.textContent = `${items.length}件の共有リスト${missing ? `（${missing}件は削除・非公開などのため表示できません）` : ""}`;
+        copyListButton.disabled = false;
+        shareListButton.disabled = false;
+        if (scroll) sharedSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (incomingIds.length) showSharedList(incomingIds);
+      shareSelectedButton.addEventListener("click", () => {
+        const ids = [...selectedFiles.values()].map((paper) => paper.id).filter(Boolean);
+        if (ids.length) showSharedList(ids, true);
+      });
 
       // build search index
       const allPapers = papers.slice();
@@ -342,23 +373,7 @@
           div.textContent = `${p.title.replace(/\.pdf$/i, "")}${tournament} — ${p.category || ""}${type}`;
           div.addEventListener("click", () => {
             // open ancestor details of the target list
-            const mapping = {
-              自然観察注意: "shizekan-list",
-              自然観察: "shizekan-list",
-              気象: "kisho-list",
-              救急: "kyukyu-list",
-              共通: "kyotsu-list",
-              インターハイ: "inhai-list",
-              県総体: "kensotai-list",
-              中国大会予選: "chutaiyosen-list",
-            };
-            const listId =
-              p.fileKind === "self_made"
-                ? selfMadeMapping[p.subject || p.category] || "other-list"
-                : mapping[p.category] ||
-                  (p.path && p.path.indexOf("pdf/kadai/shizekan/") !== -1
-                    ? "shizekan-list"
-                    : "other-list");
+            const listId = listIdFor(p);
             const listDiv = document.getElementById(listId);
             if (listDiv) {
               // open all ancestor details
@@ -416,6 +431,7 @@
       }
     })
     .catch((err) => {
+      if (incomingIds.length) sharedStatus.textContent = "共有リストを読み込めませんでした。再読み込みしてください。";
       [
         "shizekan-list",
         "kisho-list",

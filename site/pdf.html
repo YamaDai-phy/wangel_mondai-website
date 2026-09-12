@@ -20,6 +20,15 @@
         </ol>
       </nav>
     </header>
+    <section id="shared-list-section" class="details-section shared-list-section" hidden aria-labelledby="shared-list-heading">
+      <h2 id="shared-list-heading">共有リスト</h2>
+      <p id="shared-list-status" role="status">読み込み中…</p>
+      <div class="shared-list-actions">
+        <button id="copy-shared-list" type="button" disabled>リンクをコピー</button>
+        <button id="share-shared-list" type="button" disabled>共有</button>
+      </div>
+      <div id="shared-list"></div>
+    </section>
     <section class="search-section">
       <div class="search-label">
         <svg width="1rem" height="1rem" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +43,7 @@
       <div class="bulk-share-bar" aria-hidden="true">
         <span id="selected-file-count" aria-live="polite">0件選択中</span>
         <button id="share-selected-files" type="button" disabled>
-          選択したファイルを共有
+          共有リストを作成
         </button>
       </div>
       <p>問題</p>
