@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createCorsHeaders, storageKeyFor, validateUpload } from "../src/index.js";
+import worker, { createCorsHeaders, storageKeyFor, validateUpload } from "../src/index.js";
 
 function validForm(overrides = {}) {
   const values = {
@@ -87,4 +87,22 @@ test("許可されたOriginだけにCORSヘッダーを返す", () => {
   const allowed = createCorsHeaders("https://example.com", "https://example.com");
   assert.equal(allowed.get("Access-Control-Allow-Origin"), "https://example.com");
   assert.equal(createCorsHeaders("https://evil.example", "https://example.com"), null);
+});
+
+test("公開PDFは閲覧用と保存用でContent-Dispositionを切り替える", async () => {
+  const id = "12345678-1234-1234-1234-123456789abc";
+  const env = {
+    DB: { prepare: () => ({ bind: () => ({ first: async () => ({ r2_key: "paper", filename: "自然観察.pdf" }) }) }) },
+    PDF_BUCKET: { get: async () => ({
+      body: new Blob(["%PDF-1.7"]).stream(),
+      httpEtag: '"etag"',
+      writeHttpMetadata: () => {},
+    }) },
+  };
+  for (const [query, disposition] of [["", "inline"], ["?download=1", "attachment"]]) {
+    const response = await worker.fetch(new Request(`https://example.com/files/${id}/paper.pdf${query}`), env);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("Content-Disposition"), new RegExp(`^${disposition};`));
+    assert.match(response.headers.get("Content-Disposition"), /filename\*=UTF-8''/);
+  }
 });

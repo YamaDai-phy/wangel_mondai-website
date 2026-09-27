@@ -117,3 +117,15 @@ test("一覧の取得失敗を、共有ファイルの削除と区別して案�
   assert.match(nodes.get("shared-list-status").textContent, /読み込めませんでした/);
   assert.equal(errors.length, 1);
 });
+
+test("ダウンロードリンクは直接保存用URLへ移動する", async () => {
+  const { nodes, papers } = await setup();
+  const row = nodes.get("other-list").querySelector(`tr[data-path="${papers[0].path}"]`);
+  const link = row.children[4].children[0].children[0];
+  const url = new URL(link.href);
+  assert.equal(url.pathname, papers[0].path);
+  assert.equal(url.searchParams.get("download"), "1");
+  let prevented = false;
+  link.listeners.click({ preventDefault: () => { prevented = true; } });
+  assert.equal(prevented, false);
+});

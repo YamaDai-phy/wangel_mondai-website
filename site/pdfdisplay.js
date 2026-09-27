@@ -56,7 +56,7 @@
     try {
       if (navigator.share) {
         await navigator.share({
-          title: "ワンゲル図書館の共有リスト",
+          title: "大会過去問の共有リスト",
           url: sharedUrl,
         });
       } else {
@@ -74,7 +74,7 @@
     const shareUrl = new URL(p.path, window.location.href).href;
     const shareData = {
       title: p.title,
-      text: `ワンゲル図書館: ${p.title} (${p.tournament || ""})`,
+      text: `大会過去問: ${p.title} (${p.tournament || ""})`,
       url: shareUrl,
     };
 
@@ -100,30 +100,7 @@
     if (checkedLinks.has(key)) {
       a.classList.add("is-checked");
     }
-    a.addEventListener("click", async (event) => {
-      event.preventDefault();
-      if (a.getAttribute("aria-busy") === "true") return;
-      a.setAttribute("aria-busy", "true");
-      a.textContent = "取得中…";
-      try {
-        const response = await fetch(p.path);
-        if (!response.ok) throw new Error(`PDF取得失敗: ${response.status}`);
-        const blobUrl = URL.createObjectURL(await response.blob());
-        const download = document.createElement("a");
-        download.href = blobUrl;
-        download.download = p.filename || "download.pdf";
-        document.body.appendChild(download);
-        download.click();
-        download.remove();
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-      } catch (error) {
-        console.error(error);
-        alert("ダウンロードに失敗しました。時間をおいて再度お試しください。");
-        return;
-      } finally {
-        a.removeAttribute("aria-busy");
-        a.textContent = "ダウンロード";
-      }
+    a.addEventListener("click", () => {
       if (checkedLinks.has(key)) return;
       checkedLinks.add(key);
       saveChecked(checkedLinks);
@@ -138,16 +115,35 @@
 
     // ダウンロードリンクの作成
     const a = document.createElement("a");
-    a.href = p.path;
-    a.download = p.filename;
-    a.textContent = "ダウンロード";
+    const downloadUrl = new URL(p.path, location.href);
+    downloadUrl.searchParams.set("download", "1");
+    a.href = downloadUrl.href;
+    a.setAttribute("aria-label", `${p.title || p.filename}をダウンロード`);
+    const downloadLabel = document.createElement("span");
+    downloadLabel.className = "action-label";
+    downloadLabel.textContent = "ダウンロード";
+    a.appendChild(downloadLabel);
+    const downloadIcon = document.createElement("img");
+    downloadIcon.className = "action-icon";
+    downloadIcon.src = "icons/download.svg";
+    downloadIcon.alt = "";
+    a.appendChild(downloadIcon);
     a.classList.add("download-link");
     setCheckedLink(a, p);
     wrapper.appendChild(a);
 
     // 共有ボタンの作成
     const shareBtn = document.createElement("button");
-    shareBtn.textContent = "共有";
+    shareBtn.setAttribute("aria-label", `${p.title || p.filename}を共有`);
+    const shareLabel = document.createElement("span");
+    shareLabel.className = "action-label";
+    shareLabel.textContent = "共有";
+    shareBtn.appendChild(shareLabel);
+    const shareIcon = document.createElement("img");
+    shareIcon.className = "action-icon";
+    shareIcon.src = "icons/ios-share.svg";
+    shareIcon.alt = "";
+    shareBtn.appendChild(shareIcon);
     shareBtn.className = "share-btn";
     shareBtn.type = "button";
     shareBtn.addEventListener("click", () => sharePaper(p));
@@ -162,8 +158,6 @@
     })
     .then((data) => {
       const mapping = {
-        注意自然観察: "shizekan-list",
-        問題自然観察: "shizekan-list",
         自然観察: "shizekan-list",
         気象: "kisho-list",
         救急: "kyukyu-list",

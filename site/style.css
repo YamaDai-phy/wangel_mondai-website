@@ -343,6 +343,10 @@ a:focus-visible {
   gap: 0.5rem;
 }
 
+.action-icon {
+  display: none;
+}
+
 /* 共有ボタン */
 .share-btn {
   display: inline-block;
@@ -1315,6 +1319,34 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .action-container .download-link,
+  .action-container .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
+    background-color: var(--link);
+    border-color: var(--link);
+  }
+
+  .action-container .share-btn {
+    background-color: #43556c;
+    border-color: #43556c;
+  }
+
+  .action-container .action-label {
+    display: none;
+  }
+
+  .action-container .action-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
   body {
     transition: padding-bottom 220ms ease;
   }

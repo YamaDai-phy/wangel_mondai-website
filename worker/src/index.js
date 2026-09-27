@@ -280,7 +280,8 @@ async function servePublicFile(request, env, corsHeaders, id) {
     "SELECT r2_key, filename FROM submissions WHERE id = ? AND status = 'published'",
   ).bind(id).first();
   if (!row) throw new ApiError("ファイルが見つかりません。", 404);
-  return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders);
+  const inline = new URL(request.url).searchParams.get("download") !== "1";
+  return serveR2Object(request, env.PDF_BUCKET, row.r2_key, row.filename, corsHeaders, inline);
 }
 
 async function handleReview(request, env, corsHeaders, id, action, url) {
