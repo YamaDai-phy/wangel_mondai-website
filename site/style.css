@@ -1353,7 +1353,7 @@ footer {
     display: block;
     width: 24px;
     height: 24px;
-    fill:var(--focus);
+    fill: var(--focus);
   }
 
   body {

@@ -1,0 +1,87 @@
+@import url("../tozan-quiz/style.css");
+:root {
+  --accent: #55ced2;
+}
+.home-hero h1 {
+  font-size: 36px;
+}
+.home-panel,
+.history-panel {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 16px 0;
+}
+.course,
+.card,
+.choice,
+.primary,
+.secondary {
+  border-radius: 8px;
+}
+.course.selected,
+.timer-option.selected {
+  background: #25474a;
+}
+.eyebrow,
+.word,
+.result-label {
+  letter-spacing: 0;
+}
+.word {
+  width: 100%;
+  font-size: 36px;
+  padding: 16px;
+}
+.word img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: auto;
+}
+.choice img {
+  width: 70px;
+  height: 70px;
+  display: block;
+  margin: auto;
+}
+.choice:has(img) {
+  min-height: 96px;
+}
+.feedback {
+  position: static;
+  min-height: 28px;
+  margin-top: 10px;
+  text-align: center;
+}
+.topbar {
+  display: flex;
+}
+.progress-wrap {
+  flex: 1;
+}
+.topbar #menuBtn {
+  margin-left: auto;
+}
+.choices:has(img) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.mode-setting {
+  margin-top: 16px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.source {
+  color: var(--muted);
+  font-size: 12px;
+}
+.source a {
+  color: var(--accent);
+}
+@media (max-width: 520px) {
+  .home-hero h1 {
+    font-size: 30px;
+  }
+}
